@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Dashboard from "./admin/Dashboard";
+
 function App() {
   useEffect(() => {
     fetch('/bacon')
@@ -6,14 +9,12 @@ function App() {
       .then((data) => console.log(data.data));
   }, []);
   return (
-    <div>
-      <header>
-        <p>
-          Hello
-        </p>
-        
-      </header>
-    </div>
+    <Router>
+      <Routes>
+      <Route path="/" ></Route>
+      <Route path="/admin" element={<Dashboard/>}/>
+      </Routes>
+    </Router>
   );
 }
 
