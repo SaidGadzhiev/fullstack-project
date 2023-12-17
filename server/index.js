@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const getAllItems = require('./endpoints/items/getAllItems');
 const getAllCategories = require('./endpoints/categories/getAllCategories');
-const deleteItem = require('./endpoints/items/deleteItem')
+const deleteItem = require('./endpoints/items/deleteItem');
 const createItem = require('./endpoints/items/createItem');
 const getSingleItem = require('./endpoints/items/getSingleItem');
 const updateItem = require('./endpoints/items/updateItem');
@@ -10,19 +10,21 @@ const deleteCategory = require('./endpoints/categories/deleteCategory');
 const getSingleCategory = require('./endpoints/categories/getSingleCategory');
 const createCategory = require('./endpoints/categories/createCategory');
 const updateCategory = require('./endpoints/categories/updateCategory');
+const getUser = require('./endpoints/users/getUser');
+const createUser = require('./endpoints/users/createUser');
 const app = express();
 const port = 4000;
 
 app.use(function (req, res, next) {
-  res.header(
-    'Access-Control-Allow-Methods',
-    'OPTIONS, HEAD, GET, PUT, POST, DELETE'
-  );
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  next();
+	res.header(
+		'Access-Control-Allow-Methods',
+		'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+	);
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept'
+	);
+	next();
 });
 
 app.use(express.json());
@@ -32,19 +34,23 @@ app.use(morgan('tiny'));
 app.get('/bacon', (req, res) => res.status(200).json({ data: '🥓' }));
 
 //items endpoints
-app.get('/items', getAllItems)
-app.get('/items/:id', getSingleItem)
-app.delete('/items/:id', deleteItem)
-app.post('/items', createItem)
-app.patch('/items/:id', updateItem)
+app.get('/items', getAllItems);
+app.get('/items/:id', getSingleItem);
+app.delete('/items/:id', deleteItem);
+app.post('/items', createItem);
+app.patch('/items/:id', updateItem);
 
 //categories endpoints
-app.get('/categories', getAllCategories)
-app.get('/categories/:id', getSingleCategory)
-app.delete('/categories/:id', deleteCategory)
-app.post('/categories', createCategory)
-app.patch('/categories/:id', updateCategory)
+app.get('/categories', getAllCategories);
+app.get('/categories/:id', getSingleCategory);
+app.delete('/categories/:id', deleteCategory);
+app.post('/categories', createCategory);
+app.patch('/categories/:id', updateCategory);
+
+//users endpoints
+app.get('/users', getUser);
+app.post('/users', createUser);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+	console.log(`Example app listening on port ${port}`);
 });
