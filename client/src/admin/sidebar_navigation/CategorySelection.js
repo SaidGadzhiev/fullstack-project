@@ -25,16 +25,18 @@ const CategorySelection = () => {
 		<>
 			<h1>Categories</h1>
 			<div>
-				{categories.map((cat, key) => {
-					return (
-						<button
-							key={key}
-							onClick={() => handleCategoryChange(cat.categoryName)}
-						>
-							{cat.categoryName}
-						</button>
-					);
-				})}
+				{categories &&
+					categories.length > 0 &&
+					categories.map((cat, key) => {
+						return (
+							<button
+								key={key}
+								onClick={() => handleCategoryChange(cat.categoryName)}
+							>
+								{cat.categoryName}
+							</button>
+						);
+					})}
 				<button onClick={() => handleNewCategory()}>+</button>
 			</div>
 		</>

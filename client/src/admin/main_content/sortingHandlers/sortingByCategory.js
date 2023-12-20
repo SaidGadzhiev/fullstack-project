@@ -1,7 +1,11 @@
 const sortingByCategory = (array, currentCategory) => {
-	const sorted = array.filter((cat) => cat.categoryName === currentCategory);
+	if (Array.isArray(array)) {
+		const sorted = array.filter((cat) => cat.categoryName === currentCategory);
 
-	return sorted;
+		return sorted;
+	} else {
+		return [];
+	}
 };
 
 export default sortingByCategory;
