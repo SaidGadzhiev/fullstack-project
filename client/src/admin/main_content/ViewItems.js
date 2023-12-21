@@ -77,7 +77,11 @@ const ViewItems = () => {
 						</tbody>
 					</table>
 
-					<AddItem keys={keys} items={items} setItems={setItems} />
+					<AddItem
+						sortedByCategory={sortedByCategory}
+						items={items}
+						setItems={setItems}
+					/>
 				</>
 			)}
 		</>
