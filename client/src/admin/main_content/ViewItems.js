@@ -3,6 +3,7 @@ import { useCurrentCategory } from '../CategoryContext';
 import sortingByCategory from './sortingHandlers/sortingByCategory';
 import itemByCategory from './sortingHandlers/itemByCategory';
 import AddItem from './AddItem';
+import DeleteItem from './DeleteItem';
 
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
@@ -71,6 +72,7 @@ const ViewItems = () => {
 												return <td key={key}>{item[key]}</td>;
 											}
 										})}
+										<DeleteItem item={item} />
 									</tr>
 								);
 							})}
