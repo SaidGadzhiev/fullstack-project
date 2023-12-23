@@ -4,17 +4,23 @@ import sortingByCategory from './sortingHandlers/sortingByCategory';
 import itemByCategory from './sortingHandlers/itemByCategory';
 import AddItem from './AddItem';
 import DeleteItem from './DeleteItem';
+import ViewSingleItem from './ViewSingleItem';
 
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
 	const [categories, setCategories] = useState([]);
+	const [sortedItems, setSortedItems] = useState([]);
 
 	const { currentCategory } = useCurrentCategory();
 
 	const getItems = async () => {
-		const result = await fetch('/items');
-		const parsedResult = await result.json();
-		setItems(parsedResult.data);
+		try {
+			const result = await fetch('/items');
+			const parsedResult = await result.json();
+			setItems(parsedResult.data);
+		} catch (err) {
+			console.error('error getting items:', err);
+		}
 	};
 
 	const getCategories = async () => {
@@ -32,12 +38,16 @@ const ViewItems = () => {
 	const categoryArray = sortingByCategory(categories, currentCategory);
 
 	//getting the items for a specific category
-	const sortedByCategory = itemByCategory(items, currentCategory);
+
+	useEffect(() => {
+		const sort = itemByCategory(items, currentCategory);
+		setSortedItems(sort);
+	}, [items, currentCategory]);
 
 	//setting keys for the teable head
 	const keys =
-		sortedByCategory.length > 0
-			? Object.keys(sortedByCategory[0]).filter((key) => key !== '_id')
+		sortedItems.length > 0
+			? Object.keys(sortedItems[0]).filter((key) => key !== '_id')
 			: [];
 
 	return (
@@ -50,7 +60,7 @@ const ViewItems = () => {
 					<table>
 						{categoryArray.map((column, index) => {
 							return (
-								<thead>
+								<thead key={index}>
 									<tr key={index}>
 										{keys.map((key) => {
 											return <th key={key}>{column[key]}</th>;
@@ -60,19 +70,17 @@ const ViewItems = () => {
 							);
 						})}
 						<tbody>
-							{sortedByCategory.map((item, index) => {
+							{sortedItems.map((item, index) => {
 								return (
 									<tr key={index}>
-										{keys.map((key) => {
-											if (item[key] === false) {
-												return <td key={key}>NO</td>;
-											} else if (item[key] === true) {
-												return <td key={key}>YES</td>;
-											} else {
-												return <td key={key}>{item[key]}</td>;
-											}
-										})}
-										<DeleteItem item={item} />
+										<ViewSingleItem keys={keys} item={item} />
+										<td>
+											<DeleteItem
+												item={item}
+												setSortedItems={setSortedItems}
+												sortedItems={sortedItems}
+											/>
+										</td>
 									</tr>
 								);
 							})}
@@ -80,9 +88,9 @@ const ViewItems = () => {
 					</table>
 
 					<AddItem
-						sortedByCategory={sortedByCategory}
-						items={items}
-						setItems={setItems}
+						sortedItems={sortedItems}
+						setSortedItems={setSortedItems}
+						getItems={getItems}
 					/>
 				</>
 			)}
