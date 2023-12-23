@@ -2,28 +2,27 @@ import { useEffect, useState } from 'react';
 import { createItem } from './handleItem.js/createItem';
 import fetchRequest from './utils/fetchRequest';
 
-const AddItem = ({ sortedByCategory, items, setItems }) => {
+const AddItem = ({ sortedItems, setSortedItems, getItems }) => {
 	const [formData, newFormData] = useState();
-	const [initialForm, setInitialForm] = useState();
 
-	//get the keys and typeof values from sortedByCategory item
+	//get the keys and typeof values from sortedItems item
 	const keysValues =
-		sortedByCategory.length > 0
-			? Object.entries(sortedByCategory[0])
+		sortedItems.length > 0
+			? Object.entries(sortedItems[0])
 					.filter(([key, value]) => key !== '_id')
 					.map(([key, value]) => ({ key, type: typeof value }))
 			: [];
 
 	//make a new array only including the keys of the keysValues array
-
 	const initialFormData = keysValues.reduce((acc, curr) => {
-		acc[curr.key] = curr.key === 'category' ? sortedByCategory[0].category : '';
+		acc[curr.key] = curr.key === 'category' ? sortedItems[0].category : '';
 		return acc;
 	}, {});
 
 	useEffect(() => {
 		newFormData(initialFormData);
 	}, []);
+
 	//changing the values of the array for the item for boolean condition
 	const handleOptionChange = (key, value) => {
 		if (value.length > 0) {
@@ -31,28 +30,29 @@ const AddItem = ({ sortedByCategory, items, setItems }) => {
 		}
 	};
 
-	console.log(formData);
-
 	//changing the values of the array for the item
 	const handleFormChange = (key, value) => {
 		newFormData((prevData) => ({ ...prevData, [key]: value }));
 		newFormData((prevData) => ({
 			...prevData,
-			category: sortedByCategory[0].category,
+			category: sortedItems[0].category,
 		}));
 	};
 
 	//post request to create the item
 	const handleAddItemSubmit = async (e) => {
 		e.preventDefault();
-		setItems((prevItems) => [...prevItems, formData]);
 		try {
 			const res = await fetchRequest(() => createItem(formData));
+			getItems();
+			// setSortedItems((prevItems) => [...prevItems, formData]);
+
 			newFormData(initialFormData);
 		} catch (err) {
 			console.log(err);
 		}
 	};
+	console.log(sortedItems);
 
 	return (
 		<>
