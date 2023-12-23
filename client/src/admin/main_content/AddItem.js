@@ -4,6 +4,7 @@ import fetchRequest from './utils/fetchRequest';
 
 const AddItem = ({ sortedByCategory, items, setItems }) => {
 	const [formData, newFormData] = useState();
+	const [initialForm, setInitialForm] = useState();
 
 	//get the keys and typeof values from sortedByCategory item
 	const keysValues =
@@ -14,43 +15,48 @@ const AddItem = ({ sortedByCategory, items, setItems }) => {
 			: [];
 
 	//make a new array only including the keys of the keysValues array
-	useEffect(() => {
-		newFormData(
-			keysValues.reduce((acc, curr) => {
-				acc[curr.key] =
-					curr.key === 'category' ? sortedByCategory[0].category : '';
-				return acc;
-			}, {})
-		);
-	}, []);
-	console.log(formData);
 
+	const initialFormData = keysValues.reduce((acc, curr) => {
+		acc[curr.key] = curr.key === 'category' ? sortedByCategory[0].category : '';
+		return acc;
+	}, {});
+
+	useEffect(() => {
+		newFormData(initialFormData);
+	}, []);
 	//changing the values of the array for the item for boolean condition
 	const handleOptionChange = (key, value) => {
-		console.log(value);
-		value.length > 0
-			? newFormData((prevData) => ({ ...prevData, [key]: value === 'yes' }))
-			: alert('invalid input');
+		if (value.length > 0) {
+			newFormData((prevData) => ({ ...prevData, [key]: value === 'yes' }));
+		}
 	};
+
+	console.log(formData);
 
 	//changing the values of the array for the item
 	const handleFormChange = (key, value) => {
 		newFormData((prevData) => ({ ...prevData, [key]: value }));
-		newFormData((prevData) => ({ ...prevData, category: 'cameras' }));
+		newFormData((prevData) => ({
+			...prevData,
+			category: sortedByCategory[0].category,
+		}));
 	};
 
 	//post request to create the item
 	const handleAddItemSubmit = async (e) => {
 		e.preventDefault();
 		setItems((prevItems) => [...prevItems, formData]);
-		const res = await fetchRequest(() => createItem(formData));
+		try {
+			const res = await fetchRequest(() => createItem(formData));
+			newFormData(initialFormData);
+		} catch (err) {
+			console.log(err);
+		}
 	};
-
-	console.log(sortedByCategory);
 
 	return (
 		<>
-			<form>
+			<form onSubmit={handleAddItemSubmit}>
 				{keysValues.map(({ key, type }, index) => {
 					if (type === 'boolean') {
 						return (
@@ -59,10 +65,9 @@ const AddItem = ({ sortedByCategory, items, setItems }) => {
 									<p>{key}</p>
 									<select
 										onChange={(e) => handleOptionChange(key, e.target.value)}
+										required
 									>
-										<option value='' required={true}>
-											{' '}
-										</option>
+										<option value=''>Choose</option>
 										<option value='yes'>Yes</option>
 										<option value='no'>No</option>
 									</select>
@@ -77,6 +82,7 @@ const AddItem = ({ sortedByCategory, items, setItems }) => {
 									<input
 										name={key}
 										placeholder={key}
+										value={formData[key] || ''}
 										onChange={(e) => handleFormChange(key, e.target.value)}
 										required={true}
 									></input>
@@ -85,7 +91,7 @@ const AddItem = ({ sortedByCategory, items, setItems }) => {
 						}
 					}
 				})}
-				<button onClick={handleAddItemSubmit}>Add</button>
+				<button>Add</button>
 			</form>
 		</>
 	);
