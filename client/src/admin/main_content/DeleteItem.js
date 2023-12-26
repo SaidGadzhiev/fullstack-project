@@ -2,7 +2,8 @@ import fetchRequest from './utils/fetchRequest';
 import { deleteItem } from './handleItem.js/deleteItem';
 
 const DeleteItem = ({ item, setSortedItems, sortedItems }) => {
-	const handleDelete = async () => {
+	const handleDelete = async (e) => {
+		e.preventDefault();
 		try {
 			const res = await fetchRequest(() => deleteItem(item._id));
 			const updatedArray = sortedItems.filter(
@@ -15,7 +16,7 @@ const DeleteItem = ({ item, setSortedItems, sortedItems }) => {
 	};
 	return (
 		<>
-			<button onClick={handleDelete}>D</button>
+			<button onClick={(e) => handleDelete(e)}>D</button>
 		</>
 	);
 };
