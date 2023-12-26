@@ -36,6 +36,9 @@ const EditSingleItem = ({
 			const res = await fetchRequest(() =>
 				updateItem(itemData._id, changedValues)
 			);
+			if (!res) {
+				console.log('error updating item');
+			}
 		} catch (err) {
 			console.log(err);
 		}
@@ -48,30 +51,32 @@ const EditSingleItem = ({
 		<>
 			<tr key={index}>
 				{keys.map((key) => {
-					if (itemData[key] === false || itemData[key] === true) {
-						return (
-							<td key={key}>
-								<select
-									onChange={(e) => handleOptionChange(key, e)}
-									type='select'
-									required
-									placeholder='select'
-								>
-									<option value='yes'>YES</option>
-									<option value='no'>NO</option>
-								</select>
-							</td>
-						);
-					} else {
-						return (
-							<td key={key}>
-								<input
-									onChange={(e) => handleInputChange(key, e)}
-									required
-									value={itemData[key]}
-								></input>
-							</td>
-						);
+					if (key !== 'category') {
+						if (itemData[key] === false || itemData[key] === true) {
+							return (
+								<td key={key}>
+									<select
+										onChange={(e) => handleOptionChange(key, e)}
+										type='select'
+										required
+										placeholder='select'
+									>
+										<option value='yes'>YES</option>
+										<option value='no'>NO</option>
+									</select>
+								</td>
+							);
+						} else {
+							return (
+								<td key={key}>
+									<input
+										onChange={(e) => handleInputChange(key, e)}
+										required
+										value={itemData[key]}
+									></input>
+								</td>
+							);
+						}
 					}
 				})}
 				<td>

@@ -13,6 +13,8 @@ const AddItem = ({ sortedItems, setSortedItems, getItems }) => {
 					.map(([key, value]) => ({ key, type: typeof value }))
 			: [];
 
+	console.log(keysValues);
+
 	//make a new array only including the keys of the keysValues array
 	const initialFormData = keysValues.reduce((acc, curr) => {
 		acc[curr.key] = curr.key === 'category' ? sortedItems[0].category : '';
@@ -44,6 +46,9 @@ const AddItem = ({ sortedItems, setSortedItems, getItems }) => {
 		e.preventDefault();
 		try {
 			const res = await fetchRequest(() => createItem(formData));
+			if (!res) {
+				console.log('error adding item');
+			}
 			getItems();
 			// setSortedItems((prevItems) => [...prevItems, formData]);
 
@@ -89,6 +94,7 @@ const AddItem = ({ sortedItems, setSortedItems, getItems }) => {
 							);
 						}
 					}
+					return null;
 				})}
 				<button>Add</button>
 			</form>
