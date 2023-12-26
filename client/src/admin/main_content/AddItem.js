@@ -52,7 +52,6 @@ const AddItem = ({ sortedItems, setSortedItems, getItems }) => {
 			console.log(err);
 		}
 	};
-	console.log(sortedItems);
 
 	return (
 		<>

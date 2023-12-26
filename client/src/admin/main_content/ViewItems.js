@@ -5,11 +5,13 @@ import itemByCategory from './sortingHandlers/itemByCategory';
 import AddItem from './AddItem';
 import DeleteItem from './DeleteItem';
 import ViewSingleItem from './ViewSingleItem';
+import EditSingleItem from './EditSingleItem';
 
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [sortedItems, setSortedItems] = useState([]);
+	const [itemId, setItemId] = useState(String);
 
 	const { currentCategory } = useCurrentCategory();
 
@@ -50,6 +52,16 @@ const ViewItems = () => {
 			? Object.keys(sortedItems[0]).filter((key) => key !== '_id')
 			: [];
 
+	//to go from view to edit for each Item
+	const handleIdChange = (e, item) => {
+		e.preventDefault();
+		setItemId(item._id);
+	};
+
+	const handleCancelChange = (e, item) => {
+		setItemId(null);
+	};
+
 	return (
 		<>
 			{!categories ? (
@@ -57,35 +69,47 @@ const ViewItems = () => {
 			) : (
 				<>
 					{/* <h1>{categoryArray[0].categoryName}</h1> */}
-					<table>
-						{categoryArray.map((column, index) => {
-							return (
-								<thead key={index}>
-									<tr key={index}>
-										{keys.map((key) => {
-											return <th key={key}>{column[key]}</th>;
-										})}
-									</tr>
-								</thead>
-							);
-						})}
-						<tbody>
-							{sortedItems.map((item, index) => {
+					<form>
+						<table>
+							{categoryArray.map((column, index) => {
 								return (
-									<tr key={index}>
-										<ViewSingleItem keys={keys} item={item} />
-										<td>
-											<DeleteItem
-												item={item}
-												setSortedItems={setSortedItems}
-												sortedItems={sortedItems}
-											/>
-										</td>
-									</tr>
+									<thead key={index}>
+										<tr key={index}>
+											{keys.map((key) => {
+												return <th key={key}>{column[key]}</th>;
+											})}
+										</tr>
+									</thead>
 								);
 							})}
-						</tbody>
-					</table>
+							<tbody>
+								{sortedItems.map((item, index) => {
+									return (
+										<>
+											{itemId === item._id ? (
+												<EditSingleItem
+													keys={keys}
+													item={item}
+													index={index}
+													handleCancelChange={handleCancelChange}
+													getItems={getItems}
+												/>
+											) : (
+												<ViewSingleItem
+													keys={keys}
+													item={item}
+													index={index}
+													setSortedItems={setSortedItems}
+													sortedItems={sortedItems}
+													handleIdChange={handleIdChange}
+												/>
+											)}
+										</>
+									);
+								})}
+							</tbody>
+						</table>
+					</form>
 
 					<AddItem
 						sortedItems={sortedItems}
