@@ -69,7 +69,15 @@ const ViewItems = () => {
 				<div>hold on</div>
 			) : (
 				<>
-					<SearchBar />
+					<div>
+						<SearchBar />
+						<AddItem
+							sortedItems={sortedItems}
+							setSortedItems={setSortedItems}
+							getItems={getItems}
+						/>
+					</div>
+
 					<form>
 						<table>
 							{categoryArray.map((column, index) => {
@@ -111,12 +119,6 @@ const ViewItems = () => {
 							</tbody>
 						</table>
 					</form>
-
-					<AddItem
-						sortedItems={sortedItems}
-						setSortedItems={setSortedItems}
-						getItems={getItems}
-					/>
 				</>
 			)}
 		</>
