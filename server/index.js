@@ -12,6 +12,9 @@ const createCategory = require('./endpoints/categories/createCategory');
 const updateCategory = require('./endpoints/categories/updateCategory');
 const getUser = require('./endpoints/users/getUser');
 const createUser = require('./endpoints/users/createUser');
+const getAllRequests = require('./endpoints/requests/getAllRequests');
+const createRequest = require('./endpoints/requests/createRequest');
+const updateRequest = require('./endpoints/requests/updateRequest');
 const app = express();
 const port = 4000;
 
@@ -46,6 +49,10 @@ app.get('/categories/:id', getSingleCategory);
 app.delete('/categories/:id', deleteCategory);
 app.post('/categories', createCategory);
 app.patch('/categories/:id', updateCategory);
+
+app.get('/requests', getAllRequests);
+app.post('/requests', createRequest);
+app.patch('/requests/:id', updateRequest);
 
 //users endpoints
 app.get('/users', getUser);

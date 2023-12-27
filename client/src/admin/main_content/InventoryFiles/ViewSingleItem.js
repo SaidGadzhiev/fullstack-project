@@ -12,16 +12,16 @@ const ViewSingleItem = ({
 		<>
 			<tr key={index}>
 				{keys.map((key) => {
-					if(key != 'category'){
+					if (key !== 'category') {
 						if (item[key] === false) {
-						return <td key={key}>NO</td>;
-					} else if (item[key] === true) {
-						return <td key={key}>YES</td>;
-					} else {
-						return <td key={key}>{item[key]}</td>;
+							return <td key={key}>NO</td>;
+						} else if (item[key] === true) {
+							return <td key={key}>YES</td>;
+						} else {
+							return <td key={key}>{item[key]}</td>;
+						}
 					}
-					}
-					
+					return null;
 				})}
 				<td>
 					<button type='button' onClick={(e) => handleIdChange(e, item)}>

@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useCurrentCategory } from '../CategoryContext';
+import AddCategory from '../main_content/InventoryFiles/AddCategory';
 
 const CategorySelection = () => {
 	const { currentCategory, setCurrentCategory } = useCurrentCategory();
 	const [categories, setCategories] = useState([]);
+
+	const { pathSelected, setPathSelected } = useCurrentCategory();
 
 	const getCategories = async () => {
 		const result = await fetch('/categories');
@@ -17,6 +20,7 @@ const CategorySelection = () => {
 
 	const handleCategoryChange = (selectedCat) => {
 		setCurrentCategory(selectedCat);
+		setPathSelected('items');
 	};
 
 	const handleNewCategory = () => {};
@@ -38,6 +42,7 @@ const CategorySelection = () => {
 						);
 					})}
 				<button onClick={() => handleNewCategory()}>+</button>
+				{/* <AddCategory /> */}
 			</div>
 		</>
 	);

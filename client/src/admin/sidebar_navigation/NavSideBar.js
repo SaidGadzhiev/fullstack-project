@@ -1,14 +1,14 @@
-import CategorySelection from "./CategorySelection"
+import RequestSelection from './RequestSelection';
+import CategorySelection from './CategorySelection';
 
+const NavSideBar = () => {
+	return (
+		<>
+			<h1>Nav Side Bar</h1>
+			<CategorySelection />
+			<RequestSelection />
+		</>
+	);
+};
 
-const NavSideBar = ()=>{
-    return(
-      <>
-      <h1>Nav Side Bar</h1>
-      <CategorySelection/>
-      </>
-    )
-
-}
-
-export default NavSideBar
+export default NavSideBar;

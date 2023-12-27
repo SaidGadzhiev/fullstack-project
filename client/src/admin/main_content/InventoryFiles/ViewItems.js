@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useCurrentCategory } from '../CategoryContext';
+import { useCurrentCategory } from '../../CategoryContext';
 import sortingByCategory from './sortingHandlers/sortingByCategory';
 import itemByCategory from './sortingHandlers/itemByCategory';
 import AddItem from './AddItem';
-import DeleteItem from './DeleteItem';
 import ViewSingleItem from './ViewSingleItem';
 import EditSingleItem from './EditSingleItem';
+import SearchBar from './SearchBar';
 
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
@@ -58,6 +58,7 @@ const ViewItems = () => {
 		setItemId(item._id);
 	};
 
+	//to get out of edit mode
 	const handleCancelChange = (e, item) => {
 		setItemId(null);
 	};
@@ -68,7 +69,15 @@ const ViewItems = () => {
 				<div>hold on</div>
 			) : (
 				<>
-					{/* <h1>{categoryArray[0].categoryName}</h1> */}
+					<div>
+						<SearchBar />
+						<AddItem
+							sortedItems={sortedItems}
+							setSortedItems={setSortedItems}
+							getItems={getItems}
+						/>
+					</div>
+
 					<form>
 						<table>
 							{categoryArray.map((column, index) => {
@@ -110,12 +119,6 @@ const ViewItems = () => {
 							</tbody>
 						</table>
 					</form>
-
-					<AddItem
-						sortedItems={sortedItems}
-						setSortedItems={setSortedItems}
-						getItems={getItems}
-					/>
 				</>
 			)}
 		</>

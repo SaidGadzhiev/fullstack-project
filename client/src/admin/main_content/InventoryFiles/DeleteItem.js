@@ -9,6 +9,9 @@ const DeleteItem = ({ item, setSortedItems, sortedItems }) => {
 			const updatedArray = sortedItems.filter(
 				(eachItem) => eachItem._id !== item._id
 			);
+			if (!res) {
+				console.log('error deleting item');
+			}
 			setSortedItems(updatedArray);
 		} catch (err) {
 			console.log(err);
