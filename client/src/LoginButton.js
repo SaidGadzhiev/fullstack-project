@@ -14,8 +14,6 @@ const LoginButton = () => {
 	};
 
 	useEffect(() => {
-		console.log(pass);
-
 		if (!pass) {
 			handleAdminKey();
 		}
@@ -25,7 +23,6 @@ const LoginButton = () => {
 		if (user) {
 			user.pass = 'admin';
 			setUserProfile(user);
-			console.log(user);
 
 			if (user.pass === 'admin') {
 				navigate('/admin');

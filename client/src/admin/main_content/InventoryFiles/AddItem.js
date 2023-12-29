@@ -9,7 +9,6 @@ const AddItem = ({ sortedItems, setSortedItems, getItems }) => {
 
 	const handleToggleView = () => {
 		setIsOpen(!isOpen);
-		console.log(isOpen);
 	};
 
 	//get the keys and typeof values from sortedItems item
