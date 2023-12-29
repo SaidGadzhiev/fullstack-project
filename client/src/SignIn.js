@@ -3,6 +3,7 @@ import LogoutButton from './LogoutButton';
 import Profile from './Profile';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
+import UserLoginButton from './UserLoginButton';
 
 const SignIn = () => {
 	const { isLoading, error } = useAuth0();
@@ -16,6 +17,8 @@ const SignIn = () => {
 			{!error && !isLoading && (
 				<>
 					<LoginButton />
+					{/* <UserLoginButton /> */}
+
 					<p>
 						<Link to='/'>
 							<LogoutButton />
