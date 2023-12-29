@@ -3,32 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { useCurrentUser } from './AuthContext';
 import { useCallback, useEffect, useState } from 'react';
 
-const LoginButton = () => {
+const UserLoginButton = () => {
 	const { loginWithRedirect, isAuthenticated, user } = useAuth0();
 	const { userProfile, setUserProfile } = useCurrentUser();
-	const [pass, setPass] = useState(false);
 	const navigate = useNavigate();
 
-	const handleUserPass = () => {
-		loginWithRedirect();
-	};
-
 	useEffect(() => {
-		console.log(pass);
-
-		if (!pass) {
-			handleAdminKey();
-		}
+		handleUser();
 	}, [user, setUserProfile]);
 
-	const handleAdminKey = () => {
+	const handleUser = () => {
 		if (user) {
-			user.pass = 'admin';
+			user.pass = 'user';
 			setUserProfile(user);
 			console.log(user);
 
-			if (user.pass === 'admin') {
-				navigate('/admin');
+			if (user.pass === 'user') {
+				navigate('/');
 			}
 		}
 	};
@@ -36,17 +27,11 @@ const LoginButton = () => {
 	return (
 		!userProfile && (
 			<>
-				<p>Login to Dashboard</p>
-				<button
-					onClick={() => {
-						loginWithRedirect();
-					}}
-				>
-					Sign in on dashboard
-				</button>
+				<p>Login as User</p>
+				<button onClick={() => loginWithRedirect()}>Sign in</button>
 			</>
 		)
 	);
 };
 
-export default LoginButton;
+export default UserLoginButton;
