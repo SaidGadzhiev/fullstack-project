@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useCurrentCategory } from '../CategoryContext';
 import AddCategory from '../main_content/InventoryFiles/AddCategory';
+import { NavLink } from 'react-router-dom';
 
 const CategorySelection = () => {
 	const { currentCategory, setCurrentCategory } = useCurrentCategory();
@@ -28,7 +29,7 @@ const CategorySelection = () => {
 	return (
 		<>
 			<h1>Categories</h1>
-			<div>
+			{/* <div>
 				{categories &&
 					categories.length > 0 &&
 					categories.map((cat, key) => {
@@ -42,6 +43,21 @@ const CategorySelection = () => {
 						);
 					})}
 				<button onClick={() => handleNewCategory()}>+</button>
+				<AddCategory />
+				{/* <AddCategory /> 
+			</div> */}
+			<div>
+				{categories &&
+					categories.length > 0 &&
+					categories.map((cat, key) => {
+						return (
+							<button key={key} onClick={() => handleCategoryChange(cat.name)}>
+								{cat.name}
+							</button>
+						);
+					})}
+				<button onClick={() => handleNewCategory()}>+</button>
+				<AddCategory />
 				{/* <AddCategory /> */}
 			</div>
 		</>

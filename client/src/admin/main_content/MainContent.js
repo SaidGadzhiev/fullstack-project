@@ -5,6 +5,7 @@ import Requests from './RequestsFiles/Requests';
 
 const MainContent = () => {
 	const { pathSelected, setPathSelected } = useCurrentCategory();
+
 	return (
 		<>
 			{pathSelected === 'items' ? (

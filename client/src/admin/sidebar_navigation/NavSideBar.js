@@ -1,12 +1,19 @@
 import RequestSelection from './RequestSelection';
 import CategorySelection from './CategorySelection';
+import LogoutButton from '../../LogoutButton';
+import { useCurrentUser } from '../../AuthContext';
+import Profile from './Profile';
+import { NavLink } from 'react-router-dom';
 
 const NavSideBar = () => {
+	const { userProfile } = useCurrentUser();
+
 	return (
 		<>
-			<h1>Nav Side Bar</h1>
+			<Profile />
 			<CategorySelection />
 			<RequestSelection />
+			<LogoutButton />
 		</>
 	);
 };

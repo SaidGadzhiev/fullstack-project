@@ -10,7 +10,7 @@ function App() {
 			<Router>
 				<Routes>
 					<Route path='/' element={<SignIn />} />
-					<Route path='/admin' element={<Dashboard />} />
+					<Route path='/admin/' element={<Dashboard />} />
 				</Routes>
 			</Router>
 		</Auth0Provider>
