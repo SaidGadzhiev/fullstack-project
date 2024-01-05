@@ -3,7 +3,7 @@ import { createItem } from './handleItem.js/createItem';
 import fetchRequest from './utils/fetchRequest';
 import styled from 'styled-components';
 
-const AddItem = ({ sortedItems, setSortedItems, getItems }) => {
+const AddItem = ({ items, setSortedItems, getItems }) => {
 	const [formData, newFormData] = useState();
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -13,15 +13,15 @@ const AddItem = ({ sortedItems, setSortedItems, getItems }) => {
 
 	//get the keys and typeof values from sortedItems item
 	const keysValues =
-		sortedItems.length > 0
-			? Object.entries(sortedItems[0])
+		items.length > 0
+			? Object.entries(items[0])
 					.filter(([key, value]) => key !== '_id')
 					.map(([key, value]) => ({ key, type: typeof value }))
 			: [];
 
 	//make a new array only including the keys of the keysValues array
 	const initialFormData = keysValues.reduce((acc, curr) => {
-		acc[curr.key] = curr.key === 'category' ? sortedItems[0].category : '';
+		acc[curr.key] = curr.key === 'category' ? items[0].category : '';
 		return acc;
 	}, {});
 
@@ -41,7 +41,7 @@ const AddItem = ({ sortedItems, setSortedItems, getItems }) => {
 		newFormData((prevData) => ({ ...prevData, [key]: value }));
 		newFormData((prevData) => ({
 			...prevData,
-			category: sortedItems[0].category,
+			category: items[0].category,
 		}));
 	};
 

@@ -38,14 +38,14 @@ app.get('/bacon', (req, res) => res.status(200).json({ data: '🥓' }));
 
 //items endpoints
 app.get('/items', getAllItems);
-app.get('/items/:id', getSingleItem);
+app.get('/items/key/:key/:value', getSingleItem);
 app.delete('/items/:id', deleteItem);
 app.post('/items', createItem);
 app.patch('/items/:id', updateItem);
 
 //categories endpoints
 app.get('/categories', getAllCategories);
-app.get('/categories/:id', getSingleCategory);
+app.get('/categories/key/:key/:value', getSingleCategory);
 app.delete('/categories/:id', deleteCategory);
 app.post('/categories', createCategory);
 app.patch('/categories/:id', updateCategory);

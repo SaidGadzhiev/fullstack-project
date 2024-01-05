@@ -1,36 +1,85 @@
 //* ON PAUSE / COMEBACK ON THIS */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 
 const AddCategory = () => {
-	//the object of the category
-	//hardcoded keys = obligated
-	const [catForm, setCatForm] = useState({
-		model: 'Model',
-		serialNumber: 'Serial Number',
+	const [newCat, setNewCat] = useState({});
+
+	const { control, register, handleSubmit } = useForm({
+		defaultValues: { fields: [{ key: '' }] },
 	});
 
-	//array of tyepof values in the category object
-	//hardcoded keys and types = obligated
-	const [catValues, setCatValues] = useState([
-		{ key: 'model', type: 'string' },
-		{ key: 'serialNumber', type: 'string' },
-	]);
+	const { fields, append, remove } = useFieldArray({
+		control,
+		name: 'fields',
+	});
 
 	const handleCategoryName = (value) => {
-		const key = 'categoryName';
-		setCatForm((prevForm) => ({ ...prevForm, [key]: value }));
-		setCatValues([...catValues, { key: key, type: 'string' }]);
+		setNewCat((prevCat) => ({ ...prevCat, name: value }));
 	};
-	console.log(catValues);
-	console.log(catForm);
+
+	const onSubmit = (data) => {
+		//hardcoded for the user
+		const model = {
+			key: 'model',
+			type: 'string',
+		};
+		const availability = {
+			key: 'availability',
+			type: 'boolean',
+		};
+		//
+
+		const newFields = [...data.fields, model, availability];
+
+		setNewCat((prevCat) => ({ ...prevCat, attributes: newFields }));
+	};
 
 	return (
 		<>
-			<div>Add a new category</div>
-			<form>
-				<label>Category Name</label>
-				<input onChange={(e) => handleCategoryName(e.target.value)}></input>
+			{' '}
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<label>Name of your category:</label>
+				<input
+					required
+					onChange={(e) => handleCategoryName(e.target.value)}
+				></input>
+				{fields.map((field, index) => {
+					return (
+						<>
+							<div key={field.id}>
+								{' '}
+								New key value pair:
+								<input
+									{...register(`fields[${index}].key`)}
+									defaultValue={field.key}
+									placeholder='Name of the row'
+									required
+								/>
+								<select
+									{...register(`fields[${index}].type`)}
+									defaultValue={field.type}
+									placeholder='Type of input'
+									required
+								>
+									<option></option>
+									<option>boolean</option>
+									<option>string</option>
+								</select>
+								{fields.length > 1 && (
+									<button type='button' onClick={() => remove(index)}>
+										Remove
+									</button>
+								)}
+							</div>
+						</>
+					);
+				})}
+				<button type='button' onClick={() => append({ type: '' })}>
+					Add
+				</button>
+				<button type='submit'>Submit</button>
 			</form>
 		</>
 	);

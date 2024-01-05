@@ -3,7 +3,7 @@ import { useCurrentCategory } from '../CategoryContext';
 
 const RequestSelection = () => {
 	const { currentCategory, setCurrentCategory } = useCurrentCategory();
-	const { PathSelected, setPathSelected } = useCurrentCategory();
+	const { pathSelected, setPathSelected } = useCurrentCategory();
 
 	const [requests, setRequests] = useState([]);
 
@@ -24,10 +24,16 @@ const RequestSelection = () => {
 	return (
 		<>
 			<h1>Borrowing Requests:</h1>
-			<button onClick={() => handleCategoryChange('new')}>New Requests</button>
-			<button onClick={() => handleCategoryChange('old')}>
-				Previous Requests
-			</button>
+			{requests && requests.length > 0 ? (
+				<>
+					<button onClick={() => handleCategoryChange('new')}>
+						New Requests
+					</button>
+					<button onClick={() => handleCategoryChange('old')}>
+						Previous Requests
+					</button>
+				</>
+			) : null}
 		</>
 	);
 };

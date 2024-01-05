@@ -1,16 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useCurrentUser } from './AuthContext';
-import { useEffect } from 'react';
 
 const LogoutButton = () => {
-	const { logout, isAuthenticated } = useAuth0();
-	const { userProfile, setUserProfile, removeUser } = useCurrentUser();
+	const { logout } = useAuth0();
+	const { userProfile, removeUser } = useCurrentUser();
 
 	const handleLogOut = async () => {
 		removeUser();
 		await logout();
 	};
-	console.log(userProfile);
 
 	return (
 		userProfile && (
