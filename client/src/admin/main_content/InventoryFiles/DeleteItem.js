@@ -1,18 +1,16 @@
 import fetchRequest from './utils/fetchRequest';
 import { deleteItem } from './handleItem.js/deleteItem';
 
-const DeleteItem = ({ item, setSortedItems, sortedItems }) => {
+const DeleteItem = ({ item, getItems }) => {
 	const handleDelete = async (e) => {
 		e.preventDefault();
 		try {
 			const res = await fetchRequest(() => deleteItem(item._id));
-			const updatedArray = sortedItems.filter(
-				(eachItem) => eachItem._id !== item._id
-			);
+
 			if (!res) {
 				console.log('error deleting item');
 			}
-			setSortedItems(updatedArray);
+			getItems();
 		} catch (err) {
 			console.log(err);
 		}

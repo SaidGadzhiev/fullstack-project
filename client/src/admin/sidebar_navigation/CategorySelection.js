@@ -24,8 +24,6 @@ const CategorySelection = () => {
 		setPathSelected('items');
 	};
 
-	const handleNewCategory = () => {};
-
 	return (
 		<>
 			<h1>Categories</h1>
@@ -56,8 +54,7 @@ const CategorySelection = () => {
 							</button>
 						);
 					})}
-				<button onClick={() => handleNewCategory()}>+</button>
-				<AddCategory />
+				<AddCategory getCategories={getCategories} />
 				{/* <AddCategory /> */}
 			</div>
 		</>

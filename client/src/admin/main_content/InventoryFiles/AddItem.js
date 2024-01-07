@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { createItem } from './handleItem.js/createItem';
 import fetchRequest from './utils/fetchRequest';
 import styled from 'styled-components';
+const _ = require('lodash');
 
-const AddItem = ({ items, setSortedItems, getItems }) => {
+const AddItem = ({ items, setSortedItems, getItems, category }) => {
 	const [formData, newFormData] = useState();
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -11,23 +12,36 @@ const AddItem = ({ items, setSortedItems, getItems }) => {
 		setIsOpen(!isOpen);
 	};
 
-	//get the keys and typeof values from sortedItems item
-	const keysValues =
-		items.length > 0
-			? Object.entries(items[0])
-					.filter(([key, value]) => key !== '_id')
-					.map(([key, value]) => ({ key, type: typeof value }))
-			: [];
+	function convertKeysToCamelCase(obj) {
+		return _.map(obj, (value) => {
+			const camelCaseKey = _.camelCase(value.key);
+			const camelCaseValue = value.key
+				.replace(/[^a-zA-Z0-9]/g, ' ')
+				.split(' ')
+				.map((word, index) =>
+					index === 0 ? word.toLowerCase() : _.capitalize(word.toLowerCase())
+				)
+				.join('');
+
+			return { key: camelCaseValue, type: value.type };
+		});
+	}
+
+	const camelCaseObject = category
+		? convertKeysToCamelCase(category.attributes)
+		: [];
 
 	//make a new array only including the keys of the keysValues array
-	const initialFormData = keysValues.reduce((acc, curr) => {
+	const initialFormData = camelCaseObject.reduce((acc, curr) => {
 		acc[curr.key] = curr.key === 'category' ? items[0].category : '';
 		return acc;
 	}, {});
 
 	useEffect(() => {
 		newFormData(initialFormData);
-	}, []);
+	}, [category]);
+
+	console.log(formData);
 
 	//changing the values of the array for the item for boolean condition
 	const handleOptionChange = (key, value) => {
@@ -41,7 +55,7 @@ const AddItem = ({ items, setSortedItems, getItems }) => {
 		newFormData((prevData) => ({ ...prevData, [key]: value }));
 		newFormData((prevData) => ({
 			...prevData,
-			category: items[0].category,
+			category: category.name,
 		}));
 	};
 
@@ -63,6 +77,8 @@ const AddItem = ({ items, setSortedItems, getItems }) => {
 		}
 	};
 
+	console.log(formData);
+
 	return (
 		<>
 			{!isOpen ? (
@@ -71,7 +87,7 @@ const AddItem = ({ items, setSortedItems, getItems }) => {
 				</button>
 			) : (
 				<Form onSubmit={handleAddItemSubmit}>
-					{keysValues.map(({ key, type }, index) => {
+					{camelCaseObject.map(({ key, type }, index) => {
 						if (type === 'boolean') {
 							return (
 								<>
