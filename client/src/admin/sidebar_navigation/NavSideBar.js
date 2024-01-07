@@ -9,12 +9,12 @@ const NavSideBar = () => {
 	const { userProfile } = useCurrentUser();
 
 	return (
-		<>
+		<div>
 			<Profile />
 			<CategorySelection />
 			<RequestSelection />
 			<LogoutButton />
-		</>
+		</div>
 	);
 };
 

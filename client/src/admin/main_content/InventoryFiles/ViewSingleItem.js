@@ -1,13 +1,6 @@
 import DeleteItem from './DeleteItem';
 
-const ViewSingleItem = ({
-	keys,
-	item,
-	index,
-	setSortedItems,
-	sortedItems,
-	handleIdChange,
-}) => {
+const ViewSingleItem = ({ keys, item, index, handleIdChange, getItems }) => {
 	return (
 		<>
 			<tr key={index}>
@@ -17,6 +10,8 @@ const ViewSingleItem = ({
 							return <td key={key}>NO</td>;
 						} else if (item[key] === true) {
 							return <td key={key}>YES</td>;
+						} else if (key === 'serialNumber') {
+							return <td key={key}>{item[key]}</td>;
 						} else {
 							return <td key={key}>{item[key]}</td>;
 						}
@@ -29,11 +24,7 @@ const ViewSingleItem = ({
 					</button>
 				</td>
 				<td>
-					<DeleteItem
-						item={item}
-						setSortedItems={setSortedItems}
-						sortedItems={sortedItems}
-					/>
+					<DeleteItem item={item} getItems={getItems} />
 				</td>
 			</tr>
 		</>

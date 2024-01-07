@@ -4,6 +4,7 @@ import AddItem from './AddItem';
 import ViewSingleItem from './ViewSingleItem';
 import EditSingleItem from './EditSingleItem';
 import SearchBar from './SearchBar';
+import DownloadData from './DownloadData';
 
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
@@ -50,14 +51,30 @@ const ViewItems = () => {
 		setItemId(null);
 	};
 
+	console.log(items.length);
+
 	return (
 		<>
-			{!category ? (
-				<div>hold on</div>
+			{items.length < 1 ? (
+				<>
+					<h1>{category.name}</h1>
+
+					<div>You don't have any items in this category</div>
+					<div>Add one now</div>
+					<AddItem
+						items={items}
+						setItems={setItems}
+						getItems={getItems}
+						category={category}
+					/>
+				</>
 			) : (
 				<>
+					<h1>{category.name}</h1>
+
 					<div>
 						<SearchBar />
+						<DownloadData items={items} />
 						<AddItem
 							items={items}
 							setItems={setItems}
@@ -94,8 +111,7 @@ const ViewItems = () => {
 													keys={keys}
 													item={item}
 													index={index}
-													setItems={setItems}
-													items={items}
+													getItems={getItems}
 													handleIdChange={handleIdChange}
 												/>
 											)}

@@ -7,7 +7,7 @@ const MainContent = () => {
 	const { pathSelected, setPathSelected } = useCurrentCategory();
 
 	return (
-		<>
+		<div>
 			{pathSelected === 'items' ? (
 				<ViewItems />
 			) : pathSelected === 'requests' ? (
@@ -15,7 +15,7 @@ const MainContent = () => {
 			) : (
 				<div>Choose something to see something</div>
 			)}
-		</>
+		</div>
 	);
 };
 
