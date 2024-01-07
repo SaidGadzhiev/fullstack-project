@@ -12,18 +12,12 @@ const AddItem = ({ items, setSortedItems, getItems, category }) => {
 		setIsOpen(!isOpen);
 	};
 
+	//change the key syntax to camel case
+	//to pass that as a key to a new item
 	function convertKeysToCamelCase(obj) {
 		return _.map(obj, (value) => {
 			const camelCaseKey = _.camelCase(value.key);
-			const camelCaseValue = value.key
-				.replace(/[^a-zA-Z0-9]/g, ' ')
-				.split(' ')
-				.map((word, index) =>
-					index === 0 ? word.toLowerCase() : _.capitalize(word.toLowerCase())
-				)
-				.join('');
-
-			return { key: camelCaseValue, type: value.type };
+			return { key: camelCaseKey, type: value.type };
 		});
 	}
 
@@ -40,8 +34,6 @@ const AddItem = ({ items, setSortedItems, getItems, category }) => {
 	useEffect(() => {
 		newFormData(initialFormData);
 	}, [category]);
-
-	console.log(formData);
 
 	//changing the values of the array for the item for boolean condition
 	const handleOptionChange = (key, value) => {
