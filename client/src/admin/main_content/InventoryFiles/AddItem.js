@@ -4,7 +4,7 @@ import fetchRequest from './utils/fetchRequest';
 import styled from 'styled-components';
 const _ = require('lodash');
 
-const AddItem = ({ items, setSortedItems, getItems, category }) => {
+const AddItem = ({ items, getItems, category }) => {
 	const [formData, newFormData] = useState();
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -68,8 +68,6 @@ const AddItem = ({ items, setSortedItems, getItems, category }) => {
 			console.log(err);
 		}
 	};
-
-	console.log(formData);
 
 	return (
 		<>

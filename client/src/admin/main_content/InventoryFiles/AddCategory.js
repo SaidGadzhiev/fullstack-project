@@ -32,17 +32,21 @@ const AddCategory = ({ getCategories }) => {
 		setIsOpen(false);
 
 		//hardcoded for the user
+		const serialNumber = {
+			key: 'Serial Number',
+			type: 'string',
+		};
 		const model = {
-			key: 'model',
+			key: 'Model',
 			type: 'string',
 		};
 		const availability = {
-			key: 'availability',
+			key: 'Available',
 			type: 'boolean',
 		};
 		//
 
-		const newFields = [...data.fields, model, availability];
+		const newFields = [...data.fields, model, serialNumber, availability];
 
 		setNewCat((prevCat) => ({ ...prevCat, attributes: newFields }));
 

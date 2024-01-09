@@ -51,8 +51,6 @@ const ViewItems = () => {
 		setItemId(null);
 	};
 
-	console.log(items.length);
-
 	return (
 		<>
 			{items.length < 1 ? (

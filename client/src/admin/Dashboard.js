@@ -29,7 +29,8 @@ const Wrapper = styled.div`
 
 	> div:nth-child(1) {
 		flex: 10%;
-		max-width: 300px;
+		max-width: 296px;
+		width: 100%;
 	}
 	> div:nth-child(2) {
 		flex: 70%;
