@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import fetchRequest from './utils/fetchRequest';
 import { updateItem } from './handleItem.js/updateItem';
 
@@ -10,6 +10,11 @@ const EditSingleItem = ({
 	getItems,
 }) => {
 	const [itemData, editFormData] = useState(item);
+
+	useEffect(() => {
+		editFormData(item);
+	}, [item]);
+
 	const changedValues = {};
 
 	const handleOptionChange = (key, e) => {
@@ -61,6 +66,7 @@ const EditSingleItem = ({
 										required
 										placeholder='select'
 									>
+										<option> </option>
 										<option value='yes'>YES</option>
 										<option value='no'>NO</option>
 									</select>
