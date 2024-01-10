@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import fetchRequest from '../admin/main_content/InventoryFiles/utils/fetchRequest';
 import { updateItem } from '../admin/main_content/InventoryFiles/handleItem.js/updateItem';
 import { useNavigate } from 'react-router-dom';
+import { handleItemData } from './itemChoiceHandlers/itemHandlers';
+import handleUserData from './itemChoiceHandlers/handleUserData';
 
 const ItemChoice = ({ items, chosenCat }) => {
 	const [uniqueModels, setUniqueModels] = useState([]);
@@ -10,6 +12,9 @@ const ItemChoice = ({ items, chosenCat }) => {
 	const [radioButton, setRadioButton] = useState();
 	const [buttonSwitch, setButtonSwitch] = useState(false);
 	const [item, setItem] = useState();
+
+	const [userData, setUserData] = useState({});
+	const [date, setDate] = useState();
 
 	const navigate = useNavigate();
 
@@ -35,7 +40,6 @@ const ItemChoice = ({ items, chosenCat }) => {
 			const filteredResult = parsedResult.data.filter(
 				(item) => item.available === true
 			);
-			console.log('clicked  ', filteredResult);
 			setSelectedItems(filteredResult);
 			setButtonSwitch(false);
 		} catch (err) {
@@ -56,16 +60,26 @@ const ItemChoice = ({ items, chosenCat }) => {
 	const handleModelSelect = (model) => {
 		setSelectedModel(model);
 		setRadioButton(model);
-		console.log(selectedItems.length);
-		console.log(selectedModel);
 	};
 
+	//assign the item chosen by user when selected items get updated
 	const getItem = () => {
 		if (selectedItems) {
 			const randomIndex = Math.floor(Math.random() * selectedItems.length);
 			const chosenItem = selectedItems[randomIndex];
-			setItem(chosenItem);
-			console.log(item);
+			if (chosenItem) {
+				setItem(chosenItem);
+				const currentDate = new Date();
+				const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+				const formattedDate = currentDate.toLocaleString('en-US', options);
+				setUserData((prevData) => ({
+					...prevData,
+					['item']: chosenItem.model,
+					['serialNumber']: chosenItem.serialNumber,
+					['category']: 'new',
+					['date']: formattedDate,
+				}));
+			}
 		}
 	};
 
@@ -75,18 +89,9 @@ const ItemChoice = ({ items, chosenCat }) => {
 
 	const handleCategoryChoice = async (e) => {
 		e.preventDefault();
-		console.log(item);
-
-		try {
-			const res = await fetchRequest(() => updateItem(item._id, updatedValue));
-			if (!res) {
-				console.log('error updating item');
-			} else {
-				navigate('/confirmation');
-			}
-		} catch (err) {
-			console.log(err);
-		}
+		handleUserData(userData);
+		handleItemData(item._id, updatedValue);
+		navigate('/confirmation');
 	};
 
 	return (
