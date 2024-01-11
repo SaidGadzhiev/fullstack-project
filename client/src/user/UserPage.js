@@ -44,17 +44,15 @@ const UserPage = () => {
 
 					{categories.map((cat, key) => {
 						return (
-							<>
-								<label key={key}>
-									<input
-										type='radio'
-										name='category'
-										value={cat.name}
-										onClick={(e) => handleOptionChange(e.target.value)}
-									/>
-									{cat.name}
-								</label>
-							</>
+							<label key={key}>
+								<input
+									type='radio'
+									name='category'
+									value={cat.name}
+									onClick={(e) => handleOptionChange(e.target.value)}
+								/>
+								{cat.name}
+							</label>
 						);
 					})}
 					{chosenCat && <ItemChoice items={items} chosenCat={chosenCat} />}

@@ -1,27 +1,47 @@
 import { updateItem } from '../../admin/main_content/InventoryFiles/handleItem.js/updateItem';
 import fetchRequest from '../../admin/main_content/InventoryFiles/utils/fetchRequest';
 
-//get items depending on the model selected
-// const getItemsByModel = async (
-// 	setButtonSwitch,
-// 	setSelectedItems,
-// 	selectedModel
-// ) => {
-// 	try {
-// 		const result = await fetch(`/items/key/model/${selectedModel}`);
-// 		const parsedResult = await result.json();
-// 		const filteredResult = parsedResult.data.filter(
-// 			(item) => item.available === true
-// 		);
-// 		console.log('clicked  ', filteredResult);
-// 		setButtonSwitch(false);
-// 		return filteredResult;
-// 	} catch (err) {
-// 		console.error('error getting items:', err);
-// 	}
-// };
+const getItemsByModel = async (
+	setButtonSwitch,
+	selectedModel,
+	setSelectedItems
+) => {
+	setButtonSwitch(false);
+	try {
+		const result = await fetch(`/items/key/model/${selectedModel}`);
+		const parsedResult = await result.json();
+		const filteredResult = parsedResult.data.filter(
+			(item) => item.available === true
+		);
+		setSelectedItems(filteredResult);
+		setButtonSwitch(true);
+	} catch (err) {
+		console.error('error getting items:', err);
+	}
+};
 
-// export default getItemsByModel;
+export default getItemsByModel;
+
+//assign the item chosen by user when selected items get updated
+export const getItem = (selectedItems, setItem, setUserData) => {
+	if (selectedItems) {
+		const randomIndex = Math.floor(Math.random() * selectedItems.length);
+		const chosenItem = selectedItems[randomIndex];
+		if (chosenItem) {
+			setItem(chosenItem);
+			const currentDate = new Date();
+			const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+			const formattedDate = currentDate.toLocaleString('en-US', options);
+			setUserData((prevData) => ({
+				...prevData,
+				['item']: chosenItem.model,
+				['serialNumber']: chosenItem.serialNumber,
+				['category']: 'new',
+				['date']: formattedDate,
+			}));
+		}
+	}
+};
 
 //send item that needs to be updated to the database
 export const handleItemData = async (id, updatedValue) => {
