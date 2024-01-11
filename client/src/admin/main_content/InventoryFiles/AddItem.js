@@ -77,27 +77,25 @@ const AddItem = ({ items, getItems, category }) => {
 				</button>
 			) : (
 				<Form onSubmit={handleAddItemSubmit}>
-					{camelCaseObject.map(({ key, type }, index) => {
+					{camelCaseObject.map(({ key, type }) => {
 						if (type === 'boolean') {
 							return (
-								<>
-									<div>
-										<p>{key}</p>
-										<select
-											onChange={(e) => handleOptionChange(key, e.target.value)}
-											required
-										>
-											<option value=''>Choose</option>
-											<option value='yes'>Yes</option>
-											<option value='no'>No</option>
-										</select>
-									</div>
-								</>
+								<div key={key}>
+									<p>{key}</p>
+									<select
+										onChange={(e) => handleOptionChange(key, e.target.value)}
+										required
+									>
+										<option value=''>Choose</option>
+										<option value='yes'>Yes</option>
+										<option value='no'>No</option>
+									</select>
+								</div>
 							);
 						} else {
 							if (key !== 'category') {
 								return (
-									<>
+									<div key={key}>
 										<p>{key}</p>
 										<input
 											name={key}
@@ -106,7 +104,7 @@ const AddItem = ({ items, getItems, category }) => {
 											onChange={(e) => handleFormChange(key, e.target.value)}
 											required={true}
 										></input>
-									</>
+									</div>
 								);
 							}
 						}

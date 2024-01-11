@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useCurrentCategory } from '../../CategoryContext';
 import AddItem from './AddItem';
 import ViewSingleItem from './ViewSingleItem';
@@ -10,6 +10,7 @@ const ViewItems = () => {
 	const [items, setItems] = useState([]);
 	const [itemId, setItemId] = useState(String);
 	const [category, setCategory] = useState([]);
+	const [search, setSearch] = useState('');
 
 	const { currentCategory } = useCurrentCategory();
 
@@ -51,6 +52,44 @@ const ViewItems = () => {
 		setItemId(null);
 	};
 
+	const renderAddItem = ({ items, getItems, category }) => {
+		return <AddItem items={items} getItems={getItems} category={category} />;
+	};
+
+	const renderViewSingleItem = ({
+		keys,
+		item,
+		index,
+		handleIdChange,
+		getItems,
+	}) => {
+		return (
+			<ViewSingleItem
+				keys={keys}
+				item={item}
+				index={index}
+				handleIdChange={handleIdChange}
+				getItems={getItems}
+			/>
+		);
+	};
+
+	const renderEditSingleItem = ({
+		keys,
+		item,
+		index,
+		handleCancelChange,
+		getItems,
+	}) => {
+		<EditSingleItem
+			keys={keys}
+			item={item}
+			index={index}
+			handleCancelChange={handleCancelChange}
+			getItems={getItems}
+		/>;
+	};
+
 	return (
 		<>
 			{items.length < 1 ? (
@@ -59,26 +98,24 @@ const ViewItems = () => {
 
 					<div>You don't have any items in this category</div>
 					<div>Add one now</div>
-					<AddItem
-						items={items}
-						setItems={setItems}
-						getItems={getItems}
-						category={category}
-					/>
+					{renderAddItem({
+						items: items,
+						getItems: getItems,
+						category: category,
+					})}
 				</>
 			) : (
 				<>
 					<h1>{category.name}</h1>
 
 					<div>
-						<SearchBar />
+						<SearchBar search={search} setSearch={setSearch} />
 						<DownloadData items={items} />
-						<AddItem
-							items={items}
-							setItems={setItems}
-							getItems={getItems}
-							category={category}
-						/>
+						{renderAddItem({
+							items: items,
+							getItems: getItems,
+							category: category,
+						})}
 					</div>
 
 					<form>
@@ -93,29 +130,41 @@ const ViewItems = () => {
 								)}
 							</thead>
 							<tbody>
-								{items.map((item, index) => {
-									return (
-										<>
-											{itemId === item._id ? (
-												<EditSingleItem
-													keys={keys}
-													item={item}
-													index={index}
-													handleCancelChange={handleCancelChange}
-													getItems={getItems}
-												/>
-											) : (
-												<ViewSingleItem
-													keys={keys}
-													item={item}
-													index={index}
-													getItems={getItems}
-													handleIdChange={handleIdChange}
-												/>
-											)}
-										</>
-									);
-								})}
+								{items
+									.filter((item) => {
+										return search.toLowerCase() === ''
+											? item
+											: item.serialNumber
+													.toLowerCase()
+													.includes(search.toLowerCase());
+									})
+									.map((item, index) => {
+										return (
+											<Fragment key={item._id}>
+												{itemId === item._id ? (
+													<>
+														{renderEditSingleItem({
+															keys: keys,
+															item: item,
+															index: index,
+															handleCancelChange: handleCancelChange,
+															getItems: getItems,
+														})}
+													</>
+												) : (
+													<>
+														{renderViewSingleItem({
+															keys: keys,
+															item: item,
+															index: index,
+															handleIdChange: handleIdChange,
+															getItems: getItems,
+														})}
+													</>
+												)}
+											</Fragment>
+										);
+									})}
 							</tbody>
 						</table>
 					</form>

@@ -48,13 +48,9 @@ const OldRequests = () => {
 				<table>
 					<thead>
 						<tr>
-							{keys.map((column, index) => {
+							{keys.map((column) => {
 								if (column !== '_id' && column !== 'Category') {
-									return (
-										<>
-											<th key={index}>{column}</th>
-										</>
-									);
+									return <th key={column}>{column}</th>;
 								}
 								return null;
 							})}
@@ -64,14 +60,12 @@ const OldRequests = () => {
 					<tbody>
 						{oldRequests.map((r, index) => {
 							return (
-								<>
-									<tr key={index}>
-										{Object.entries(r).map((key, value) => {
-											if (key[0] !== '_id' && key[0] !== 'category')
-												return <td key={key}>{key[1]}</td>;
-										})}
-									</tr>
-								</>
+								<tr key={r._id}>
+									{Object.entries(r).map((key, value) => {
+										if (key[0] !== '_id' && key[0] !== 'category')
+											return <td key={key}>{key[1]}</td>;
+									})}
+								</tr>
 							);
 						})}
 					</tbody>

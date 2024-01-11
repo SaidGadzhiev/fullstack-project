@@ -1,7 +1,11 @@
-const SearchBar = () => {
+const SearchBar = ({ search, setSearch }) => {
 	return (
 		<>
-			<h1>SearchBar, not working for now</h1>
+			<label></label>
+			<input
+				onChange={(e) => setSearch(e.target.value)}
+				placeholder='Search by serial number'
+			></input>
 		</>
 	);
 };

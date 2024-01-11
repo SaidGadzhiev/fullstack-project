@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import fetchRequest from '../admin/main_content/InventoryFiles/utils/fetchRequest';
-import { updateItem } from '../admin/main_content/InventoryFiles/handleItem.js/updateItem';
 import { useNavigate } from 'react-router-dom';
-import { handleItemData } from './itemChoiceHandlers/itemHandlers';
+import getItemsByModel, {
+	getItem,
+	handleItemData,
+} from './itemChoiceHandlers/itemHandlers';
 import handleUserData from './itemChoiceHandlers/handleUserData';
 
 const ItemChoice = ({ items, chosenCat }) => {
@@ -14,7 +15,6 @@ const ItemChoice = ({ items, chosenCat }) => {
 	const [item, setItem] = useState();
 
 	const [userData, setUserData] = useState({});
-	const [date, setDate] = useState();
 
 	const navigate = useNavigate();
 
@@ -31,30 +31,15 @@ const ItemChoice = ({ items, chosenCat }) => {
 		setUniqueModels([...new Set(models)]);
 	}, [items]);
 
-	//retieve the right items depending on user preference
-	const getItemsByModel = async () => {
-		setButtonSwitch(true);
-		try {
-			const result = await fetch(`/items/key/model/${selectedModel}`);
-			const parsedResult = await result.json();
-			const filteredResult = parsedResult.data.filter(
-				(item) => item.available === true
-			);
-			setSelectedItems(filteredResult);
-			setButtonSwitch(false);
-		} catch (err) {
-			console.error('error getting items:', err);
-		}
-	};
-
 	//call the getItemsByModel when user selects a model
 	useEffect(() => {
-		getItemsByModel();
+		getItemsByModel(setButtonSwitch, selectedModel, setSelectedItems);
 	}, [selectedModel]);
 
 	//reset chosen item and radiohead when switched to another cat
 	useEffect(() => {
 		setRadioButton(null);
+		setButtonSwitch(false);
 	}, [chosenCat]);
 
 	const handleModelSelect = (model) => {
@@ -62,29 +47,8 @@ const ItemChoice = ({ items, chosenCat }) => {
 		setRadioButton(model);
 	};
 
-	//assign the item chosen by user when selected items get updated
-	const getItem = () => {
-		if (selectedItems) {
-			const randomIndex = Math.floor(Math.random() * selectedItems.length);
-			const chosenItem = selectedItems[randomIndex];
-			if (chosenItem) {
-				setItem(chosenItem);
-				const currentDate = new Date();
-				const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-				const formattedDate = currentDate.toLocaleString('en-US', options);
-				setUserData((prevData) => ({
-					...prevData,
-					['item']: chosenItem.model,
-					['serialNumber']: chosenItem.serialNumber,
-					['category']: 'new',
-					['date']: formattedDate,
-				}));
-			}
-		}
-	};
-
 	useEffect(() => {
-		getItem();
+		getItem(selectedItems, setItem, setUserData);
 	}, [selectedItems]);
 
 	const handleCategoryChoice = async (e) => {
@@ -103,26 +67,31 @@ const ItemChoice = ({ items, chosenCat }) => {
 			>
 				{selectedItems && (
 					<>
-						{uniqueModels.map((model, key) => {
-							return (
-								<>
-									<label key={key}>
-										<input
-											type='radio'
-											name='item'
-											value={model}
-											checked={radioButton === model}
-											onChange={(e) => handleModelSelect(e.target.value)}
-										/>
-										{model}
-									</label>
-								</>
-							);
-						})}
+						{models.length === 0 ? (
+							<>sorry, choose another item!</>
+						) : (
+							<>
+								{uniqueModels.map((model, key) => {
+									return (
+										<label key={model}>
+											<input
+												type='radio'
+												name='item'
+												value={model}
+												checked={radioButton === model}
+												disabled={uniqueModels.length === 0}
+												onChange={(e) => handleModelSelect(e.target.value)}
+											/>
+											{model}
+										</label>
+									);
+								})}
+							</>
+						)}
 					</>
 				)}
 
-				{selectedModel && !buttonSwitch && <button>Submit</button>}
+				{selectedModel && buttonSwitch && <button>Submit</button>}
 			</form>
 		</>
 	);
