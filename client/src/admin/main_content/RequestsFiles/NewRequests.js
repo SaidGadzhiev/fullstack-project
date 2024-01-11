@@ -49,13 +49,9 @@ const NewRequests = () => {
 				<table>
 					<thead>
 						<tr>
-							{keys.map((column, index) => {
+							{keys.map((column) => {
 								if (column !== '_id' && column !== 'Category') {
-									return (
-										<>
-											<th key={index}>{column}</th>
-										</>
-									);
+									return <th key={column}>{column}</th>;
 								}
 								return null;
 							})}
@@ -63,21 +59,15 @@ const NewRequests = () => {
 					</thead>
 
 					<tbody>
-						{newRequests.map((r, index) => {
+						{newRequests.map((r) => {
 							return (
-								<>
-									<tr key={index}>
-										{Object.entries(r).map((key, value) => {
-											if (key[0] !== '_id' && key[0] !== 'category')
-												return (
-													<>
-														<td key={key}>{key[1]}</td>
-													</>
-												);
-										})}
-										<MoveRequest request={r} getRequests={getRequests} />
-									</tr>
-								</>
+								<tr key={r._id}>
+									{Object.entries(r).map((key) => {
+										if (key[0] !== '_id' && key[0] !== 'category')
+											return <td key={key}>{key[1]}</td>;
+									})}
+									<MoveRequest request={r} getRequests={getRequests} />
+								</tr>
 							);
 						})}
 					</tbody>

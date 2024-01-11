@@ -90,33 +90,31 @@ const AddCategory = ({ getCategories }) => {
 					></input>
 					{fields.map((field, index) => {
 						return (
-							<>
-								<div key={field.id}>
-									{' '}
-									New key value pair:
-									<input
-										{...register(`fields[${index}].key`)}
-										defaultValue={field.key}
-										placeholder='Name of the row'
-										required
-									/>
-									<select
-										{...register(`fields[${index}].type`)}
-										defaultValue={field.type}
-										placeholder='Type of input'
-										required
-									>
-										<option></option>
-										<option>boolean</option>
-										<option>string</option>
-									</select>
-									{fields.length > 1 && (
-										<button type='button' onClick={() => remove(index)}>
-											Remove
-										</button>
-									)}
-								</div>
-							</>
+							<div key={field.id}>
+								{' '}
+								New key value pair:
+								<input
+									{...register(`fields[${index}].key`)}
+									defaultValue={field.key}
+									placeholder='Name of the row'
+									required
+								/>
+								<select
+									{...register(`fields[${index}].type`)}
+									defaultValue={field.type}
+									placeholder='Type of input'
+									required
+								>
+									<option></option>
+									<option>boolean</option>
+									<option>string</option>
+								</select>
+								{fields.length > 1 && (
+									<button type='button' onClick={() => remove(index)}>
+										Remove
+									</button>
+								)}
+							</div>
 						);
 					})}
 					<button type='button' onClick={() => append({ type: '' })}>

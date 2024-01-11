@@ -10,6 +10,7 @@ const EditSingleItem = ({
 	getItems,
 }) => {
 	const [itemData, editFormData] = useState(item);
+	const [disabled, setDisabled] = useState(false);
 
 	useEffect(() => {
 		editFormData(item);
@@ -29,7 +30,7 @@ const EditSingleItem = ({
 	};
 	const handleSaveChange = async (e) => {
 		e.preventDefault();
-
+		setDisabled(true);
 		//checks which value are different from the previous item data
 		for (const key in itemData) {
 			if (itemData.hasOwnProperty(key) && item[key] !== itemData[key]) {
@@ -47,6 +48,8 @@ const EditSingleItem = ({
 		} catch (err) {
 			console.log(err);
 		}
+		setDisabled(false);
+
 		getItems();
 
 		handleCancelChange();
@@ -86,9 +89,14 @@ const EditSingleItem = ({
 					}
 				})}
 				<td>
-					<button type='button' onClick={(e) => handleSaveChange(e)}>
-						Save
-					</button>
+					{!disabled ? (
+						<button type='button' onClick={(e) => handleSaveChange(e)}>
+							Save
+						</button>
+					) : (
+						<p>updating</p>
+					)}
+
 					<button
 						type='button'
 						onClick={(e) => handleCancelChange(e, item._id)}
