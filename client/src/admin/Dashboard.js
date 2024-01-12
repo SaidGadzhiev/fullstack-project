@@ -3,22 +3,23 @@ import MainContent from './main_content/MainContent';
 import { CategoryProvider } from './CategoryContext';
 import { useCurrentUser } from '../AuthContext';
 import styled from 'styled-components';
+import AdminSignIn from './sign in folder/AdminSignIn';
 
 function Dashboard() {
 	const { userProfile } = useCurrentUser();
 
 	return (
 		<>
-			<Wrapper>
-				<CategoryProvider>
-					<NavSideBar />
-					<MainContent />
-				</CategoryProvider>
-			</Wrapper>
-			{/* <>
-					<h1>You have to log in first</h1>
-					<LoginButton />
-				</> */}
+			{userProfile ? (
+				<Wrapper>
+					<CategoryProvider>
+						<NavSideBar />
+						<MainContent />
+					</CategoryProvider>
+				</Wrapper>
+			) : (
+				<AdminSignIn />
+			)}
 		</>
 	);
 }

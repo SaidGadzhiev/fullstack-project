@@ -1,6 +1,5 @@
 import ViewItems from './InventoryFiles/ViewItems';
 import { useCurrentCategory } from '../CategoryContext';
-import RequestSelection from '../sidebar_navigation/RequestSelection';
 import Requests from './RequestsFiles/Requests';
 
 const MainContent = () => {

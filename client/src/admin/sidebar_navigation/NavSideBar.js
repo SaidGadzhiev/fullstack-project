@@ -1,9 +1,10 @@
 import RequestSelection from './RequestSelection';
 import CategorySelection from './CategorySelection';
-import LogoutButton from '../../LogoutButton';
+import LogoutButton from '../../user/sign in folder/LogoutButton';
 import { useCurrentUser } from '../../AuthContext';
 import Profile from './Profile';
 import { NavLink } from 'react-router-dom';
+import AdminLogOut from '../sign in folder/AdminLogOut';
 
 const NavSideBar = () => {
 	const { userProfile } = useCurrentUser();
@@ -13,7 +14,7 @@ const NavSideBar = () => {
 			<Profile />
 			<CategorySelection />
 			<RequestSelection />
-			<LogoutButton />
+			<AdminLogOut />
 		</div>
 	);
 };
