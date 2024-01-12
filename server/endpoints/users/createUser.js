@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const createUser = async (req, res) => {
 	const client = new MongoClient(MONGO_URI);
 
-	const { username, email, password } = req.body;
+	const { username, email, password, role } = req.body;
 
 	const newUser = req.body;
 
@@ -23,7 +23,6 @@ const createUser = async (req, res) => {
 
 	//valditing name
 	const isValidUserName = (username) => {
-		console.log(typeof username);
 		return (
 			typeof username === 'string' &&
 			username.length >= 2 &&
@@ -56,7 +55,6 @@ const createUser = async (req, res) => {
 	} else {
 		hashPassword(password).then((hashedPassword) => {
 			newUser.password = hashedPassword;
-			console.log(newUser);
 		});
 
 		try {

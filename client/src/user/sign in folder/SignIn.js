@@ -1,11 +1,11 @@
 import LoginButton from './LoginButton';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useCurrentUser } from './AuthContext';
+import { useCurrentUser } from '../../AuthContext';
+import LogoutButton from './LogoutButton';
 
 const SignIn = () => {
 	const { isLoading, error } = useAuth0();
 	const { userProfile } = useCurrentUser();
-	console.log(userProfile);
 
 	return (
 		<>
@@ -14,7 +14,6 @@ const SignIn = () => {
 			{!error && !isLoading && (
 				<>
 					<LoginButton />
-					{/* <UserLoginButton /> */}
 				</>
 			)}
 		</>

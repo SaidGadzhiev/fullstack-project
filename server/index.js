@@ -10,11 +10,11 @@ const deleteCategory = require('./endpoints/categories/deleteCategory');
 const getSingleCategory = require('./endpoints/categories/getSingleCategory');
 const createCategory = require('./endpoints/categories/createCategory');
 const updateCategory = require('./endpoints/categories/updateCategory');
-const getUser = require('./endpoints/users/getUser');
 const createUser = require('./endpoints/users/createUser');
 const getAllRequests = require('./endpoints/requests/getAllRequests');
 const createRequest = require('./endpoints/requests/createRequest');
 const updateRequest = require('./endpoints/requests/updateRequest');
+const getSingleUser = require('./endpoints/users/getSingleUser');
 const app = express();
 const port = 4000;
 
@@ -55,7 +55,7 @@ app.post('/requests', createRequest);
 app.patch('/requests/:id', updateRequest);
 
 //users endpoints
-app.get('/users', getUser);
+app.post('/user', getSingleUser);
 app.post('/users', createUser);
 
 app.listen(port, () => {

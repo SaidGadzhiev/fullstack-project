@@ -1,9 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useCurrentUser } from './AuthContext';
+import { useCurrentUser } from '../../AuthContext';
 
 const LogoutButton = () => {
-	const { logout } = useAuth0();
-	const { userProfile, removeUser } = useCurrentUser();
+	const { logout, isAuthenticated } = useAuth0();
+	const { removeUser } = useCurrentUser();
 
 	const handleLogOut = async () => {
 		removeUser();
@@ -11,7 +11,7 @@ const LogoutButton = () => {
 	};
 
 	return (
-		userProfile && (
+		isAuthenticated && (
 			<>
 				<div>
 					<h1>Log out </h1>

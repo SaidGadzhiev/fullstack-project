@@ -6,7 +6,7 @@ const Profile = () => {
 	return (
 		userProfile && (
 			<>
-				<h1>Welcome back {userProfile.name}</h1>
+				<h1>Welcome back {userProfile.username}</h1>
 			</>
 		)
 	);
