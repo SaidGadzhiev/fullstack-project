@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import fetchRequest from '../main_content/InventoryFiles/utils/fetchRequest';
+import fetchRequest from '../../main_content/InventoryFiles/utils/fetchRequest';
 import { compareUser } from './userHandler';
 import { useCurrentUser } from '../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const AdminSignIn = () => {
+const AdminLogIn = () => {
 	const [user, setUser] = useState([]);
 	const [errors, setErrors] = useState();
 
@@ -12,14 +12,9 @@ const AdminSignIn = () => {
 
 	const navigate = useNavigate();
 
-	console.log(userProfile);
-
 	const handleInput = (value, key) => {
-		console.log(key);
 		setUser((prevUser) => ({ ...prevUser, [key]: value }));
 	};
-
-	console.log(user);
 
 	const handleSubmitForm = async (e) => {
 		e.preventDefault();
@@ -27,16 +22,17 @@ const AdminSignIn = () => {
 			const res = await fetchRequest(() => compareUser(user));
 			if (!res.data) {
 				setErrors(res.message);
-				console.log('wrong');
 			} else {
 				setErrors(null);
 				setUserProfile(res.data);
-				if (userProfile.role === 'admin') {
-					console.log('sign in');
+
+				if (res.data.role === 'admin') {
 					navigate('/admin');
 				}
 			}
-		} catch (err) {}
+		} catch (err) {
+			console.log(err);
+		}
 	};
 	return (
 		<>
@@ -44,7 +40,7 @@ const AdminSignIn = () => {
 				<p>You already signed in. Go back to admin page</p>
 			) : (
 				<>
-					<p>Sign in as Admin</p>
+					<p>Login to the dashboard</p>
 					<form onSubmit={(e) => handleSubmitForm(e)}>
 						<div>
 							<label>Email</label>
@@ -72,4 +68,4 @@ const AdminSignIn = () => {
 		</>
 	);
 };
-export default AdminSignIn;
+export default AdminLogIn;

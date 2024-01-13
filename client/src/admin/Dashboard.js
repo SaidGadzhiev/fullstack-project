@@ -1,9 +1,10 @@
 import NavSideBar from './sidebar_navigation/NavSideBar';
 import MainContent from './main_content/MainContent';
 import { CategoryProvider } from './CategoryContext';
-import { useCurrentUser } from '../AuthContext';
+import { useCurrentUser } from './AuthContext';
 import styled from 'styled-components';
-import AdminSignIn from './sign in folder/AdminSignIn';
+import AdminLogIn from './authentication/login folder/AdminLogIn';
+import Confirmation from './authentication/AdminConfirmation';
 
 function Dashboard() {
 	const { userProfile } = useCurrentUser();
@@ -11,14 +12,23 @@ function Dashboard() {
 	return (
 		<>
 			{userProfile ? (
-				<Wrapper>
-					<CategoryProvider>
-						<NavSideBar />
-						<MainContent />
-					</CategoryProvider>
-				</Wrapper>
+				<>
+					{userProfile.role === 'admin' ? (
+						<Wrapper>
+							<CategoryProvider>
+								<NavSideBar />
+								<MainContent />
+							</CategoryProvider>
+						</Wrapper>
+					) : (
+						<Confirmation />
+					)}
+				</>
 			) : (
-				<AdminSignIn />
+				<>
+					<p>You have to log in first!</p>
+					<AdminLogIn />
+				</>
 			)}
 		</>
 	);
