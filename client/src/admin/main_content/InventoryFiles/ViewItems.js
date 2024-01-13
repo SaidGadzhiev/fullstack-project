@@ -5,6 +5,7 @@ import ViewSingleItem from './ViewSingleItem';
 import EditSingleItem from './EditSingleItem';
 import SearchBar from './SearchBar';
 import DownloadData from './DownloadData';
+import TableHeadRow from './TableHeadRow';
 
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
@@ -88,13 +89,7 @@ const ViewItems = () => {
 					<form>
 						<table>
 							<thead>
-								{category.attributes && (
-									<tr>
-										{category.attributes.map((key) => {
-											return <th key={key.key}>{key.key}</th>;
-										})}
-									</tr>
-								)}
+								<TableHeadRow category={category} />
 							</thead>
 							<tbody>
 								{items
