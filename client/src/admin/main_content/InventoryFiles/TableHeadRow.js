@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
+import fetchRequest from './utils/fetchRequest';
+import { updateCategory } from './handleCategories/updateCategory';
+import { updateItemByCat } from './handleItem.js/updateItemByCat';
 
-const TableHeadRow = ({ category }) => {
+const TableHeadRow = ({ category, getCategory, getItems }) => {
 	const [isEdible, setIsEdible] = useState(String);
 	const [newKey, setNewKey] = useState('');
+	const [oldKey, setOldKey] = useState('');
 	const inputRef = useRef(null);
-
-	console.log(category);
 
 	useEffect(() => {
 		if (isEdible && inputRef.current) {
@@ -15,10 +17,11 @@ const TableHeadRow = ({ category }) => {
 
 	const handleDoubleClick = (e, value) => {
 		setIsEdible(value);
+		setOldKey(value);
 		setNewKey(value);
 	};
 
-	const handleBlur = (event) => {
+	const handleBlur = async (event) => {
 		//relatedTarget = whats focused by the cursor
 		//.isEqualNode(input...) checks if teh cursor is being clicked outside of input
 		if (
@@ -26,7 +29,30 @@ const TableHeadRow = ({ category }) => {
 			!event.relatedTarget.isEqualNode(inputRef.current)
 		) {
 			setIsEdible(null);
-			console.log('being unclicked');
+			const changedKeys = {
+				oldKey: oldKey,
+				newKey: newKey,
+			};
+			try {
+				const res = await fetchRequest(() =>
+					updateCategory(category._id, changedKeys)
+				);
+				if (res) {
+					getCategory();
+				}
+			} catch (err) {
+				console.log(err);
+			}
+			try {
+				const res = await fetchRequest(() =>
+					updateItemByCat(category._id, changedKeys, category.name)
+				);
+				if (res) {
+					// getItems();
+				}
+			} catch (err) {
+				console.log(err);
+			}
 		}
 	};
 
@@ -34,14 +60,16 @@ const TableHeadRow = ({ category }) => {
 		setNewKey(value);
 	};
 
-	console.log(newKey);
-
 	return (
 		<>
 			{category.attributes && (
 				<tr>
 					{category.attributes.map((key) => {
-						if (key.key === 'Serial Number' || key.key === 'Model') {
+						if (
+							key.key === 'Serial Number' ||
+							key.key === 'Model' ||
+							key.key === 'Available'
+						) {
 							return <th key={key.key}>{key.key}</th>;
 						} else {
 							return (
