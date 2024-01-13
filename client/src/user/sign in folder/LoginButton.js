@@ -24,13 +24,13 @@ const LoginButton = () => {
 	return (
 		!isAuthenticated && (
 			<>
-				<p>Login to Dashboard</p>
+				<p>Login as user</p>
 				<button
 					onClick={() => {
 						loginWithRedirect();
 					}}
 				>
-					Sign in on dashboard
+					Sign in to borrow
 				</button>
 			</>
 		)
