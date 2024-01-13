@@ -2,12 +2,12 @@ import { useCurrentUser } from '../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLogOut = () => {
-	const { userProfile, setUserProfile, removeUser } = useCurrentUser();
+	const { removeUser } = useCurrentUser();
 	const navigate = useNavigate();
 
 	const handleLogOut = () => {
 		removeUser();
-		navigate('/adminsignin');
+		navigate('/authentication/');
 	};
 
 	return (

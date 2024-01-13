@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useCurrentUser } from '../../AuthContext';
+import { useCurrentUser } from '../../admin/AuthContext';
 
 const LogoutButton = () => {
 	const { logout, isAuthenticated } = useAuth0();

@@ -5,6 +5,7 @@ import ViewSingleItem from './ViewSingleItem';
 import EditSingleItem from './EditSingleItem';
 import SearchBar from './SearchBar';
 import DownloadData from './DownloadData';
+import TableHeadRow from './TableHeadRow';
 
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
@@ -44,6 +45,7 @@ const ViewItems = () => {
 	//to go from view to edit for each Item
 	const handleIdChange = (e, item) => {
 		e.preventDefault();
+		console.log(item);
 		setItemId(item._id);
 	};
 
@@ -54,40 +56,6 @@ const ViewItems = () => {
 
 	const renderAddItem = ({ items, getItems, category }) => {
 		return <AddItem items={items} getItems={getItems} category={category} />;
-	};
-
-	const renderViewSingleItem = ({
-		keys,
-		item,
-		index,
-		handleIdChange,
-		getItems,
-	}) => {
-		return (
-			<ViewSingleItem
-				keys={keys}
-				item={item}
-				index={index}
-				handleIdChange={handleIdChange}
-				getItems={getItems}
-			/>
-		);
-	};
-
-	const renderEditSingleItem = ({
-		keys,
-		item,
-		index,
-		handleCancelChange,
-		getItems,
-	}) => {
-		<EditSingleItem
-			keys={keys}
-			item={item}
-			index={index}
-			handleCancelChange={handleCancelChange}
-			getItems={getItems}
-		/>;
 	};
 
 	return (
@@ -121,13 +89,7 @@ const ViewItems = () => {
 					<form>
 						<table>
 							<thead>
-								{category.attributes && (
-									<tr>
-										{category.attributes.map((key) => {
-											return <th key={key.key}>{key.key}</th>;
-										})}
-									</tr>
-								)}
+								<TableHeadRow category={category} />
 							</thead>
 							<tbody>
 								{items
@@ -142,25 +104,21 @@ const ViewItems = () => {
 										return (
 											<Fragment key={item._id}>
 												{itemId === item._id ? (
-													<>
-														{renderEditSingleItem({
-															keys: keys,
-															item: item,
-															index: index,
-															handleCancelChange: handleCancelChange,
-															getItems: getItems,
-														})}
-													</>
+													<EditSingleItem
+														keys={keys}
+														item={item}
+														index={index}
+														handleCancelChange={handleCancelChange}
+														getItems={getItems}
+													/>
 												) : (
-													<>
-														{renderViewSingleItem({
-															keys: keys,
-															item: item,
-															index: index,
-															handleIdChange: handleIdChange,
-															getItems: getItems,
-														})}
-													</>
+													<ViewSingleItem
+														keys={keys}
+														item={item}
+														index={index}
+														getItems={getItems}
+														handleIdChange={handleIdChange}
+													/>
 												)}
 											</Fragment>
 										);

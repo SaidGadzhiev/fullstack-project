@@ -13,14 +13,6 @@ const createUser = async (req, res) => {
 
 	const errors = [];
 
-	//valditing password
-	if (!validator.isStrongPassword(password)) {
-		errors.push({
-			passwordError:
-				'Make sure your password is at least 8 characters long. Contains at least one lowercase letter. Contains at least one uppercase letter. Contains at least one digit. Contains at least one special character',
-		});
-	}
-
 	//valditing name
 	const isValidUserName = (username) => {
 		return (
@@ -33,6 +25,14 @@ const createUser = async (req, res) => {
 		errors.push({
 			userError:
 				'Make sure to only use letters. Name should be between 2 and 15 characters',
+		});
+	}
+
+	//valditing password
+	if (!validator.isStrongPassword(password)) {
+		errors.push({
+			passwordError:
+				'Make sure your password is at least 8 characters long. Contains at least one lowercase letter. Contains at least one uppercase letter. Contains at least one digit. Contains at least one special character',
 		});
 	}
 

@@ -1,4 +1,4 @@
-import { useCurrentUser } from '../../AuthContext';
+import { useCurrentUser } from '../AuthContext';
 
 const Profile = () => {
 	const { userProfile } = useCurrentUser();

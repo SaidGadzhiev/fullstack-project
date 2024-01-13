@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentUser } from '../../AuthContext';
+import { useCurrentUser } from '../../admin/AuthContext';
 import { useEffect, useState } from 'react';
 
 const LoginButton = () => {

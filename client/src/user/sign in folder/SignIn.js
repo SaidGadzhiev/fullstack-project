@@ -1,6 +1,6 @@
 import LoginButton from './LoginButton';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useCurrentUser } from '../../AuthContext';
+import { useCurrentUser } from '../../admin/AuthContext';
 import LogoutButton from './LogoutButton';
 
 const SignIn = () => {
