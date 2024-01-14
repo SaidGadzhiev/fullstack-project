@@ -15,6 +15,7 @@ const getAllRequests = require('./endpoints/requests/getAllRequests');
 const createRequest = require('./endpoints/requests/createRequest');
 const updateRequest = require('./endpoints/requests/updateRequest');
 const getSingleUser = require('./endpoints/users/getSingleUser');
+const updateAllItemsByCat = require('./endpoints/items/updateAllItemsByCat');
 const app = express();
 const port = 4000;
 
@@ -42,6 +43,7 @@ app.get('/items/key/:key/:value', getSingleItem);
 app.delete('/items/:id', deleteItem);
 app.post('/items', createItem);
 app.patch('/items/:id', updateItem);
+app.patch('/items/key/:key/:value', updateAllItemsByCat);
 
 //categories endpoints
 app.get('/categories', getAllCategories);

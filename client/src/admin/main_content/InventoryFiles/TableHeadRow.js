@@ -1,18 +1,48 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import fetchRequest from './utils/fetchRequest';
+import { updateCategory } from './handleCategories/updateCategory';
 
-const TableHeadRow = ({ category }) => {
+const TableHeadRow = ({ category, getCategory, getItems }) => {
 	const [isEdible, setIsEdible] = useState(String);
 	const [newKey, setNewKey] = useState('');
+	const [oldKey, setOldKey] = useState('');
+	const inputRef = useRef(null);
 
-	const handleBlur = () => {
-		setIsEdible(null);
-		console.log('unclicked');
-	};
+	useEffect(() => {
+		if (isEdible && inputRef.current) {
+			inputRef.current.focus();
+		}
+	}, [isEdible]);
 
 	const handleDoubleClick = (e, value) => {
 		setIsEdible(value);
+		setOldKey(value);
 		setNewKey(value);
-		console.log('clicked');
+	};
+
+	const handleBlur = async (event) => {
+		//relatedTarget = whats focused by the cursor
+		//.isEqualNode(input...) checks if teh cursor is being clicked outside of input
+		if (
+			!event.relatedTarget ||
+			!event.relatedTarget.isEqualNode(inputRef.current)
+		) {
+			setIsEdible(null);
+			const changedKeys = {
+				oldKey: oldKey,
+				newKey: newKey,
+			};
+			try {
+				const res = await fetchRequest(() =>
+					updateCategory(category._id, changedKeys)
+				);
+				if (res) {
+					getCategory();
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		}
 	};
 
 	const handleInput = (value) => {
@@ -24,14 +54,18 @@ const TableHeadRow = ({ category }) => {
 			{category.attributes && (
 				<tr>
 					{category.attributes.map((key) => {
-						if (key.key === 'Serial Number' || key.key === 'Model') {
+						if (
+							key.key === 'Serial Number' ||
+							key.key === 'Model' ||
+							key.key === 'Available'
+						) {
 							return <th key={key.key}>{key.key}</th>;
 						} else {
 							return (
 								<th key={key.key}>
 									{isEdible === key.key ? (
 										<input
-											onBlur={handleBlur()}
+											onBlur={handleBlur}
 											type='text'
 											id='key'
 											value={newKey}
@@ -39,7 +73,6 @@ const TableHeadRow = ({ category }) => {
 										/>
 									) : (
 										<span onDoubleClick={(e) => handleDoubleClick(e, key.key)}>
-											{' '}
 											{key.key}
 										</span>
 									)}

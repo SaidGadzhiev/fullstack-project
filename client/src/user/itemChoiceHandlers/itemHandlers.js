@@ -23,7 +23,7 @@ const getItemsByModel = async (
 export default getItemsByModel;
 
 //assign the item chosen by user when selected items get updated
-export const getItem = (selectedItems, setItem, setUserData) => {
+export const getItem = (selectedItems, setItem, setUserData, user) => {
 	if (selectedItems) {
 		const randomIndex = Math.floor(Math.random() * selectedItems.length);
 		const chosenItem = selectedItems[randomIndex];
@@ -36,6 +36,8 @@ export const getItem = (selectedItems, setItem, setUserData) => {
 				...prevData,
 				['item']: chosenItem.model,
 				['serialNumber']: chosenItem.serialNumber,
+				['borrowerName']: user.given_name,
+				['email']: user.email,
 				['category']: 'new',
 				['date']: formattedDate,
 			}));

@@ -63,7 +63,9 @@ const UserPage = () => {
 									</label>
 								);
 							})}
-							{chosenCat && <ItemChoice items={items} chosenCat={chosenCat} />}
+							{chosenCat && (
+								<ItemChoice items={items} chosenCat={chosenCat} user={user} />
+							)}
 						</>
 					)}
 

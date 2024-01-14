@@ -45,7 +45,6 @@ const ViewItems = () => {
 	//to go from view to edit for each Item
 	const handleIdChange = (e, item) => {
 		e.preventDefault();
-		console.log(item);
 		setItemId(item._id);
 	};
 
@@ -89,7 +88,11 @@ const ViewItems = () => {
 					<form>
 						<table>
 							<thead>
-								<TableHeadRow category={category} />
+								<TableHeadRow
+									category={category}
+									getCategory={getCategory}
+									getItems={getItems}
+								/>
 							</thead>
 							<tbody>
 								{items

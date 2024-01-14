@@ -11,6 +11,7 @@ const EditSingleItem = ({
 }) => {
 	const [itemData, editFormData] = useState(item);
 	const [disabled, setDisabled] = useState(false);
+	const [selectedOption, setSelectedOption] = useState('');
 
 	useEffect(() => {
 		editFormData(item);
@@ -19,6 +20,7 @@ const EditSingleItem = ({
 	const changedValues = {};
 
 	const handleOptionChange = (key, e) => {
+		setSelectedOption(e.target.value);
 		editFormData((prevData) => ({
 			...prevData,
 			[key]: e.target.value === 'yes',
@@ -55,12 +57,14 @@ const EditSingleItem = ({
 		handleCancelChange();
 	};
 
+	console.log(itemData);
+
 	return (
 		<>
 			<tr key={index}>
 				{keys.map((key) => {
 					if (key !== 'category') {
-						if (itemData[key] === false || itemData[key] === true) {
+						if (itemData[key] === false) {
 							return (
 								<td key={key}>
 									<select
@@ -68,8 +72,25 @@ const EditSingleItem = ({
 										type='select'
 										required
 										placeholder='select'
+										value={selectedOption}
 									>
-										<option> </option>
+										{' '}
+										<option value='no'>NO</option>
+										<option value='yes'>YES</option>
+									</select>
+								</td>
+							);
+						} else if (itemData[key] === true) {
+							return (
+								<td key={key}>
+									<select
+										onChange={(e) => handleOptionChange(key, e)}
+										type='select'
+										required
+										placeholder='select'
+										value={selectedOption}
+									>
+										{' '}
 										<option value='yes'>YES</option>
 										<option value='no'>NO</option>
 									</select>
