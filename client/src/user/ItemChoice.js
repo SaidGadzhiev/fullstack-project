@@ -6,7 +6,7 @@ import getItemsByModel, {
 } from './itemChoiceHandlers/itemHandlers';
 import handleUserData from './itemChoiceHandlers/handleUserData';
 
-const ItemChoice = ({ items, chosenCat }) => {
+const ItemChoice = ({ items, chosenCat, user }) => {
 	const [uniqueModels, setUniqueModels] = useState([]);
 	const [selectedModel, setSelectedModel] = useState();
 	const [selectedItems, setSelectedItems] = useState();
@@ -17,6 +17,8 @@ const ItemChoice = ({ items, chosenCat }) => {
 	const [userData, setUserData] = useState({});
 
 	const navigate = useNavigate();
+
+	console.log(user);
 
 	//to put the item unavailable in admin page, when chosen by user
 	const updatedValue = {
@@ -48,13 +50,15 @@ const ItemChoice = ({ items, chosenCat }) => {
 	};
 
 	useEffect(() => {
-		getItem(selectedItems, setItem, setUserData);
+		getItem(selectedItems, setItem, setUserData, user);
 	}, [selectedItems]);
 
 	const handleCategoryChoice = async (e) => {
 		e.preventDefault();
 		handleUserData(userData);
 		handleItemData(item._id, updatedValue);
+		console.log(userData);
+		console.log(user);
 		navigate('/confirmation');
 	};
 

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import fetchRequest from './utils/fetchRequest';
 import { updateCategory } from './handleCategories/updateCategory';
-import { updateItemByCat } from './handleItem.js/updateItemByCat';
 
 const TableHeadRow = ({ category, getCategory, getItems }) => {
 	const [isEdible, setIsEdible] = useState(String);
@@ -39,16 +38,6 @@ const TableHeadRow = ({ category, getCategory, getItems }) => {
 				);
 				if (res) {
 					getCategory();
-				}
-			} catch (err) {
-				console.log(err);
-			}
-			try {
-				const res = await fetchRequest(() =>
-					updateItemByCat(category._id, changedKeys, category.name)
-				);
-				if (res) {
-					// getItems();
 				}
 			} catch (err) {
 				console.log(err);
