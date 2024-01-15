@@ -79,7 +79,7 @@ const AddCategory = ({ getCategories }) => {
 		<>
 			{!isOpen ? (
 				<button type='button' onClick={handleToggleView}>
-					+
+					Add +
 				</button>
 			) : (
 				<Form onSubmit={handleSubmit(onSubmit)}>
