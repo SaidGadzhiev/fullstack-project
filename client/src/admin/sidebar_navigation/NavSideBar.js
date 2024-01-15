@@ -3,16 +3,23 @@ import CategorySelection from './CategorySelection';
 
 import Profile from './Profile';
 import AdminLogOut from '../authentication/login folder/AdminLogOut';
+import styled from 'styled-components';
 
 const NavSideBar = () => {
 	return (
-		<div>
+		<SideBar>
 			<Profile />
 			<CategorySelection />
 			<RequestSelection />
 			<AdminLogOut />
-		</div>
+		</SideBar>
 	);
 };
+
+const SideBar = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+`;
 
 export default NavSideBar;
