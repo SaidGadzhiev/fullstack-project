@@ -37,7 +37,11 @@ const CategorySelection = () => {
 					categories.length > 0 &&
 					categories.map((cat, key) => {
 						return (
-							<button key={key} onClick={() => handleCategoryChange(cat.name)}>
+							<button
+								key={key}
+								onClick={() => handleCategoryChange(cat.name)}
+								className={currentCategory === cat.name ? 'selected' : ''}
+							>
 								{cat.name}
 							</button>
 						);
@@ -53,6 +57,7 @@ const Selection = styled.div`
 	flex-direction: column;
 	font-family: var(--font-ubuntu), sans-serif;
 	font-size: 1rem;
+	margin-bottom: 50px;
 	div {
 		display: flex;
 		flex-direction: column;
@@ -64,9 +69,23 @@ const Selection = styled.div`
 			font-family: var(--font-ubuntu), sans-serif;
 			font-size: 1.125rem;
 			background-color: transparent;
+			padding: 10px;
+			letter-spacing: 1px;
+			text-transform: capitalize;
+			width: fit-content;
+			border-radius: 10px;
+
 			&:hover {
 				cursor: pointer;
+				background-color: #0000000a;
+				font-weight: 900;
 			}
+		}
+		.selected {
+			color: green;
+			font-weight: 900;
+			background-color: #0000000a;
+			padding: 15px;
 		}
 	}
 `;

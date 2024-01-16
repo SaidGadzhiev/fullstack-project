@@ -15,10 +15,9 @@ const GlobalStyles = createGlobalStyle`
 }
 
 body{
-    padding: 20px;
     font-family: var(--font-poppins), sans-serif;
     font-weight: 400;
-
+    margin: 0;
 }
 `;
 

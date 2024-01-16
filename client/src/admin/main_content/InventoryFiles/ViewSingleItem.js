@@ -18,12 +18,12 @@ const ViewSingleItem = ({ keys, item, index, handleIdChange, getItems }) => {
 					}
 					return null;
 				})}
+
 				<td>
 					<button type='button' onClick={(e) => handleIdChange(e, item)}>
 						Edit
 					</button>
-				</td>
-				<td>
+
 					<DeleteItem item={item} getItems={getItems} />
 				</td>
 			</tr>

@@ -1,29 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import getItemsByModel, {
-	getItem,
-	handleItemData,
-} from './itemChoiceHandlers/itemHandlers';
-import handleUserData from './itemChoiceHandlers/handleUserData';
+import getItemsByModel, { getItem } from './itemChoiceHandlers/itemHandlers';
 
-const ItemChoice = ({ items, chosenCat, user }) => {
+const ItemChoice = ({
+	items,
+	chosenCat,
+	user,
+	setUserData,
+	setItem,
+	setButtonSwitch,
+	selectedModel,
+	setSelectedModel,
+}) => {
 	const [uniqueModels, setUniqueModels] = useState([]);
-	const [selectedModel, setSelectedModel] = useState();
 	const [selectedItems, setSelectedItems] = useState();
 	const [radioButton, setRadioButton] = useState();
-	const [buttonSwitch, setButtonSwitch] = useState(false);
-	const [item, setItem] = useState();
-
-	const [userData, setUserData] = useState({});
-
-	const navigate = useNavigate();
-
-	console.log(user);
-
-	//to put the item unavailable in admin page, when chosen by user
-	const updatedValue = {
-		available: false,
-	};
 
 	//get models name from the items to showcase to user
 	const models = items
@@ -53,50 +43,33 @@ const ItemChoice = ({ items, chosenCat, user }) => {
 		getItem(selectedItems, setItem, setUserData, user);
 	}, [selectedItems]);
 
-	const handleCategoryChoice = async (e) => {
-		e.preventDefault();
-		handleUserData(userData);
-		handleItemData(item._id, updatedValue);
-		console.log(userData);
-		console.log(user);
-		navigate('/confirmation');
-	};
-
 	return (
 		<>
-			<form
-				onSubmit={(e) => {
-					handleCategoryChoice(e);
-				}}
-			>
-				{selectedItems && (
-					<>
-						{models.length === 0 ? (
-							<>sorry, choose another item!</>
-						) : (
-							<>
-								{uniqueModels.map((model, key) => {
-									return (
-										<label key={model}>
-											<input
-												type='radio'
-												name='item'
-												value={model}
-												checked={radioButton === model}
-												disabled={uniqueModels.length === 0}
-												onChange={(e) => handleModelSelect(e.target.value)}
-											/>
-											{model}
-										</label>
-									);
-								})}
-							</>
-						)}
-					</>
-				)}
-
-				{selectedModel && buttonSwitch && <button>Submit</button>}
-			</form>
+			{selectedItems && (
+				<>
+					{models.length === 0 ? (
+						<>sorry, choose another item!</>
+					) : (
+						<>
+							{uniqueModels.map((model, key) => {
+								return (
+									<label key={model}>
+										<input
+											type='radio'
+											name='item'
+											value={model}
+											checked={radioButton === model}
+											disabled={uniqueModels.length === 0}
+											onChange={(e) => handleModelSelect(e.target.value)}
+										/>
+										{model}
+									</label>
+								);
+							})}
+						</>
+					)}
+				</>
+			)}
 		</>
 	);
 };

@@ -1,4 +1,6 @@
 import Papa from 'papaparse';
+import styled from 'styled-components';
+import { FaAngleDown } from 'react-icons/fa';
 
 const DownloadData = ({ items }) => {
 	const handleDowndloadData = () => {
@@ -25,7 +27,33 @@ const DownloadData = ({ items }) => {
 		}
 	};
 
-	return <button onClick={handleDowndloadData}>Download</button>;
+	return (
+		<Export onClick={handleDowndloadData}>
+			Export <FaAngleDown />
+		</Export>
+	);
 };
+
+const Export = styled.button`
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	border-color: #178080;
+	border-radius: 10px;
+	border-style: solid;
+	width: 140px;
+	background-color: white;
+	color: #178080;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-family: var(--font-ubuntu);
+	font-weight: 700;
+	font-size: 1rem;
+	&:hover {
+		background-color: #178080;
+		color: white;
+		cursor: pointer;
+	}
+`;
 
 export default DownloadData;
