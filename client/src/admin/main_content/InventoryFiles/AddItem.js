@@ -72,9 +72,9 @@ const AddItem = ({ items, getItems, category }) => {
 	return (
 		<>
 			{!isOpen ? (
-				<button type='button' onClick={handleToggleView}>
+				<AddButton type='button' onClick={handleToggleView}>
 					Add
-				</button>
+				</AddButton>
 			) : (
 				<Form onSubmit={handleAddItemSubmit}>
 					{camelCaseObject.map(({ key, type }) => {
@@ -117,6 +117,29 @@ const AddItem = ({ items, getItems, category }) => {
 		</>
 	);
 };
+
+const AddButton = styled.button`
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	border-color: #178080;
+	border-radius: 10px;
+	border-style: solid;
+	width: 140px;
+	background-color: white;
+	color: #178080;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-family: var(--font-ubuntu);
+	font-weight: 700;
+	font-size: 1rem;
+	&:hover {
+		background-color: #178080;
+		color: white;
+		cursor: pointer;
+	}
+`;
+
 const Form = styled.form`
 	max-width: 300px;
 	width: 100%;

@@ -80,6 +80,7 @@ const TableHeadRow = ({ category, getCategory, getItems }) => {
 							);
 						}
 					})}
+					<th>Edit</th>
 				</tr>
 			)}
 		</>

@@ -26,14 +26,24 @@ const AdminLogOut = () => {
 };
 
 const Logout = styled.div`
+	position: absolute;
+	bottom: 3vh;
+	left: 22px;
 	display: flex;
 	flex-direction: row;
+
+	&:hover {
+		cursor: pointer;
+	}
 
 	button {
 		font-family: var(--font-ubuntu), sans-serif;
 		font-size: 1.125rem;
 		border: none;
 		background-color: transparent;
+		&:hover {
+			cursor: pointer;
+		}
 	}
 	div {
 		display: flex;

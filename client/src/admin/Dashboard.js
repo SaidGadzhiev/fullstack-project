@@ -36,17 +36,17 @@ function Dashboard() {
 
 const Wrapper = styled.div`
 	display: flex;
-	justify-content: space-between;
 
 	> div:nth-child(1) {
-		flex: 10%;
-		max-width: 296px;
-		width: 100%;
+		flex: 15%;
+
+		height: 100vh;
+		box-shadow: 6px 0px 11px 0px rgba(0, 0, 0, 0.05);
+		padding-left: 20px;
+		z-index: 1;
 	}
 	> div:nth-child(2) {
-		flex: 70%;
-		max-width: 1000px;
-		width: 100%;
+		flex: 85%;
 	}
 `;
 

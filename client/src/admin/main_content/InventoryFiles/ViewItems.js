@@ -6,6 +6,7 @@ import EditSingleItem from './EditSingleItem';
 import SearchBar from './SearchBar';
 import DownloadData from './DownloadData';
 import TableHeadRow from './TableHeadRow';
+import styled from 'styled-components';
 
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
@@ -58,7 +59,7 @@ const ViewItems = () => {
 	};
 
 	return (
-		<>
+		<Content>
 			{items.length < 1 ? (
 				<>
 					<h1>{category.name}</h1>
@@ -73,19 +74,21 @@ const ViewItems = () => {
 				</>
 			) : (
 				<>
-					<h1>{category.name}</h1>
+					<TitleAndFilters>
+						<h1>{category.name}</h1>
 
-					<div>
-						<SearchBar search={search} setSearch={setSearch} />
-						<DownloadData items={items} />
-						{renderAddItem({
-							items: items,
-							getItems: getItems,
-							category: category,
-						})}
-					</div>
+						<div>
+							<SearchBar search={search} setSearch={setSearch} />
+							<DownloadData items={items} />
+							{renderAddItem({
+								items: items,
+								getItems: getItems,
+								category: category,
+							})}
+						</div>
+					</TitleAndFilters>
 
-					<form>
+					<Form>
 						<table>
 							<thead>
 								<TableHeadRow
@@ -128,11 +131,73 @@ const ViewItems = () => {
 									})}
 							</tbody>
 						</table>
-					</form>
+					</Form>
 				</>
 			)}
-		</>
+		</Content>
 	);
 };
+
+const Content = styled.div`
+	padding-left: 50px;
+	padding-right: 50px;
+`;
+
+const TitleAndFilters = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	h1 {
+		text-transform: capitalize;
+	}
+	div {
+		display: flex;
+		*:not(:last-child) {
+			margin-right: 20px;
+		}
+	}
+`;
+
+const Form = styled.form`
+	table {
+		border-collapse: collapse;
+		margin: auto;
+		width: 77vw;
+		background-color: white;
+		padding: 20px;
+		border-radius: 10px;
+		border-spacing: 20px 40px;
+		box-shadow: 0px -4px 10px 2px rgba(0, 0, 0, 0.07);
+	}
+
+	thead {
+		text-align: left;
+		font-size: 1.125rem;
+		background-color: #178080a1;
+		border-radius: 10px;
+	}
+	th,
+	td {
+		padding: 20px;
+		text-align: left;
+	}
+
+	th {
+		color: black;
+	}
+
+	th:first-child {
+		border-radius: 8px 0 0 0; /* Border radius for the top-left corner */
+	}
+
+	th:last-child {
+		border-radius: 0 8px 0 0; /* Border radius for the top-right corner */
+	}
+
+	tr:nth-child(even) {
+		background-color: #f2f2f2; /* Background color for every second row */
+	}
+`;
 
 export default ViewItems;

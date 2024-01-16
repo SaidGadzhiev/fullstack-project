@@ -23,6 +23,8 @@ const RequestSelection = () => {
 		setCurrentCategory(value);
 		setPathSelected('requests');
 	};
+
+	console.log(currentCategory);
 	return (
 		<Selection>
 			<Title>
@@ -32,10 +34,16 @@ const RequestSelection = () => {
 			</Title>
 			{requests && requests.length > 0 ? (
 				<div>
-					<button onClick={() => handleCategoryChange('new')}>
+					<button
+						onClick={() => handleCategoryChange('new')}
+						className={currentCategory === 'new' ? 'selected' : ''}
+					>
 						New Requests
 					</button>
-					<button onClick={() => handleCategoryChange('old')}>
+					<button
+						onClick={() => handleCategoryChange('old')}
+						className={currentCategory === 'old' ? 'selected' : ''}
+					>
 						Previous Requests
 					</button>
 				</div>
@@ -49,6 +57,8 @@ const Selection = styled.div`
 	flex-direction: column;
 	font-family: var(--font-ubuntu), sans-serif;
 	font-size: 1rem;
+	margin-bottom: 50px;
+
 	div {
 		display: flex;
 		flex-direction: column;
@@ -60,9 +70,23 @@ const Selection = styled.div`
 			font-family: var(--font-ubuntu), sans-serif;
 			font-size: 1.125rem;
 			background-color: transparent;
+			padding: 10px;
+			letter-spacing: 1px;
+			text-transform: capitalize;
+			width: fit-content;
+			border-radius: 10px;
+
 			&:hover {
 				cursor: pointer;
+				background-color: #0000000a;
+				font-weight: 900;
 			}
+		}
+		.selected {
+			color: green;
+			font-weight: 900;
+			background-color: #0000000a;
+			padding: 15px;
 		}
 	}
 `;
