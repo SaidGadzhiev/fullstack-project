@@ -61,9 +61,8 @@ const ViewItems = () => {
 	return (
 		<Content>
 			{items.length < 1 ? (
-				<>
+				<div>
 					<h1>{category.name}</h1>
-
 					<div>You don't have any items in this category</div>
 					<div>Add one now</div>
 					{renderAddItem({
@@ -71,7 +70,7 @@ const ViewItems = () => {
 						getItems: getItems,
 						category: category,
 					})}
-				</>
+				</div>
 			) : (
 				<>
 					<TitleAndFilters>
@@ -143,13 +142,39 @@ const Content = styled.div`
 	padding-right: 50px;
 `;
 
+// const Spinner = styled.div`
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// 	height: 100vh;
+
+// 	@keyframes spin {
+// 		to {
+// 			transform: rotate(360deg);
+// 		}
+// 	}
+
+// 	::after {
+// 		content: '';
+// 		display: inline-block;
+// 		width: 30px;
+// 		height: 30px;
+// 		border: 4px solid #ccc;
+// 		border-top: 4px solid #333;
+// 		border-radius: 50%;
+// 		animation: spin 1s linear infinite;
+// 	}
+// `;
+
 const TitleAndFilters = styled.div`
+	margin-bottom: 20px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	h1 {
 		text-transform: capitalize;
+		font-family: var(--font-ubuntu);
 	}
 	div {
 		display: flex;
@@ -174,7 +199,7 @@ const Form = styled.form`
 	thead {
 		text-align: left;
 		font-size: 1.125rem;
-		background-color: #178080a1;
+		background-color: #efe8e1;
 		border-radius: 10px;
 	}
 	th,

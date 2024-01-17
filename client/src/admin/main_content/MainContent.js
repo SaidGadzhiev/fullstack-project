@@ -25,6 +25,8 @@ const MainContent = () => {
 const Display = styled.div`
 	background-color: #f6f2ee;
 	padding: 20px;
+	height: 95.5vh;
+	overflow: auto;
 `;
 
 const IDK = styled.div`
