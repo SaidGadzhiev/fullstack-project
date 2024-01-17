@@ -62,6 +62,7 @@ const Selection = styled.div`
 		display: flex;
 		flex-direction: column;
 		button {
+			color: #000000b5;
 			text-align: left;
 			border: none;
 			margin-left: 2.75rem;
@@ -74,6 +75,7 @@ const Selection = styled.div`
 			text-transform: capitalize;
 			width: fit-content;
 			border-radius: 10px;
+			font-weight: 900;
 
 			&:hover {
 				cursor: pointer;
@@ -82,9 +84,8 @@ const Selection = styled.div`
 			}
 		}
 		.selected {
-			color: green;
-			font-weight: 900;
-			background-color: #0000000a;
+			color: #178080;
+			background-color: #efe8e17a;
 			padding: 15px;
 		}
 	}

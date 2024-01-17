@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { createItem } from './handleItem.js/createItem';
 import fetchRequest from './utils/fetchRequest';
 import styled from 'styled-components';
+import { FiPlus } from 'react-icons/fi';
+
 const _ = require('lodash');
 
 const AddItem = ({ items, getItems, category }) => {
@@ -73,7 +75,8 @@ const AddItem = ({ items, getItems, category }) => {
 		<>
 			{!isOpen ? (
 				<AddButton type='button' onClick={handleToggleView}>
-					Add
+					<FiPlus />
+					Add Items
 				</AddButton>
 			) : (
 				<Form onSubmit={handleAddItemSubmit}>
@@ -126,17 +129,22 @@ const AddButton = styled.button`
 	border-radius: 10px;
 	border-style: solid;
 	width: 140px;
-	background-color: white;
-	color: #178080;
+	background-color: #178080;
+	color: white;
 	padding-left: 15px;
 	padding-right: 15px;
 	font-family: var(--font-ubuntu);
 	font-weight: 700;
 	font-size: 1rem;
+	transition: background-color 0.3s, color 0.3s;
 	&:hover {
-		background-color: #178080;
-		color: white;
+		background-color: white;
+		color: #178080;
 		cursor: pointer;
+	}
+	svg {
+		font-size: 1.4rem;
+		padding-right: 10px;
 	}
 `;
 

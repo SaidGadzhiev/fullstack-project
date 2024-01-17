@@ -63,12 +63,14 @@ const Selection = styled.div`
 		display: flex;
 		flex-direction: column;
 		button {
+			color: #000000b5;
 			text-align: left;
 			border: none;
 			margin-left: 2.75rem;
 			margin-bottom: 20px;
 			font-family: var(--font-ubuntu), sans-serif;
 			font-size: 1.125rem;
+			font-weight: 900;
 			background-color: transparent;
 			padding: 10px;
 			letter-spacing: 1px;
@@ -83,9 +85,8 @@ const Selection = styled.div`
 			}
 		}
 		.selected {
-			color: green;
-			font-weight: 900;
-			background-color: #0000000a;
+			color: #178080;
+			background-color: #efe8e17a;
 			padding: 15px;
 		}
 	}

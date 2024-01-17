@@ -49,6 +49,8 @@ const Export = styled.button`
 	font-family: var(--font-ubuntu);
 	font-weight: 700;
 	font-size: 1rem;
+	transition: background-color 0.3s, color 0.3s;
+
 	&:hover {
 		background-color: #178080;
 		color: white;
