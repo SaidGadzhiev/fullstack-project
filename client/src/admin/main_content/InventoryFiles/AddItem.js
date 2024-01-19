@@ -79,43 +79,46 @@ const AddItem = ({ items, getItems, category }) => {
 					Add Items
 				</AddButton>
 			) : (
-				<Form onSubmit={handleAddItemSubmit}>
-					{camelCaseObject.map(({ key, type }) => {
-						if (type === 'boolean') {
-							return (
-								<div key={key}>
-									<p>{key}</p>
-									<select
-										onChange={(e) => handleOptionChange(key, e.target.value)}
-										required
-									>
-										<option value=''>Choose</option>
-										<option value='yes'>Yes</option>
-										<option value='no'>No</option>
-									</select>
-								</div>
-							);
-						} else {
-							if (key !== 'category') {
+				<>
+					<Overlay></Overlay>
+					<Form onSubmit={handleAddItemSubmit}>
+						{camelCaseObject.map(({ key, type }) => {
+							if (type === 'boolean') {
 								return (
 									<div key={key}>
 										<p>{key}</p>
-										<input
-											name={key}
-											placeholder={key}
-											value={formData[key] || ''}
-											onChange={(e) => handleFormChange(key, e.target.value)}
-											required={true}
-										></input>
+										<select
+											onChange={(e) => handleOptionChange(key, e.target.value)}
+											required
+										>
+											<option value=''>Choose</option>
+											<option value='yes'>Yes</option>
+											<option value='no'>No</option>
+										</select>
 									</div>
 								);
+							} else {
+								if (key !== 'category') {
+									return (
+										<div key={key}>
+											<p>{key}</p>
+											<input
+												name={key}
+												placeholder={key}
+												value={formData[key] || ''}
+												onChange={(e) => handleFormChange(key, e.target.value)}
+												required={true}
+											></input>
+										</div>
+									);
+								}
 							}
-						}
-						return null;
-					})}
-					<button onClick={handleToggleView}>Cancel</button>
-					<button>Submit</button>
-				</Form>
+							return null;
+						})}
+						<button onClick={handleToggleView}>Cancel</button>
+						<button>Submit</button>
+					</Form>
+				</>
 			)}
 		</>
 	);
@@ -159,6 +162,17 @@ const Form = styled.form`
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
+	z-index: 3;
+`;
+
+const Overlay = styled.div`
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: #0000003b;
+	z-index: 2;
 `;
 
 export default AddItem;
