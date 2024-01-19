@@ -29,8 +29,9 @@ const Input = styled.div`
 		padding-bottom: 5px;
 		font-size: 1rem;
 		font-family: var(--font-poppins);
-		opacity: 0.8;
+		opacity: 0.7;
 		border-radius: 10px;
+		transition: 0.4s;
 	}
 	input:focus {
 		opacity: 1;

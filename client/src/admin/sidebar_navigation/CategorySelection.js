@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useCurrentCategory } from '../CategoryContext';
 import AddCategory from '../main_content/InventoryFiles/AddCategory';
 import styled from 'styled-components';
-import { MdSpaceDashboard } from 'react-icons/md';
+import { MdOutlineInventory2 } from 'react-icons/md';
 
 const CategorySelection = () => {
 	const { currentCategory, setCurrentCategory } = useCurrentCategory();
@@ -28,7 +28,8 @@ const CategorySelection = () => {
 	return (
 		<Selection>
 			<Title>
-				<MdSpaceDashboard />
+				<MdOutlineInventory2 />
+
 				<h3>Categories</h3>
 			</Title>
 
@@ -62,31 +63,38 @@ const Selection = styled.div`
 		display: flex;
 		flex-direction: column;
 		button {
-			color: #000000b5;
+			color: #676767;
 			text-align: left;
 			border: none;
-			margin-left: 2.75rem;
 			margin-bottom: 20px;
 			font-family: var(--font-ubuntu), sans-serif;
-			font-size: 1.125rem;
+			font-size: 1rem;
 			background-color: transparent;
 			padding: 10px;
+			padding-left: 50px;
 			letter-spacing: 1px;
 			text-transform: capitalize;
 			width: fit-content;
+			display: inline-block;
 			border-radius: 10px;
 			font-weight: 900;
+			transition: 0.2s;
 
 			&:hover {
 				cursor: pointer;
 				background-color: #0000000a;
 				font-weight: 900;
+				color: #000000b5;
 			}
 		}
 		.selected {
 			color: #178080;
 			background-color: #efe8e17a;
-			padding: 15px;
+			padding-left: 55px;
+			&:hover {
+				background-color: #efe8e17a;
+				color: #178080;
+			}
 		}
 	}
 `;
@@ -100,7 +108,7 @@ const Title = styled.div`
 		margin-left: 10px;
 	}
 	svg {
-		width: 38px;
+		width: 25px;
 		height: auto;
 	}
 `;

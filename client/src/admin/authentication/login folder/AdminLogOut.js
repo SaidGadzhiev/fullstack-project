@@ -1,7 +1,7 @@
 import { useCurrentUser } from '../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { CiLogout } from 'react-icons/ci';
+import { RiArrowGoBackFill } from 'react-icons/ri';
 
 const AdminLogOut = () => {
 	const { removeUser } = useCurrentUser();
@@ -15,7 +15,7 @@ const AdminLogOut = () => {
 	return (
 		<Logout>
 			<div>
-				<CiLogout />
+				<RiArrowGoBackFill />
 
 				<button type='click' onClick={handleLogOut}>
 					Log out
@@ -39,6 +39,7 @@ const Logout = styled.div`
 	button {
 		font-family: var(--font-ubuntu), sans-serif;
 		font-size: 1.125rem;
+		font-weight: bold;
 		border: none;
 		background-color: transparent;
 		&:hover {
@@ -50,7 +51,7 @@ const Logout = styled.div`
 		align-items: center;
 
 		svg {
-			width: 25px;
+			width: 20px;
 			height: auto;
 		}
 	}
