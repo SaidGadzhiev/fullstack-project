@@ -19,6 +19,7 @@ const NavSideBar = () => {
 const SideBar = styled.div`
 	display: flex;
 	flex-direction: column;
+	background-color: #fdfdfc;
 `;
 
 export default NavSideBar;

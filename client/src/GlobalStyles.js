@@ -18,6 +18,8 @@ body{
     font-family: var(--font-poppins), sans-serif;
     font-weight: 400;
     margin: 0;
+    background-color: #f6f2ee;
+
 }
 `;
 
