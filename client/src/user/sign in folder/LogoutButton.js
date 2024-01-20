@@ -1,5 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useCurrentUser } from '../../admin/AuthContext';
+import styled from 'styled-components';
+import { MdArrowBackIos } from 'react-icons/md';
 
 const LogoutButton = () => {
 	const { logout, isAuthenticated } = useAuth0();
@@ -13,19 +15,37 @@ const LogoutButton = () => {
 	return (
 		isAuthenticated && (
 			<>
-				<div>
-					<h1>Log out </h1>
-					<button
+				<>
+					<Button
 						onClick={() => {
 							handleLogOut();
 						}}
 					>
+						<MdArrowBackIos />
 						Log out
-					</button>
-				</div>
+					</Button>
+				</>
 			</>
 		)
 	);
 };
+
+const Button = styled.button`
+	display: flex;
+	align-items: center;
+	border: none;
+	background-color: transparent;
+	padding: 40px;
+	align-items: center;
+	font-size: 1.125rem;
+	font-weight: bold;
+	font-family: var(--font-ubuntu);
+	cursor: pointer;
+
+	svg {
+		width: 20px;
+		height: auto;
+	}
+`;
 
 export default LogoutButton;

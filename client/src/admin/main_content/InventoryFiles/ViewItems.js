@@ -143,7 +143,6 @@ const ViewItems = () => {
 const Content = styled.div`
 	padding-left: 50px;
 	padding-right: 50px;
-	position: relative;
 	h1 {
 		text-transform: capitalize;
 		font-family: var(--font-ubuntu);

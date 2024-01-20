@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import getItemsByModel, { getItem } from './itemChoiceHandlers/itemHandlers';
+import styled from 'styled-components';
 
 const ItemChoice = ({
 	items,
@@ -32,6 +33,7 @@ const ItemChoice = ({
 	useEffect(() => {
 		setRadioButton(null);
 		setButtonSwitch(false);
+		setSelectedModel();
 	}, [chosenCat]);
 
 	const handleModelSelect = (model) => {
@@ -48,12 +50,17 @@ const ItemChoice = ({
 			{selectedItems && (
 				<>
 					{models.length === 0 ? (
-						<>sorry, choose another item!</>
+						<Warning>
+							Unavailable for the moment. Choose another category
+						</Warning>
 					) : (
 						<>
 							{uniqueModels.map((model, key) => {
 								return (
-									<label key={model}>
+									<label
+										key={model}
+										className={selectedModel === model ? 'selectedModel' : ''}
+									>
 										<input
 											type='radio'
 											name='item'
@@ -62,7 +69,7 @@ const ItemChoice = ({
 											disabled={uniqueModels.length === 0}
 											onChange={(e) => handleModelSelect(e.target.value)}
 										/>
-										{model}
+										<p>{model}</p>
 									</label>
 								);
 							})}
@@ -73,4 +80,11 @@ const ItemChoice = ({
 		</>
 	);
 };
+
+const Warning = styled.p`
+	margin-top: 75%;
+	color: red;
+	width: 237px;
+`;
+
 export default ItemChoice;

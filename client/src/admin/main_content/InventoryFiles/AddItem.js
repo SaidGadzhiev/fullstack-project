@@ -33,20 +33,19 @@ const AddItem = ({ items, getItems, category }) => {
 		return acc;
 	}, {});
 
-	useEffect(() => {
-		newFormData(initialFormData);
-	}, [category]);
-
 	//changing the values of the array for the item for boolean condition
 	const handleOptionChange = (key, value) => {
+		const newKey = _.camelCase(key);
+
 		if (value.length > 0) {
-			newFormData((prevData) => ({ ...prevData, [key]: value === 'yes' }));
+			newFormData((prevData) => ({ ...prevData, [newKey]: value === 'yes' }));
 		}
 	};
 
 	//changing the values of the array for the item
 	const handleFormChange = (key, value) => {
-		newFormData((prevData) => ({ ...prevData, [key]: value }));
+		const newKey = _.camelCase(key);
+		newFormData((prevData) => ({ ...prevData, [newKey]: value }));
 		newFormData((prevData) => ({
 			...prevData,
 			category: category.name,
@@ -82,7 +81,7 @@ const AddItem = ({ items, getItems, category }) => {
 				<>
 					<Overlay></Overlay>
 					<Form onSubmit={handleAddItemSubmit}>
-						{camelCaseObject.map(({ key, type }) => {
+						{category.attributes.map(({ key, type }) => {
 							if (type === 'boolean') {
 								return (
 									<div key={key}>
@@ -105,7 +104,7 @@ const AddItem = ({ items, getItems, category }) => {
 											<input
 												name={key}
 												placeholder={key}
-												value={formData[key] || ''}
+												// value={formData[key] || ''}
 												onChange={(e) => handleFormChange(key, e.target.value)}
 												required={true}
 											></input>
@@ -131,7 +130,7 @@ const AddButton = styled.button`
 	border-color: #178080;
 	border-radius: 10px;
 	border-style: solid;
-	width: 140px;
+	width: 150px;
 	background-color: #178080;
 	color: white;
 	padding-left: 15px;
