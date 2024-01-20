@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 const OldRequests = () => {
 	const [oldRequests, setOldRequests] = useState([]);
@@ -40,12 +41,12 @@ const OldRequests = () => {
 	}, [oldRequests]);
 
 	return (
-		<>
-			<h1>Previous History</h1>
+		<Content>
+			<h1>Previous Requests</h1>
 			{!oldRequests || !keys ? (
 				<div>hol on</div>
 			) : (
-				<table>
+				<Table>
 					<thead>
 						<tr>
 							{keys.map((column) => {
@@ -69,10 +70,58 @@ const OldRequests = () => {
 							);
 						})}
 					</tbody>
-				</table>
+				</Table>
 			)}
-		</>
+		</Content>
 	);
 };
+
+const Content = styled.div`
+	padding-left: 50px;
+	padding-right: 50px;
+	h1 {
+		text-transform: capitalize;
+		font-family: var(--font-ubuntu);
+	}
+`;
+
+const Table = styled.table`
+	border-collapse: collapse;
+	margin: auto;
+	width: 77vw;
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	border-spacing: 20px 40px;
+	box-shadow: 0px -4px 10px 2px rgba(0, 0, 0, 0.07);
+
+	thead {
+		text-align: left;
+		font-size: 1.125rem;
+		background-color: #efe8e1;
+		border-radius: 10px;
+	}
+	th,
+	td {
+		padding: 20px;
+		text-align: left;
+	}
+
+	th {
+		color: black;
+	}
+
+	th:first-child {
+		border-radius: 8px 0 0 0; /* Border radius for the top-left corner */
+	}
+
+	th:last-child {
+		border-radius: 0 8px 0 0; /* Border radius for the top-right corner */
+	}
+
+	tr:nth-child(even) {
+		background-color: #f2f2f2; /* Background color for every second row */
+	}
+`;
 
 export default OldRequests;
