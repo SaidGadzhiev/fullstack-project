@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import DownloadData from './DownloadData';
 import TableHeadRow from './TableHeadRow';
 import styled from 'styled-components';
+import { FaBoxesPacking } from 'react-icons/fa6';
 
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
@@ -61,16 +62,18 @@ const ViewItems = () => {
 	return (
 		<Content>
 			{items.length < 1 ? (
-				<div>
+				<>
 					<h1>{category.name}</h1>
-					<div>You don't have any items in this category</div>
-					<div>Add one now</div>
-					{renderAddItem({
-						items: items,
-						getItems: getItems,
-						category: category,
-					})}
-				</div>
+					<NoItemsPage>
+						<FaBoxesPacking className='noitems' />
+						<p>You don't have any items in this category</p>
+						{renderAddItem({
+							items: items,
+							getItems: getItems,
+							category: category,
+						})}
+					</NoItemsPage>
+				</>
 			) : (
 				<>
 					<TitleAndFilters>
@@ -140,31 +143,27 @@ const ViewItems = () => {
 const Content = styled.div`
 	padding-left: 50px;
 	padding-right: 50px;
+	position: relative;
+	h1 {
+		text-transform: capitalize;
+		font-family: var(--font-ubuntu);
+	}
 `;
 
-// const Spinner = styled.div`
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// 	height: 100vh;
-
-// 	@keyframes spin {
-// 		to {
-// 			transform: rotate(360deg);
-// 		}
-// 	}
-
-// 	::after {
-// 		content: '';
-// 		display: inline-block;
-// 		width: 30px;
-// 		height: 30px;
-// 		border: 4px solid #ccc;
-// 		border-top: 4px solid #333;
-// 		border-radius: 50%;
-// 		animation: spin 1s linear infinite;
-// 	}
-// `;
+const NoItemsPage = styled.div`
+	margin: 0 auto;
+	margin-top: 30vh;
+	text-align: center;
+	.noitems {
+		width: 100px;
+		height: auto;
+		color: gray;
+	}
+	button {
+		margin: 0 auto;
+		height: 50px;
+	}
+`;
 
 const TitleAndFilters = styled.div`
 	margin-bottom: 20px;
@@ -172,10 +171,6 @@ const TitleAndFilters = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	h1 {
-		text-transform: capitalize;
-		font-family: var(--font-ubuntu);
-	}
 	div {
 		display: flex;
 		*:not(:last-child) {
