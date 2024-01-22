@@ -13,47 +13,117 @@ const AdminLogOut = () => {
 	};
 
 	return (
-		<Logout>
-			<div>
+		<Btn type='click' onClick={handleLogOut}>
+			<Sign className='sign'>
 				<RiArrowGoBackFill />
-
-				<button type='click' onClick={handleLogOut}>
-					Log out
-				</button>
-			</div>
-		</Logout>
+			</Sign>
+			<Text className='text'> Logout</Text>
+		</Btn>
 	);
 };
-
-const Logout = styled.div`
+const Btn = styled.button`
+	--black: #000000;
+	--ch-black: #141414;
+	--eer-black: #1b1b1b;
+	--night-rider: #2e2e2e;
+	--white: #ffffff;
+	--ch-white: #e1e1e1;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: 45px;
+	height: 45px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	overflow: hidden;
+	transition-duration: 0.3s;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+	background-color: #178080;
 	position: absolute;
 	bottom: 3vh;
 	left: 22px;
 	display: flex;
-	flex-direction: row;
 
 	&:hover {
-		cursor: pointer;
+		width: 125px;
+		border-radius: 5px;
+		transition-duration: 0.3s;
 	}
 
-	button {
-		font-family: var(--font-ubuntu), sans-serif;
-		font-size: 1.125rem;
-		font-weight: bold;
-		border: none;
-		background-color: transparent;
-		&:hover {
-			cursor: pointer;
-		}
+	&:hover .sign {
+		width: 30%;
+		transition-duration: 0.3s;
 	}
-	div {
-		display: flex;
-		align-items: center;
 
-		svg {
-			width: 20px;
-			height: auto;
-		}
+	&:hover .text {
+		opacity: 1;
+		width: 70%;
+		transition-duration: 0.3s;
+		padding-left: 40px;
+	}
+
+	&:active {
+		transform: translate(2px, 2px);
 	}
 `;
+
+const Sign = styled.div`
+	width: 100%;
+	transition-duration: 0.3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	svg {
+		width: 20px;
+		height: auto;
+	}
+	svg path {
+		fill: #ffffff;
+	}
+`;
+
+const Text = styled.div`
+	position: absolute;
+	right: 0%;
+	width: 0%;
+	opacity: 0;
+	color: #ffffff;
+	font-size: 1.2em;
+	font-weight: 600;
+	transition-duration: 0.3s;
+`;
+
+// const Logout = styled.div`
+// 	position: absolute;
+// 	bottom: 3vh;
+// 	left: 22px;
+// 	display: flex;
+// 	flex-direction: row;
+
+// 	&:hover {
+// 		cursor: pointer;
+// 	}
+
+// 	button {
+// 		font-family: var(--font-ubuntu), sans-serif;
+// 		font-size: 1.125rem;
+// 		font-weight: bold;
+// 		border: none;
+// 		background-color: transparent;
+// 		&:hover {
+// 			cursor: pointer;
+// 		}
+// 	}
+// 	div {
+// 		display: flex;
+// 		align-items: center;
+
+// 		svg {
+// 			width: 20px;
+// 			height: auto;
+// 		}
+// 	}
+// `;
 export default AdminLogOut;

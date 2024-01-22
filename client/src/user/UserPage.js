@@ -141,6 +141,8 @@ const Selection = styled.div`
 	border-radius: 30px;
 	margin: 0 auto;
 	margin-top: 15vh;
+	box-shadow: 0px -4px 10px 2px rgba(0, 0, 0, 0.07);
+
 	h3 {
 		margin-top: 0;
 		margin-bottom: 0px;
