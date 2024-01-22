@@ -2,9 +2,10 @@ import ViewItems from './InventoryFiles/ViewItems';
 import { useCurrentCategory } from '../CategoryContext';
 import Requests from './RequestsFiles/Requests';
 import styled from 'styled-components';
+import { FaBoxesPacking } from 'react-icons/fa6';
 
 const MainContent = () => {
-	const { pathSelected, setPathSelected } = useCurrentCategory();
+	const { pathSelected } = useCurrentCategory();
 
 	return (
 		<Display>
@@ -13,10 +14,10 @@ const MainContent = () => {
 			) : pathSelected === 'requests' ? (
 				<Requests />
 			) : (
-				<IDK>
-					<p>¯_(ツ)_/¯</p>
-					<p>NOTHING IS SELECTED</p>
-				</IDK>
+				<NoItemsPage>
+					<FaBoxesPacking className='noitems' />
+					<p>Select a category to see your inventory</p>
+				</NoItemsPage>
 			)}
 		</Display>
 	);
@@ -29,25 +30,18 @@ const Display = styled.div`
 	overflow: auto;
 `;
 
-const IDK = styled.div`
-	font-family: var(--font-ubuntu);
-	display: flex;
-	flex-direction: column;
-	justify-content: baseline;
-	width: 400px;
+const NoItemsPage = styled.div`
 	margin: 0 auto;
-	align-items: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateY(-50%);
-
-	:first-child {
-		font-size: 5rem;
-		margin-bottom: 0px;
+	margin-top: 35vh;
+	text-align: center;
+	.noitems {
+		width: 100px;
+		height: auto;
+		color: gray;
 	}
-	:last-child {
-		font-size: 1.5rem;
+	button {
+		margin: 0 auto;
+		height: 50px;
 	}
 `;
 

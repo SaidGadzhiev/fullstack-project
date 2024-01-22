@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import fetchRequest from './utils/fetchRequest';
 import { updateItem } from './handleItem.js/updateItem';
+import styled from 'styled-components';
+import { FiSave } from 'react-icons/fi';
+import { FcCancel } from 'react-icons/fc';
+import Loader from '../../../Loader';
 
 const EditSingleItem = ({
 	keys,
@@ -61,7 +65,7 @@ const EditSingleItem = ({
 
 	return (
 		<>
-			<tr key={index}>
+			<Inputs key={index}>
 				{keys.map((key) => {
 					if (key !== 'category') {
 						if (itemData[key] === false) {
@@ -111,22 +115,60 @@ const EditSingleItem = ({
 				})}
 				<td>
 					{!disabled ? (
-						<button type='button' onClick={(e) => handleSaveChange(e)}>
-							Save
-						</button>
-					) : (
-						<p>updating</p>
-					)}
+						<>
+							<EditButton type='button' onClick={(e) => handleSaveChange(e)}>
+								<FiSave />
+							</EditButton>
 
-					<button
-						type='button'
-						onClick={(e) => handleCancelChange(e, item._id)}
-					>
-						Cancel
-					</button>
+							<EditButton
+								type='button'
+								onClick={(e) => handleCancelChange(e, item._id)}
+							>
+								<FcCancel />
+							</EditButton>
+						</>
+					) : (
+						<div>
+							<Loader />
+						</div>
+					)}
 				</td>
-			</tr>
+			</Inputs>
 		</>
 	);
 };
+
+const Inputs = styled.tr`
+	input,
+	select {
+		font-family: var(--font-poppins);
+		font-size: 1rem;
+		border-radius: 5px;
+		border: 1px solid #17808042;
+		margin-left: -10px;
+		padding-left: 10px;
+		opacity: 0.5;
+		transition: 0.2s;
+		&:focus {
+			opacity: 1;
+
+			outline: none; /* Remove the outline on focus */
+			border: 1px solid #035555;
+		}
+	}
+`;
+
+const EditButton = styled.button`
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	font-size: 1.5rem;
+	opacity: 0.6;
+	transition: 0.3s;
+	margin-right: 15px;
+	&:hover {
+		opacity: 1;
+	}
+`;
+
 export default EditSingleItem;
