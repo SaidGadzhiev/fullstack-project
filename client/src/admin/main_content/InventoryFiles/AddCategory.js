@@ -5,6 +5,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import fetchRequest from './utils/fetchRequest';
 import { createCategory } from './handleCategories/createCategory';
 import styled from 'styled-components';
+import { IoCloseSharp } from 'react-icons/io5';
 
 const AddCategory = ({ getCategories }) => {
 	const [newCat, setNewCat] = useState({});
@@ -82,64 +83,130 @@ const AddCategory = ({ getCategories }) => {
 					Add +
 				</button>
 			) : (
-				<Form onSubmit={handleSubmit(onSubmit)}>
-					<label>Name of your category:</label>
-					<input
-						required
-						onChange={(e) => handleCategoryName(e.target.value)}
-					></input>
-					{fields.map((field, index) => {
-						return (
-							<div key={field.id}>
-								{' '}
-								New key value pair:
-								<input
-									{...register(`fields[${index}].key`)}
-									defaultValue={field.key}
-									placeholder='Name of the row'
-									required
-								/>
-								<select
-									{...register(`fields[${index}].type`)}
-									defaultValue={field.type}
-									placeholder='Type of input'
-									required
-								>
-									<option></option>
-									<option>boolean</option>
-									<option>string</option>
-								</select>
-								{fields.length > 1 && (
-									<button type='button' onClick={() => remove(index)}>
-										Remove
-									</button>
-								)}
-							</div>
-						);
-					})}
-					<button type='button' onClick={() => append({ type: '' })}>
-						Add
-					</button>
-					<button onClick={handleToggleView}>Cancel</button>
+				<>
+					<Overlay />
+					<Form onSubmit={handleSubmit(onSubmit)}>
+						<h4>Name of your category</h4>
+						<input
+							required
+							onChange={(e) => handleCategoryName(e.target.value)}
+						/>
 
-					<button type='submit'>Submit</button>
-				</Form>
+						{fields.map((field, index) => {
+							return (
+								<>
+									<h4>New key value pair</h4>
+
+									<div key={field.id}>
+										<input
+											{...register(`fields[${index}].key`)}
+											defaultValue={field.key}
+											placeholder='Name of the row'
+											required
+										/>
+										<select
+											{...register(`fields[${index}].type`)}
+											defaultValue={field.type}
+											placeholder='Type of input'
+											required
+										>
+											<option></option>
+											<option>boolean</option>
+											<option>string</option>
+										</select>
+										{fields.length > 1 && (
+											<button type='button' onClick={() => remove(index)}>
+												<IoCloseSharp />
+											</button>
+										)}
+									</div>
+								</>
+							);
+						})}
+						<button type='button' onClick={() => append({ type: '' })}>
+							Add
+						</button>
+						<button onClick={handleToggleView}>Cancel</button>
+
+						<button type='submit'>Submit</button>
+					</Form>
+				</>
 			)}
 		</>
 	);
 };
 
 const Form = styled.form`
-	max-width: 300px;
+	max-width: 350px;
 	width: 100%;
 	background-color: #fff; /* Form background color */
-	padding: 20px;
+	padding: 30px;
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for the form */
-	z-index: 1; /* Ensure the form is above the darkened background */
 	position: absolute;
+	top: 20%;
+
 	left: 50%;
 	transform: translateX(-50%);
+	z-index: 3;
+
+	font-family: var(--font-poppins);
+	font-size: 1rem;
+	h4 {
+		margin-bottom: 10px;
+	}
+	input,
+	select {
+		width: 250px;
+		height: 30px;
+		padding-left: 10px;
+		font-family: var(--font-poppins);
+		font-size: 1rem;
+		border-radius: 5px;
+		border: 1px solid #17808042;
+		opacity: 0.5;
+		transition: 0.2s;
+		&:focus {
+			opacity: 1;
+
+			outline: none;
+			border: 1px solid #035555;
+		}
+	}
+
+	div {
+		max-width: 350px;
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 20px;
+		justify-content: space-between;
+		input {
+			width: 60%;
+			margin-right: 10px;
+		}
+		select {
+			width: 30%;
+			height: 34px;
+			margin-right: 10px;
+		}
+		button {
+			width: 10%;
+			height: 34px;
+			padding: 0;
+			padding-top: 3px;
+			text-align: center;
+		}
+	}
+`;
+
+const Overlay = styled.div`
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: #0000003b;
+	z-index: 2;
 `;
 
 export default AddCategory;

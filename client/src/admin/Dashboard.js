@@ -26,7 +26,6 @@ function Dashboard() {
 				</>
 			) : (
 				<>
-					<p>You have to log in first!</p>
 					<AdminLogIn />
 				</>
 			)}
