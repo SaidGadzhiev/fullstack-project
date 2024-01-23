@@ -3,10 +3,10 @@ import ItemChoice from './ItemChoice';
 import LogoutButton from './sign in folder/LogoutButton';
 import { useAuth0 } from '@auth0/auth0-react';
 import SignIn from './sign in folder/SignIn';
-import { useNavigate } from 'react-router-dom';
 import { handleItemData } from './itemChoiceHandlers/itemHandlers';
 import handleUserData from './itemChoiceHandlers/handleUserData';
 import styled from 'styled-components';
+import Confirmation from './Confirmation';
 
 const UserPage = () => {
 	const [categories, setCategories] = useState([]);
@@ -18,8 +18,7 @@ const UserPage = () => {
 	const [selectedModel, setSelectedModel] = useState();
 	const { user, isAuthenticated } = useAuth0();
 	const [isSelected, setIsSelected] = useState();
-
-	const navigate = useNavigate();
+	const [borrowed, setBorrowed] = useState(false);
 
 	//to put the item unavailable in admin page, when chosen by user
 	const updatedValue = {
@@ -59,7 +58,7 @@ const UserPage = () => {
 		e.preventDefault();
 		handleUserData(userData);
 		handleItemData(item._id, updatedValue);
-		navigate('/confirmation');
+		setBorrowed(true);
 	};
 
 	return (
@@ -70,59 +69,69 @@ const UserPage = () => {
 				<>
 					<LogoutButton />
 
-					{categories.length < 1 ? (
-						<>hold on</>
-					) : (
-						<Selection>
-							<h3>Select your item</h3>
+					{!borrowed ? (
+						<>
+							{categories.length < 1 ? (
+								<>hold on</>
+							) : (
+								<Selection>
+									<h3>Select your item</h3>
 
-							<Form
-								onSubmit={(e) => {
-									handleCategoryChoice(e);
-								}}
-							>
-								<CategoryList>
-									{categories.map((cat, key) => {
-										return (
-											<label
-												key={key}
-												className={
-													isSelected === cat.name ? 'selected' : 'false'
-												}
-											>
-												<input
-													type='radio'
-													name='category'
-													value={cat.name}
-													onClick={(e) => handleOptionChange(e.target.value)}
+									<Form
+										onSubmit={(e) => {
+											handleCategoryChoice(e);
+										}}
+									>
+										<CategoryList>
+											{categories.map((cat, key) => {
+												return (
+													<label
+														key={key}
+														className={
+															isSelected === cat.name ? 'selected' : 'false'
+														}
+													>
+														<input
+															type='radio'
+															name='category'
+															value={cat.name}
+															onClick={(e) =>
+																handleOptionChange(e.target.value)
+															}
+														/>
+														<p>{cat.name}</p>
+													</label>
+												);
+											})}
+										</CategoryList>
+
+										<Line></Line>
+
+										<ModelList>
+											{chosenCat && (
+												<ItemChoice
+													items={items}
+													chosenCat={chosenCat}
+													user={user}
+													setUserData={setUserData}
+													setItem={setItem}
+													setButtonSwitch={setButtonSwitch}
+													selectedModel={selectedModel}
+													setSelectedModel={setSelectedModel}
 												/>
-												<p>{cat.name}</p>
-											</label>
-										);
-									})}
-								</CategoryList>
-
-								<Line></Line>
-
-								<ModelList>
-									{chosenCat && (
-										<ItemChoice
-											items={items}
-											chosenCat={chosenCat}
-											user={user}
-											setUserData={setUserData}
-											setItem={setItem}
-											setButtonSwitch={setButtonSwitch}
-											selectedModel={selectedModel}
-											setSelectedModel={setSelectedModel}
-										/>
-									)}
-								</ModelList>
-								{selectedModel && buttonSwitch && (
-									<Button>Confirm your choice</Button>
-								)}
-							</Form>
-						</Selection>
+											)}
+										</ModelList>
+										{selectedModel && buttonSwitch && (
+											<Button>Confirm your choice</Button>
+										)}
+									</Form>
+								</Selection>
+							)}
+						</>
+					) : (
+						<>
+							<Confirmation userData={userData} />
+						</>
 					)}
 				</>
 			)}

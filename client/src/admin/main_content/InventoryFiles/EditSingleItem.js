@@ -152,7 +152,7 @@ const Inputs = styled.tr`
 		&:focus {
 			opacity: 1;
 
-			outline: none; /* Remove the outline on focus */
+			outline: none;
 			border: 1px solid #035555;
 		}
 	}

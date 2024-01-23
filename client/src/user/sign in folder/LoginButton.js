@@ -1,17 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentUser } from '../../admin/AuthContext';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import logo from '../../assets/logo.svg';
 import styled from 'styled-components';
 
 const LoginButton = () => {
 	const { loginWithRedirect, user, isAuthenticated } = useAuth0();
-	const { userProfile, setUserProfile } = useCurrentUser();
-	const [pass] = useState(false);
 	const navigate = useNavigate();
-
-	console.log(user);
 
 	useEffect(() => {
 		if (user) {
@@ -26,7 +21,7 @@ const LoginButton = () => {
 	return (
 		!isAuthenticated && (
 			<Content>
-				<img src={logo} />
+				<img src={logo} alt='logo of antventory' />
 				<Line></Line>
 				<button
 					onClick={() => {
