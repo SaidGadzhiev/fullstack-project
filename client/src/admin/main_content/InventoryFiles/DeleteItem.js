@@ -4,6 +4,7 @@ import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
 
 const DeleteItem = ({ item, getItems }) => {
+	//deletes the item thats clicked
 	const handleDelete = async (e) => {
 		e.preventDefault();
 		try {
