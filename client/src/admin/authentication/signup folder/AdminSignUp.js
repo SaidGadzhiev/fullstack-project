@@ -29,7 +29,6 @@ const AdminSignUp = () => {
 	return (
 		<>
 			<div>
-				<p>Create new account</p>
 				<form onSubmit={(e) => handleSubmit(e)}>
 					<div>
 						<label>Username</label>

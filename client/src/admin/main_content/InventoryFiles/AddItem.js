@@ -75,10 +75,14 @@ const AddItem = ({ items, getItems, category }) => {
 			{!isOpen ? (
 				<AddButton type='button' onClick={handleToggleView}>
 					<FiPlus />
-					Add Items
+					Add Item
 				</AddButton>
 			) : (
 				<>
+					<AddButton type='button' onClick={handleToggleView}>
+						<FiPlus />
+						Add Item
+					</AddButton>
 					<Overlay></Overlay>
 					<Form onSubmit={handleAddItemSubmit}>
 						<h3>Add new item </h3>

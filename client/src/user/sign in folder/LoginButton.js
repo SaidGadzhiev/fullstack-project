@@ -29,10 +29,10 @@ const LoginButton = () => {
 					}}
 					className='learn-more'
 				>
-					<span class='circle' aria-hidden='true'>
-						<span class='icon arrow'></span>
+					<span className='circle' aria-hidden='true'>
+						<span className='icon arrow'></span>
 					</span>
-					<span class='button-text'> Borrow</span>
+					<span className='button-text'> Borrow</span>
 				</button>
 			</Content>
 		)

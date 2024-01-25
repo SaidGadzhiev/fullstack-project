@@ -61,8 +61,6 @@ const EditSingleItem = ({
 		handleCancelChange();
 	};
 
-	console.log(itemData);
-
 	return (
 		<>
 			<Inputs key={index}>
@@ -76,11 +74,11 @@ const EditSingleItem = ({
 										type='select'
 										required
 										placeholder='select'
-										value={selectedOption}
 									>
-										{' '}
-										<option value='no'>NO</option>
+										<option></option>
 										<option value='yes'>YES</option>
+
+										<option value='no'>NO</option>
 									</select>
 								</td>
 							);
@@ -92,9 +90,8 @@ const EditSingleItem = ({
 										type='select'
 										required
 										placeholder='select'
-										value={selectedOption}
 									>
-										{' '}
+										<option></option>
 										<option value='yes'>YES</option>
 										<option value='no'>NO</option>
 									</select>
