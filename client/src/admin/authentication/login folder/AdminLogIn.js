@@ -40,7 +40,6 @@ const AdminLogIn = () => {
 				<p>You already signed in. Go back to admin page</p>
 			) : (
 				<>
-					<p>Login to the dashboard</p>
 					<form onSubmit={(e) => handleSubmitForm(e)}>
 						<div>
 							<label>Email</label>
@@ -48,6 +47,7 @@ const AdminLogIn = () => {
 								type='email'
 								name='email'
 								id='email'
+								required
 								onChange={(e) => handleInput(e.target.value, 'email')}
 							></input>
 						</div>
@@ -57,15 +57,17 @@ const AdminLogIn = () => {
 								type='password'
 								name='password'
 								id='password'
+								required
 								onChange={(e) => handleInput(e.target.value, 'password')}
 							></input>
 						</div>{' '}
+						<button type='submit'>Login</button>
 						{errors && <p>{errors}</p>}
-						<button type='submit'>Submit</button>
 					</form>
 				</>
 			)}
 		</>
 	);
 };
+
 export default AdminLogIn;

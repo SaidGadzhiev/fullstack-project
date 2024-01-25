@@ -24,7 +24,6 @@ const RequestSelection = () => {
 		setPathSelected('requests');
 	};
 
-	console.log(currentCategory);
 	return (
 		<Selection>
 			<Title>

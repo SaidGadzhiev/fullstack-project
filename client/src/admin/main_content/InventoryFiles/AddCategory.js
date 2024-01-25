@@ -1,6 +1,6 @@
 //* ON PAUSE / COMEBACK ON THIS */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import fetchRequest from './utils/fetchRequest';
 import { createCategory } from './handleCategories/createCategory';
@@ -47,7 +47,8 @@ const AddCategory = ({ getCategories }) => {
 		};
 		//
 
-		const newFields = [...data.fields, model, serialNumber, availability];
+		const newFields = [model, serialNumber, ...data.fields, availability];
+		console.log(newFields);
 
 		setNewCat((prevCat) => ({ ...prevCat, attributes: newFields }));
 
@@ -84,8 +85,15 @@ const AddCategory = ({ getCategories }) => {
 				</button>
 			) : (
 				<>
+					<button type='button' onClick={handleToggleView}>
+						Add +
+					</button>
 					<Overlay />
 					<Form onSubmit={handleSubmit(onSubmit)}>
+						<p>
+							Model, Serial Number and Availability are automatically added for
+							you
+						</p>
 						<h4>Name of your category</h4>
 						<input
 							required
@@ -94,10 +102,10 @@ const AddCategory = ({ getCategories }) => {
 
 						{fields.map((field, index) => {
 							return (
-								<>
+								<Fragment key={field.id}>
 									<h4>New key value pair</h4>
 
-									<div key={field.id}>
+									<div>
 										<input
 											{...register(`fields[${index}].key`)}
 											defaultValue={field.key}
@@ -120,7 +128,7 @@ const AddCategory = ({ getCategories }) => {
 											</button>
 										)}
 									</div>
-								</>
+								</Fragment>
 							);
 						})}
 						<button type='button' onClick={() => append({ type: '' })}>
@@ -152,6 +160,13 @@ const Form = styled.form`
 
 	font-family: var(--font-poppins);
 	font-size: 1rem;
+
+	p {
+		font-size: 0.875rem;
+		opacity: 0.8;
+		color: #035555;
+	}
+
 	h4 {
 		margin-bottom: 10px;
 	}
@@ -177,7 +192,7 @@ const Form = styled.form`
 	div {
 		max-width: 350px;
 		display: flex;
-		flex-direction: row;
+		flex-direction: row !important;
 		margin-bottom: 20px;
 		justify-content: space-between;
 		input {
@@ -194,7 +209,6 @@ const Form = styled.form`
 			height: 34px;
 			padding: 0;
 			padding-top: 3px;
-			text-align: center;
 		}
 	}
 `;
