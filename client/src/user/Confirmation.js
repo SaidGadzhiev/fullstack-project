@@ -1,13 +1,12 @@
+import styled from 'styled-components';
+
 const Confirmation = ({ userData }) => {
 	return (
 		<>
 			{userData && (
-				<>
-					<div></div>
-					<p>Hello {userData.borrowerName}</p>
-					<p>Your item is ready to be picked up</p>
+				<Content>
 					<div>
-						<h3>Here are some details on the item request:</h3>
+						<h3>Item request details</h3>
 						<ul>
 							<li>Item: {userData.item}</li>
 							<li>Serial Number: {userData.serialNumber}</li>
@@ -17,9 +16,34 @@ const Confirmation = ({ userData }) => {
 						</ul>
 						You can pick up the item in the next 10-15 mins.
 					</div>
-				</>
+				</Content>
 			)}
 		</>
 	);
 };
+
+const Content = styled.div`
+	max-width: 400px;
+	width: 100%;
+	background-color: white;
+	padding: 30px;
+	border-radius: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	h3 {
+		margin-top: 0;
+	}
+	ul {
+		padding-left: 0;
+	}
+	li {
+		list-style-type: none;
+		margin-bottom: 10px;
+	}
+`;
 export default Confirmation;
