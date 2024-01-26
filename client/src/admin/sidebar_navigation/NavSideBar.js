@@ -5,6 +5,7 @@ import Profile from './Profile';
 import AdminLogOut from '../authentication/login folder/AdminLogOut';
 import styled from 'styled-components';
 
+//the navigation bar for the whole dashboard
 const NavSideBar = () => {
 	return (
 		<SideBar>

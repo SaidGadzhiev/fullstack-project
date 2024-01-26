@@ -6,6 +6,7 @@ import { FiSave } from 'react-icons/fi';
 import { FcCancel } from 'react-icons/fc';
 import Loader from '../../../Loader';
 
+//to edit an item that is being selected
 const EditSingleItem = ({
 	keys,
 	item,
@@ -15,25 +16,26 @@ const EditSingleItem = ({
 }) => {
 	const [itemData, editFormData] = useState(item);
 	const [disabled, setDisabled] = useState(false);
-	const [selectedOption, setSelectedOption] = useState('');
 
 	useEffect(() => {
 		editFormData(item);
 	}, [item]);
 
-	const changedValues = {};
-
+	//saves the desired choice of a select - option tag
 	const handleOptionChange = (key, e) => {
-		setSelectedOption(e.target.value);
 		editFormData((prevData) => ({
 			...prevData,
 			[key]: e.target.value === 'yes',
 		}));
 	};
 
+	//saves the desired input
 	const handleInputChange = (key, e) => {
 		editFormData((prevData) => ({ ...prevData, [key]: e.target.value }));
 	};
+
+	const changedValues = {};
+
 	const handleSaveChange = async (e) => {
 		e.preventDefault();
 		setDisabled(true);
@@ -56,8 +58,9 @@ const EditSingleItem = ({
 		}
 		setDisabled(false);
 
+		//rerenders the items
 		getItems();
-
+		//removes the edit mode
 		handleCancelChange();
 	};
 

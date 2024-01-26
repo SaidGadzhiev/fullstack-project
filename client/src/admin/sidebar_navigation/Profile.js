@@ -1,6 +1,7 @@
 import { useCurrentUser } from '../AuthContext';
 import styled from 'styled-components';
 
+//shows the name of the user
 const Profile = () => {
 	const { userProfile } = useCurrentUser();
 

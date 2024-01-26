@@ -2,6 +2,8 @@ import { useCurrentUser } from '../AuthContext';
 import Authentication from './Authentication';
 import AdminLogOut from './login folder/AdminLogOut';
 
+//when a user creates a new admin account, another admin has to verify their credibility...
+//this component is meant to render the right information based on users role
 const AdminConfirmation = () => {
 	const { userProfile } = useCurrentUser();
 

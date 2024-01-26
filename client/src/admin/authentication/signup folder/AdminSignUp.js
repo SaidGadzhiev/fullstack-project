@@ -2,6 +2,7 @@ import { useState } from 'react';
 import fetchRequest from '../../main_content/InventoryFiles/utils/fetchRequest';
 import { createUser } from '../login folder/userHandler';
 
+//for a new admin to make an account
 const AdminSignUp = () => {
 	const [newUser, setNewUser] = useState([]);
 	const [errors, newErrors] = useState([]);
@@ -12,6 +13,8 @@ const AdminSignUp = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		//adding a role of user to make sure they're not able to see the admin panel right away
+		//have to be approved by a real person first and it will be switched to 'admin' role
 		setNewUser((prevUser) => ({ ...prevUser, ['role']: 'pending' }));
 
 		try {

@@ -4,6 +4,7 @@ import { compareUser } from './userHandler';
 import { useCurrentUser } from '../../AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+//displaying the log in for existing users
 const AdminLogIn = () => {
 	const [user, setUser] = useState([]);
 	const [errors, setErrors] = useState();

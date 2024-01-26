@@ -4,12 +4,15 @@ import AddCategory from '../main_content/InventoryFiles/AddCategory';
 import styled from 'styled-components';
 import { MdOutlineInventory2 } from 'react-icons/md';
 
+//component to choose the category which is sent to currentCategory context
 const CategorySelection = () => {
 	const { currentCategory, setCurrentCategory } = useCurrentCategory();
 	const [categories, setCategories] = useState([]);
 
+	//makes sure the user selects one of the category
 	const { pathSelected, setPathSelected } = useCurrentCategory();
 
+	//all categories
 	const getCategories = async () => {
 		const result = await fetch('/categories');
 		const parsedResult = await result.json();
@@ -20,6 +23,7 @@ const CategorySelection = () => {
 		getCategories();
 	}, []);
 
+	//updates the current category to the selectedCat
 	const handleCategoryChange = (selectedCat) => {
 		setCurrentCategory(selectedCat);
 		setPathSelected('items');

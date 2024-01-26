@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { IoSearch } from 'react-icons/io5';
 
-const SearchBar = ({ search, setSearch }) => {
+//searchbar only works with serial number input in the field
+const SearchBar = ({ setSearch }) => {
 	return (
 		<Input>
 			<input

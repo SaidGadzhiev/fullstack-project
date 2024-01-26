@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import MoveRequest from './MoveRequest';
 import styled from 'styled-components';
+import _ from 'lodash';
+import convertKeys from './handleCamelCase/convertKeys';
 
+//getting new requests when selected
 const NewRequests = () => {
 	const [newRequests, setNewRequests] = useState([]);
 	const [keys, setKeys] = useState();
@@ -17,27 +20,12 @@ const NewRequests = () => {
 		}
 	};
 
-	const convertKeys = (requests) => {
-		const convertedKeys = [];
-		for (const key in requests) {
-			if (Object.prototype.hasOwnProperty.call(requests, key)) {
-				const convertedKey = key
-					.replace(/([a-z])([A-Z])/g, '$1 $2') //insert space between lowercase and uppercase letter
-					.replace(/([A-Z])/g, '$1') // Add space before each capital letter
-					.replace(/^./, (str) => str.toUpperCase()) // Capitalize the first character
-					.trim();
-
-				convertedKeys.push(convertedKey);
-			}
-		}
-		return convertedKeys;
-	};
-
 	useEffect(() => {
 		getRequests();
 	}, []);
 
 	useEffect(() => {
+		//check convertKeys in handleCamelCase folder
 		setKeys(convertKeys(newRequests[0]));
 	}, [newRequests]);
 
