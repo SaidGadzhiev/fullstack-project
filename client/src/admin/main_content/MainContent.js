@@ -4,6 +4,8 @@ import Requests from './RequestsFiles/Requests';
 import styled from 'styled-components';
 import { FaBoxesPacking } from 'react-icons/fa6';
 
+//main content shows either ViewItems selected on the category
+//if no category selected, it will show an 'empty' page
 const MainContent = () => {
 	const { pathSelected } = useCurrentCategory();
 

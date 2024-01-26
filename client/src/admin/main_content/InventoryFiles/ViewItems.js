@@ -9,6 +9,7 @@ import TableHeadRow from './TableHeadRow';
 import styled from 'styled-components';
 import { FaBoxesPacking } from 'react-icons/fa6';
 
+//the component that encapsulates - TableHeadRow, ViewSingleItem, EditSingleItem, SearchBar, AddItem, DeleteItem
 const ViewItems = () => {
 	const [items, setItems] = useState([]);
 	const [itemId, setItemId] = useState(String);
@@ -17,6 +18,7 @@ const ViewItems = () => {
 
 	const { currentCategory } = useCurrentCategory();
 
+	//getting the items specifically on the selected category
 	const getItems = async () => {
 		try {
 			const result = await fetch(`/items/key/category/${currentCategory}`);
@@ -27,6 +29,7 @@ const ViewItems = () => {
 		}
 	};
 
+	//getting the category selected (the object)
 	const getCategory = async () => {
 		const result = await fetch(`/categories/key/name/${currentCategory}`);
 		const parsedResult = await result.json();
@@ -63,6 +66,7 @@ const ViewItems = () => {
 		<Content>
 			{items.length < 1 ? (
 				<>
+					{/* represents an empty category -  no items inside */}
 					<h1>{category.name}</h1>
 					<NoItemsPage>
 						<FaBoxesPacking className='noitems' />

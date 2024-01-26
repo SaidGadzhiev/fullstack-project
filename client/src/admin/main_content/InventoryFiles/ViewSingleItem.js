@@ -5,11 +5,13 @@ import { MdModeEdit } from 'react-icons/md';
 
 import styled from 'styled-components';
 
+// renders the tr and td of each iteme depending on tha cateory selected
 const ViewSingleItem = ({ keys, item, index, handleIdChange, getItems }) => {
 	return (
 		<>
 			<TR key={index}>
 				{keys.map((key) => {
+					//some filtering to use icons for boolean values
 					if (key !== 'category') {
 						if (item[key] === false) {
 							return (
@@ -33,6 +35,7 @@ const ViewSingleItem = ({ keys, item, index, handleIdChange, getItems }) => {
 				})}
 
 				<td>
+					{/* when clicked, the handleIdChange is passed to ViewItems to select the item needed for modifications */}
 					<EditButton type='button' onClick={(e) => handleIdChange(e, item)}>
 						<MdModeEdit />
 					</EditButton>

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import fetchRequest from './utils/fetchRequest';
 import { updateCategory } from './handleCategories/updateCategory';
 
+//rendering the table head row
 const TableHeadRow = ({ category, getCategory, getItems }) => {
 	const [isEdible, setIsEdible] = useState(String);
 	const [newKey, setNewKey] = useState('');
@@ -14,6 +15,7 @@ const TableHeadRow = ({ category, getCategory, getItems }) => {
 		}
 	}, [isEdible]);
 
+	//*** - 🚧 UNDER CONSTRUCTION 🚧 - ***/
 	const handleDoubleClick = (e, value) => {
 		setIsEdible(value);
 		setOldKey(value);
@@ -22,7 +24,7 @@ const TableHeadRow = ({ category, getCategory, getItems }) => {
 
 	const handleBlur = async (event) => {
 		//relatedTarget = whats focused by the cursor
-		//.isEqualNode(input...) checks if teh cursor is being clicked outside of input
+		//.isEqualNode(input...) checks if the cursor is being clicked outside of input
 		if (
 			!event.relatedTarget ||
 			!event.relatedTarget.isEqualNode(inputRef.current)
@@ -44,6 +46,7 @@ const TableHeadRow = ({ category, getCategory, getItems }) => {
 			}
 		}
 	};
+	//*** - 🚧 UNDER CONSTRUCTION 🚧 - ***/
 
 	const handleInput = (value) => {
 		setNewKey(value);

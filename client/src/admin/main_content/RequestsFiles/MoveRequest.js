@@ -1,16 +1,16 @@
-import { useState } from 'react';
 import fetchRequest from '../InventoryFiles/utils/fetchRequest';
 import { updateRequest } from './handleRequests/updateRequest';
 import { MdDelete } from 'react-icons/md';
 import styled from 'styled-components';
 
+//moves the newRequest to oldRequest
 const MoveRequest = ({ request, getRequests }) => {
 	const handleMoveRequest = async (e, request) => {
 		e.preventDefault();
 		const object = { category: 'old' };
-		console.log(object);
 
 		try {
+			//updates the request from new to old
 			const res = await fetchRequest(() => updateRequest(request._id, object));
 			if (!res) {
 				console.log('error updating request');
@@ -18,6 +18,7 @@ const MoveRequest = ({ request, getRequests }) => {
 		} catch (err) {
 			console.log(err);
 		}
+		//updates the list on frontend
 		getRequests();
 	};
 	return (

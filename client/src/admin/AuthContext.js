@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+//to save the user login to the localStorage
 export const AuthContext = createContext(null);
 
 export const useCurrentUser = () => useContext(AuthContext);

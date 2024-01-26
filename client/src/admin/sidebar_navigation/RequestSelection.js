@@ -3,6 +3,7 @@ import { useCurrentCategory } from '../CategoryContext';
 import styled from 'styled-components';
 import { FiGitPullRequest } from 'react-icons/fi';
 
+//same logic as CategorySelection
 const RequestSelection = () => {
 	const { currentCategory, setCurrentCategory } = useCurrentCategory();
 	const { pathSelected, setPathSelected } = useCurrentCategory();

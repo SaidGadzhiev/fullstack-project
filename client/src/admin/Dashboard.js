@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import AdminLogIn from './authentication/login folder/AdminLogIn';
 import Confirmation from './authentication/AdminConfirmation';
 
+//this component renders the whole screen of the admin page including log in aswell
 function Dashboard() {
 	const { userProfile } = useCurrentUser();
 

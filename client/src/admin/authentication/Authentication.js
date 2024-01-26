@@ -7,6 +7,7 @@ import AdminLogOut from '../authentication/login folder/AdminLogOut';
 import logo from '../../assets/logo.svg';
 import styled from 'styled-components';
 
+//first page the admin sees when trying log in
 const Authentication = () => {
 	const [createAccount, setCreateAccount] = useState(false);
 	const { userProfile } = useCurrentUser();
