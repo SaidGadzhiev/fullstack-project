@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import getItemsByModel, { getItem } from './itemChoiceHandlers/itemHandlers';
 import styled from 'styled-components';
 
+//shows the item available in the selected category
 const ItemChoice = ({
 	items,
 	chosenCat,
