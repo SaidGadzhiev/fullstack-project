@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+//rendering confirmation page
 const Confirmation = ({ userData }) => {
 	return (
 		<>
