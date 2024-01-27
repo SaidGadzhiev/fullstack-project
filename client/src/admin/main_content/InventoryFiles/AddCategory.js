@@ -1,25 +1,29 @@
-//* ON PAUSE / COMEBACK ON THIS */
-
 import { useState, useEffect, Fragment } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import fetchRequest from './utils/fetchRequest';
-import { createCategory } from './handleCategories/createCategory';
+
 import styled from 'styled-components';
 import { IoCloseSharp } from 'react-icons/io5';
+import postData from './addingHandlers/categoryHandlers';
 
+//adding new category by the user
 const AddCategory = ({ getCategories }) => {
 	const [newCat, setNewCat] = useState({});
 	const [submitted, setSubmitted] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
+	const [errors, setErrors] = useState();
 
 	const handleToggleView = () => {
+		setErrors(null);
 		setIsOpen(!isOpen);
+		reset();
 	};
 
+	//from the library hook form
 	const { control, register, handleSubmit, reset } = useForm({
 		defaultValues: { fields: [{ key: '' }] },
 	});
 
+	//hook form commands
 	const { fields, append, remove } = useFieldArray({
 		control,
 		name: 'fields',
@@ -30,8 +34,6 @@ const AddCategory = ({ getCategories }) => {
 	};
 
 	const onSubmit = async (data) => {
-		setIsOpen(false);
-
 		//hardcoded for the user
 		const serialNumber = {
 			key: 'Serial Number',
@@ -48,31 +50,16 @@ const AddCategory = ({ getCategories }) => {
 		//
 
 		const newFields = [model, serialNumber, ...data.fields, availability];
-		console.log(newFields);
 
 		setNewCat((prevCat) => ({ ...prevCat, attributes: newFields }));
-
 		setSubmitted(true);
 	};
 
+	//triggers the useEffect when submitted changes value
 	useEffect(() => {
-		const postData = async () => {
-			try {
-				const res = await fetchRequest(() => createCategory(newCat));
-				if (!res) {
-					console.log('error adding a category');
-				}
-				getCategories();
-			} catch (err) {
-				console.log(err);
-			}
-		};
-
 		if (submitted) {
-			postData();
+			postData(newCat, setErrors, setIsOpen, getCategories, reset);
 			setNewCat({});
-			reset();
-
 			setSubmitted(false);
 		}
 	}, [submitted]);
@@ -90,6 +77,7 @@ const AddCategory = ({ getCategories }) => {
 					</button>
 					<Overlay />
 					<Form onSubmit={handleSubmit(onSubmit)}>
+						{errors && <Error>{errors}</Error>}
 						<p>
 							Model, Serial Number and Availability are automatically added for
 							you
@@ -143,6 +131,10 @@ const AddCategory = ({ getCategories }) => {
 		</>
 	);
 };
+
+const Error = styled.p`
+	color: red !important;
+`;
 
 const Form = styled.form`
 	max-width: 350px;

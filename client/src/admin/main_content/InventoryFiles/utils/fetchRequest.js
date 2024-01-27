@@ -4,7 +4,7 @@ const fetchRequest = async (api) => {
 		if (data.error) throw new Error(data.error);
 		return data;
 	} catch (error) {
-		console.log(error);
+		return error;
 	}
 };
 

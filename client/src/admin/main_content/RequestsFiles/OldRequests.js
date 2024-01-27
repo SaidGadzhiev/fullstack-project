@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import convertKeys from './handleCamelCase/convertKeys';
+import Loader from '../../../Loader';
 
 // getting old requests when selected
 const OldRequests = () => {
@@ -30,8 +31,8 @@ const OldRequests = () => {
 	return (
 		<Content>
 			<h1>Previous Requests</h1>
-			{!oldRequests || !keys ? (
-				<div>hold on</div>
+			{oldRequests.length < 1 ? (
+				<Loader />
 			) : (
 				<Table>
 					<thead>
@@ -69,6 +70,16 @@ const Content = styled.div`
 	h1 {
 		text-transform: capitalize;
 		font-family: var(--font-ubuntu);
+	}
+	position: relative;
+	.spinner {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100px;
+		height: 100px;
+		border: 4px solid #178080;
 	}
 `;
 
