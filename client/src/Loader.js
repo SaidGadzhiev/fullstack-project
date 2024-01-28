@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+//show the user the content is loading or the change that's been made
 const Loader = () => {
-	return <Spinner></Spinner>;
+	return <Spinner className='spinner'></Spinner>;
 };
 
 const Spinner = styled.div`

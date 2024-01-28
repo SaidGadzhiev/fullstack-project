@@ -9,8 +9,10 @@ const _ = require('lodash');
 const AddItem = ({ items, getItems, category }) => {
 	const [formData, newFormData] = useState();
 	const [isOpen, setIsOpen] = useState(false);
+	const [errors, setErrors] = useState();
 
 	const handleToggleView = () => {
+		setErrors(null);
 		setIsOpen(!isOpen);
 	};
 
@@ -36,7 +38,6 @@ const AddItem = ({ items, getItems, category }) => {
 	//changing the values of the array for the item for boolean condition
 	const handleOptionChange = (key, value) => {
 		const newKey = _.camelCase(key);
-
 		if (value.length > 0) {
 			newFormData((prevData) => ({ ...prevData, [newKey]: value === 'yes' }));
 		}
@@ -55,16 +56,16 @@ const AddItem = ({ items, getItems, category }) => {
 	//post request to create the item
 	const handleAddItemSubmit = async (e) => {
 		e.preventDefault();
-		setIsOpen(false);
 		try {
 			const res = await fetchRequest(() => createItem(formData));
-			if (!res) {
-				console.log('error adding item');
+			if (!res.data) {
+				setErrors(res.message);
+			} else {
+				setErrors(null);
+				setIsOpen(false);
+				getItems();
+				newFormData(initialFormData);
 			}
-			getItems();
-			// setSortedItems((prevItems) => [...prevItems, formData]);
-
-			newFormData(initialFormData);
 		} catch (err) {
 			console.log(err);
 		}
@@ -86,6 +87,7 @@ const AddItem = ({ items, getItems, category }) => {
 					<Overlay></Overlay>
 					<Form onSubmit={handleAddItemSubmit}>
 						<h3>Add new item </h3>
+						{errors && <Error>{errors}</Error>}
 						{category.attributes.map(({ key, type }) => {
 							if (type === 'boolean') {
 								return (
@@ -130,6 +132,10 @@ const AddItem = ({ items, getItems, category }) => {
 	);
 };
 
+const Error = styled.p`
+	color: red;
+	font-size: 0.825rem;
+`;
 const AddButton = styled.button`
 	display: flex;
 	align-items: center;
