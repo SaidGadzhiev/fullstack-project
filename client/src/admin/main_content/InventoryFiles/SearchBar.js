@@ -20,7 +20,8 @@ const Input = styled.div`
 	display: inline-block;
 	position: relative;
 	input {
-		width: 400px;
+		width: 300px;
+
 		border: none;
 		height: 35px;
 		padding-left: 40px;
@@ -44,6 +45,9 @@ const Input = styled.div`
 		left: 15px;
 		font-size: 1.125rem;
 		transform: translateY(-50%);
+		@media (max-width: 550px) {
+			top: 70%;
+		}
 	}
 	svg {
 		opacity: 0.4;

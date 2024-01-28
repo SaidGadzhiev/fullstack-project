@@ -47,10 +47,10 @@ const OldRequests = () => {
 					</thead>
 
 					<tbody>
-						{oldRequests.map((r, index) => {
+						{oldRequests.map((r) => {
 							return (
 								<tr key={r._id}>
-									{Object.entries(r).map((key, value) => {
+									{Object.entries(r).map((key) => {
 										if (key[0] !== '_id' && key[0] !== 'category')
 											return <td key={key}>{key[1]}</td>;
 									})}

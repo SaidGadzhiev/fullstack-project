@@ -147,6 +147,9 @@ const ViewItems = () => {
 const Content = styled.div`
 	padding-left: 50px;
 	padding-right: 50px;
+	@media (max-width: 850px) {
+		padding: 0;
+	}
 	h1 {
 		text-transform: capitalize;
 		font-family: var(--font-ubuntu);
@@ -179,6 +182,26 @@ const TitleAndFilters = styled.div`
 		*:not(:last-child) {
 			margin-right: 20px;
 		}
+		@media (max-width: 1200px) {
+			flex-wrap: wrap;
+
+			button {
+				height: 45px;
+			}
+		}
+		@media (max-width: 550px) {
+			input {
+				margin-top: 25px;
+			}
+			button {
+				margin-top: 35px;
+
+				margin-bottom: 30px;
+			}
+		}
+	}
+	@media (max-width: 1200px) {
+		flex-direction: column;
 	}
 `;
 
@@ -192,6 +215,11 @@ const Form = styled.form`
 		border-radius: 10px;
 		border-spacing: 20px 40px;
 		box-shadow: 0px -4px 10px 2px rgba(0, 0, 0, 0.07);
+		@media (max-width: 1200px) {
+			padding: 0;
+			margin: 0;
+			width: 89vw;
+		}
 	}
 
 	thead {
