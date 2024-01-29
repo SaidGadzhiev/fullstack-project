@@ -199,6 +199,16 @@ const TitleAndFilters = styled.div`
 				margin-bottom: 30px;
 			}
 		}
+		/* @media (max-width: 550px) {
+			input {
+				margin-top: 25px;
+			}
+			button {
+				margin-top: 35px;
+
+				margin-bottom: 30px;
+			}
+		} */
 	}
 	@media (max-width: 1200px) {
 		flex-direction: column;
