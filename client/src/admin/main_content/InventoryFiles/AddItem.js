@@ -6,7 +6,7 @@ import { FiPlus } from 'react-icons/fi';
 
 const _ = require('lodash');
 
-const AddItem = ({ items, getItems, category }) => {
+const AddItem = ({ items, getItems, category, getCategory }) => {
 	const [formData, newFormData] = useState();
 	const [isOpen, setIsOpen] = useState(false);
 	const [errors, setErrors] = useState();
@@ -30,10 +30,14 @@ const AddItem = ({ items, getItems, category }) => {
 		: [];
 
 	//make a new array only including the keys of the keysValues array
-	const initialFormData = camelCaseObject.reduce((acc, curr) => {
-		acc[curr.key] = curr.key === 'category' ? items[0].category : '';
-		return acc;
-	}, {});
+	useEffect(() => {
+		const initialData = camelCaseObject.reduce((acc, curr) => {
+			acc[curr.key] = curr.key === 'category' ? items[0].category : '';
+			return acc;
+		}, {});
+
+		newFormData(initialData);
+	}, [category]);
 
 	//changing the values of the array for the item for boolean condition
 	const handleOptionChange = (key, value) => {
@@ -64,7 +68,6 @@ const AddItem = ({ items, getItems, category }) => {
 				setErrors(null);
 				setIsOpen(false);
 				getItems();
-				newFormData(initialFormData);
 			}
 		} catch (err) {
 			console.log(err);
@@ -85,6 +88,7 @@ const AddItem = ({ items, getItems, category }) => {
 						Add Item
 					</AddButton>
 					<Overlay></Overlay>
+					{/* make the form its own component */}
 					<Form onSubmit={handleAddItemSubmit}>
 						<h3>Add new item </h3>
 						{errors && <Error>{errors}</Error>}

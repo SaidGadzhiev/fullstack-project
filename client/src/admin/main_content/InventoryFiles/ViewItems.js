@@ -58,8 +58,15 @@ const ViewItems = () => {
 		setItemId(null);
 	};
 
-	const renderAddItem = ({ items, getItems, category }) => {
-		return <AddItem items={items} getItems={getItems} category={category} />;
+	const renderAddItem = ({ items, getItems, category, getCategory }) => {
+		return (
+			<AddItem
+				items={items}
+				getItems={getItems}
+				category={category}
+				getCategory={getCategory}
+			/>
+		);
 	};
 
 	return (
@@ -75,6 +82,7 @@ const ViewItems = () => {
 							items: items,
 							getItems: getItems,
 							category: category,
+							getCategory: getCategory,
 						})}
 					</NoItemsPage>
 				</>
@@ -199,16 +207,6 @@ const TitleAndFilters = styled.div`
 				margin-bottom: 30px;
 			}
 		}
-		/* @media (max-width: 550px) {
-			input {
-				margin-top: 25px;
-			}
-			button {
-				margin-top: 35px;
-
-				margin-bottom: 30px;
-			}
-		} */
 	}
 	@media (max-width: 1200px) {
 		flex-direction: column;

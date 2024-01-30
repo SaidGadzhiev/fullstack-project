@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { IoCloseSharp } from 'react-icons/io5';
 import postData from './addingHandlers/categoryHandlers';
 
+//seperate the components into two: presentational and container components*****
+
 //adding new category by the user
 const AddCategory = ({ getCategories }) => {
 	const [newCat, setNewCat] = useState({});
