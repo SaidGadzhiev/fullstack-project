@@ -16,6 +16,7 @@ const createRequest = require('./endpoints/requests/createRequest');
 const updateRequest = require('./endpoints/requests/updateRequest');
 const getSingleUser = require('./endpoints/users/getSingleUser');
 const updateAllItemsByCat = require('./endpoints/items/updateAllItemsByCat');
+const newNotification = require('./endpoints/notification/newNotification');
 const app = express();
 const port = 4000;
 
@@ -52,6 +53,7 @@ app.delete('/categories/:id', deleteCategory);
 app.post('/categories', createCategory);
 app.patch('/categories/:id', updateCategory);
 
+//requests endpoints
 app.get('/requests', getAllRequests);
 app.post('/requests', createRequest);
 app.patch('/requests/:id', updateRequest);
@@ -59,6 +61,9 @@ app.patch('/requests/:id', updateRequest);
 //users endpoints
 app.post('/user', getSingleUser);
 app.post('/users', createUser);
+
+//notification endpoints
+app.post('/notification', newNotification);
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);

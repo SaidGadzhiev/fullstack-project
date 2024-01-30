@@ -12,6 +12,14 @@ const createRequest = async (req, res) => {
 		await client.connect();
 		const db = await client.db('fullstackProject');
 
+		//updating the notification value when user sends his data to mongo db
+		const notificationUpdate = await db
+			.collection('notification')
+			.updateMany(
+				{ newNotification: false },
+				{ $set: { newNotification: true } }
+			);
+
 		const result = await db
 			.collection('requests')
 			.insertOne({ _id: new ObjectId(), ...newRequest });
