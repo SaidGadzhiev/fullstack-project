@@ -14,7 +14,6 @@ function Dashboard() {
 
 	const handleClick = () => {
 		setMobile(!mobile);
-		console.log(mobile);
 	};
 
 	return (

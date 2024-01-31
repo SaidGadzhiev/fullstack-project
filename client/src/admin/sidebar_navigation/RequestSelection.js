@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { useCurrentCategory } from '../CategoryContext';
 import styled from 'styled-components';
 import { FiGitPullRequest } from 'react-icons/fi';
+import fetchRequest from '../main_content/InventoryFiles/utils/fetchRequest';
+import { updateNotification } from './requestHandler';
 
 //same logic as CategorySelection
 const RequestSelection = () => {
 	const { currentCategory, setCurrentCategory } = useCurrentCategory();
 	const { pathSelected, setPathSelected } = useCurrentCategory();
+	const [notification, setNotification] = useState(false);
 
 	const [requests, setRequests] = useState([]);
 
@@ -16,13 +19,40 @@ const RequestSelection = () => {
 		setRequests(parsedResult.data);
 	};
 
+	const getNotification = async () => {
+		const result = await fetch('/notification');
+		const parsedResult = await result.json();
+		if (parsedResult.data) {
+			setNotification(parsedResult.data.newNotification);
+		}
+	};
+
+	const refreshNotification = async () => {
+		try {
+			const res = await fetchRequest(() => updateNotification());
+			if (!res) {
+				console.log('error updating item');
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	useEffect(() => {
 		getRequests();
+		getNotification();
+
+		const intervalId = setInterval(getNotification, 2000);
+		return () => clearInterval(intervalId);
 	}, []);
 
 	const handleCategoryChange = (value) => {
 		setCurrentCategory(value);
 		setPathSelected('requests');
+		if (value === 'new') {
+			setNotification(false);
+			refreshNotification();
+		}
 	};
 
 	return (
@@ -36,7 +66,10 @@ const RequestSelection = () => {
 				<div>
 					<button
 						onClick={() => handleCategoryChange('new')}
-						className={currentCategory === 'new' ? 'selected' : ''}
+						className={
+							(currentCategory === 'new' ? 'selected ' : '') +
+							(notification ? 'notification' : '')
+						}
 					>
 						New Requests
 					</button>
@@ -95,6 +128,10 @@ const Selection = styled.div`
 				background-color: #efe8e17a;
 				color: #178080;
 			}
+		}
+
+		.notification {
+			border: 1px solid red;
 		}
 	}
 `;

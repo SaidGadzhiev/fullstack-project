@@ -17,6 +17,8 @@ const updateRequest = require('./endpoints/requests/updateRequest');
 const getSingleUser = require('./endpoints/users/getSingleUser');
 const updateAllItemsByCat = require('./endpoints/items/updateAllItemsByCat');
 const newNotification = require('./endpoints/notification/newNotification');
+const getNotification = require('./endpoints/notification/getNotification');
+const updateNotification = require('./endpoints/notification/updateNotification');
 const app = express();
 const port = 4000;
 
@@ -64,6 +66,8 @@ app.post('/users', createUser);
 
 //notification endpoints
 app.post('/notification', newNotification);
+app.get('/notification', getNotification);
+app.patch('/notification', updateNotification);
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
