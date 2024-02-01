@@ -10,6 +10,7 @@ const RequestSelection = () => {
 	const { currentCategory, setCurrentCategory } = useCurrentCategory();
 	const { pathSelected, setPathSelected } = useCurrentCategory();
 	const [notification, setNotification] = useState(false);
+	const [audio] = useState(new Audio('../../assets/notification.mp3'));
 
 	const [requests, setRequests] = useState([]);
 
@@ -26,6 +27,13 @@ const RequestSelection = () => {
 			setNotification(parsedResult.data.newNotification);
 		}
 	};
+
+	useEffect(() => {
+		if (notification) {
+			audio.play();
+			getRequests();
+		}
+	}, [notification]);
 
 	const refreshNotification = async () => {
 		try {
@@ -131,7 +139,17 @@ const Selection = styled.div`
 		}
 
 		.notification {
-			border: 1px solid red;
+			position: relative;
+		}
+		.notification::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 10px;
+			height: 10px;
+			background-color: red;
+			border-radius: 50%;
 		}
 	}
 `;
