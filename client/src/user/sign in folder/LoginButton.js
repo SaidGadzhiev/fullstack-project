@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import logo from '../../assets/logo.svg';
+import logo from '../../images/logo.svg';
 import styled from 'styled-components';
 
 const LoginButton = () => {
