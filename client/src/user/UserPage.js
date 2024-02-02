@@ -110,16 +110,20 @@ const UserPage = () => {
 
 										<ModelList>
 											{chosenCat && (
-												<ItemChoice
-													items={items}
-													chosenCat={chosenCat}
-													user={user}
-													setUserData={setUserData}
-													setItem={setItem}
-													setButtonSwitch={setButtonSwitch}
-													selectedModel={selectedModel}
-													setSelectedModel={setSelectedModel}
-												/>
+												<>
+													<h3>Select your model</h3>
+
+													<ItemChoice
+														items={items}
+														chosenCat={chosenCat}
+														user={user}
+														setUserData={setUserData}
+														setItem={setItem}
+														setButtonSwitch={setButtonSwitch}
+														selectedModel={selectedModel}
+														setSelectedModel={setSelectedModel}
+													/>
+												</>
 											)}
 										</ModelList>
 										{selectedModel && buttonSwitch && (
@@ -146,12 +150,20 @@ const Selection = styled.div`
 	text-transform: capitalize;
 	color: #676767;
 	max-width: 613px;
+	width: 100%;
 	background-color: #ffffffcc;
 	padding: 40px;
 	border-radius: 30px;
 	margin: 0 auto;
+
 	margin-top: 15vh;
 	box-shadow: 0px -4px 10px 2px rgba(0, 0, 0, 0.07);
+
+	@media screen and (max-width: 650px) {
+		max-width: 230px;
+		width: 100%;
+		margin-top: 5vh;
+	}
 
 	h3 {
 		margin-top: 0;
@@ -244,6 +256,15 @@ const Line = styled.span`
 	position: absolute;
 	left: 50%;
 	top: 10%;
+
+	@media screen and (max-width: 650px) {
+		height: 2px;
+		width: 100%;
+		position: relative;
+		margin: 0 auto;
+		left: 0;
+		margin-top: 45px;
+	}
 `;
 
 const Button = styled.button`
@@ -264,6 +285,16 @@ const CategoryList = styled.div`
 	width: 100%;
 `;
 
-const ModelList = styled.div``;
+const ModelList = styled.div`
+	h3 {
+		display: none;
+	}
+	@media screen and (max-width: 650px) {
+		h3 {
+			margin-top: 40px;
+			display: inherit;
+		}
+	}
+`;
 
 export default UserPage;

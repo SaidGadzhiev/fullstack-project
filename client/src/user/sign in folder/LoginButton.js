@@ -43,9 +43,18 @@ const Content = styled.div`
 	display: flex;
 	margin: 0 auto;
 	height: 99vh;
-	width: 600px;
+	max-width: 600px;
+	width: 100%;
 	justify-content: space-around;
 	align-items: center;
+
+	@media screen and (max-width: 500px) {
+		flex-direction: column;
+		justify-content: center;
+		img {
+			margin-bottom: 30px;
+		}
+	}
 
 	img {
 		max-width: 250px;
@@ -147,6 +156,10 @@ const Line = styled.span`
 	height: 100%;
 	background-color: #178080; /* Adjust the color of the line */
 	border-radius: 10px;
+
+	@media screen and (max-width: 500px) {
+		display: none;
+	}
 `;
 
 export default LoginButton;
