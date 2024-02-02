@@ -4,7 +4,6 @@ import AdminLogIn from './login folder/AdminLogIn';
 import AdminSignUp from './signup folder/AdminSignUp';
 import { useCurrentUser } from '../AuthContext';
 import AdminLogOut from '../authentication/login folder/AdminLogOut';
-import logo from '../../assets/logo.svg';
 import styled from 'styled-components';
 
 //first page the admin sees when trying log in
