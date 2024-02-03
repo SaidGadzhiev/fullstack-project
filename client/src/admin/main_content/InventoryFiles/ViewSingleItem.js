@@ -10,6 +10,9 @@ const ViewSingleItem = ({ keys, item, index, handleIdChange, getItems }) => {
 	return (
 		<>
 			<TR key={index}>
+				<td>
+					<input type='checkbox' id='myCheckbox' name='myCheckbox' />
+				</td>
 				{keys.map((key) => {
 					//some filtering to use icons for boolean values
 					if (key !== 'category') {
