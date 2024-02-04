@@ -63,17 +63,6 @@ const ViewItems = () => {
 		setItemId(null);
 	};
 
-	const renderAddItem = ({ items, getItems, category, getCategory }) => {
-		return (
-			<AddItem
-				items={items}
-				getItems={getItems}
-				category={category}
-				getCategory={getCategory}
-			/>
-		);
-	};
-
 	return (
 		<Content>
 			{items.length < 1 ? (
@@ -83,12 +72,12 @@ const ViewItems = () => {
 					<NoItemsPage>
 						<FaBoxesPacking className='noitems' />
 						<p>You don't have any items in this category</p>
-						{renderAddItem({
-							items: items,
-							getItems: getItems,
-							category: category,
-							getCategory: getCategory,
-						})}
+						<AddItem
+							items={items}
+							getItems={getItems}
+							category={category}
+							getCategory={getCategory}
+						/>
 					</NoItemsPage>
 				</>
 			) : (
@@ -103,11 +92,12 @@ const ViewItems = () => {
 								<div>
 									<SearchBar search={search} setSearch={setSearch} />
 									<DownloadData items={items} />
-									{renderAddItem({
-										items: items,
-										getItems: getItems,
-										category: category,
-									})}
+									<AddItem
+										items={items}
+										getItems={getItems}
+										category={category}
+										getCategory={getCategory}
+									/>
 								</div>
 							</TitleAndFilters>
 
