@@ -6,7 +6,14 @@ import { MdModeEdit } from 'react-icons/md';
 import styled from 'styled-components';
 
 // renders the tr and td of each iteme depending on tha cateory selected
-const ViewSingleItem = ({ keys, item, index, handleIdChange, getItems }) => {
+const ViewSingleItem = ({
+	keys,
+	item,
+	index,
+	handleIdChange,
+	getItems,
+	handleCheckboxClick,
+}) => {
 	return (
 		<>
 			<TR key={index}>

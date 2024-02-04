@@ -8,6 +8,7 @@ import DownloadData from './DownloadData';
 import TableHeadRow from './TableHeadRow';
 import styled from 'styled-components';
 import { FaBoxesPacking } from 'react-icons/fa6';
+import Loader from '../../../Loader';
 
 //the component that encapsulates - TableHeadRow, ViewSingleItem, EditSingleItem, SearchBar, AddItem, DeleteItem
 const ViewItems = () => {
@@ -15,17 +16,21 @@ const ViewItems = () => {
 	const [itemId, setItemId] = useState(String);
 	const [category, setCategory] = useState([]);
 	const [search, setSearch] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const { currentCategory } = useCurrentCategory();
 
 	//getting the items specifically on the selected category
 	const getItems = async () => {
 		try {
+			setIsLoading(true);
 			const result = await fetch(`/items/key/category/${currentCategory}`);
 			const parsedResult = await result.json();
 			setItems(parsedResult.data);
 		} catch (err) {
 			console.error('error getting items:', err);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -58,17 +63,6 @@ const ViewItems = () => {
 		setItemId(null);
 	};
 
-	const renderAddItem = ({ items, getItems, category, getCategory }) => {
-		return (
-			<AddItem
-				items={items}
-				getItems={getItems}
-				category={category}
-				getCategory={getCategory}
-			/>
-		);
-	};
-
 	return (
 		<Content>
 			{items.length < 1 ? (
@@ -78,74 +72,81 @@ const ViewItems = () => {
 					<NoItemsPage>
 						<FaBoxesPacking className='noitems' />
 						<p>You don't have any items in this category</p>
-						{renderAddItem({
-							items: items,
-							getItems: getItems,
-							category: category,
-							getCategory: getCategory,
-						})}
+						<AddItem
+							items={items}
+							getItems={getItems}
+							category={category}
+							getCategory={getCategory}
+						/>
 					</NoItemsPage>
 				</>
 			) : (
 				<>
-					<TitleAndFilters>
-						<h1>{category.name}</h1>
+					{isLoading ? (
+						<Loader />
+					) : (
+						<>
+							<TitleAndFilters>
+								<h1>{category.name}</h1>
 
-						<div>
-							<SearchBar search={search} setSearch={setSearch} />
-							<DownloadData items={items} />
-							{renderAddItem({
-								items: items,
-								getItems: getItems,
-								category: category,
-							})}
-						</div>
-					</TitleAndFilters>
+								<div>
+									<SearchBar search={search} setSearch={setSearch} />
+									<DownloadData items={items} />
+									<AddItem
+										items={items}
+										getItems={getItems}
+										category={category}
+										getCategory={getCategory}
+									/>
+								</div>
+							</TitleAndFilters>
 
-					<Form>
-						<table>
-							<thead>
-								<TableHeadRow
-									category={category}
-									getCategory={getCategory}
-									getItems={getItems}
-								/>
-							</thead>
-							<tbody>
-								{items
-									.filter((item) => {
-										return search.toLowerCase() === ''
-											? item
-											: item.serialNumber
-													.toLowerCase()
-													.includes(search.toLowerCase());
-									})
-									.map((item, index) => {
-										return (
-											<Fragment key={item._id}>
-												{itemId === item._id ? (
-													<EditSingleItem
-														keys={keys}
-														item={item}
-														index={index}
-														handleCancelChange={handleCancelChange}
-														getItems={getItems}
-													/>
-												) : (
-													<ViewSingleItem
-														keys={keys}
-														item={item}
-														index={index}
-														getItems={getItems}
-														handleIdChange={handleIdChange}
-													/>
-												)}
-											</Fragment>
-										);
-									})}
-							</tbody>
-						</table>
-					</Form>
+							<Form>
+								<table>
+									<thead>
+										<TableHeadRow
+											category={category}
+											getCategory={getCategory}
+											getItems={getItems}
+										/>
+									</thead>
+									<tbody>
+										{items
+											.filter((item) => {
+												return search.toLowerCase() === ''
+													? item
+													: item.serialNumber
+															.toLowerCase()
+															.includes(search.toLowerCase());
+											})
+											.map((item, index) => {
+												return (
+													<Fragment key={item._id}>
+														{itemId === item._id ? (
+															<EditSingleItem
+																keys={keys}
+																item={item}
+																index={index}
+																handleCancelChange={handleCancelChange}
+																getItems={getItems}
+															/>
+														) : (
+															<ViewSingleItem
+																keys={keys}
+																item={item}
+																index={index}
+																getItems={getItems}
+																handleIdChange={handleIdChange}
+															/>
+														)}
+													</Fragment>
+												);
+											})}
+									</tbody>
+								</table>
+							</Form>
+						</>
+					)}
 				</>
 			)}
 		</Content>

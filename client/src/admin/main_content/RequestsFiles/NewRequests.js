@@ -15,7 +15,8 @@ const NewRequests = () => {
 			const result = await fetch('/requests');
 			const parsedResult = await result.json();
 			const removeOld = parsedResult.data.filter((r) => r.category !== 'old');
-			setNewRequests(removeOld);
+
+			setNewRequests(removeOld.reverse());
 		} catch (err) {
 			console.log('error getting the requests :', err);
 		}
