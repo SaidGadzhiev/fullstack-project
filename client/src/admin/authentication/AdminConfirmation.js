@@ -6,16 +6,26 @@ import AdminLogOut from './login folder/AdminLogOut';
 //this component is meant to render the right information based on users role
 const AdminConfirmation = () => {
 	const { userProfile } = useCurrentUser();
+	console.log(userProfile);
 
 	return (
 		<>
 			{userProfile ? (
 				<>
-					<div>
-						You have to wait until someone verifies your account. Comeback
-						later!
-					</div>
-					<AdminLogOut />
+					{userProfile.role != 'admin' ? (
+						<>
+							<div>
+								You have to wait until someone verifies your account. Comeback
+								later!
+							</div>
+							<AdminLogOut />
+						</>
+					) : (
+						<>
+							<p>You are already verified</p>
+							<AdminLogOut />
+						</>
+					)}
 				</>
 			) : (
 				<>
