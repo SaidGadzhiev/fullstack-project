@@ -57,7 +57,6 @@ const TableHeadRow = ({ category, getCategory, getItems }) => {
 			{category.attributes && (
 				<>
 					<tr>
-						<th></th>
 						{category.attributes.map((key) => {
 							if (
 								key.key === 'Serial Number' ||

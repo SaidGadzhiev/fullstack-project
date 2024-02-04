@@ -1,4 +1,4 @@
-import ViewItems from './InventoryFiles/ViewItems';
+import Inventory from './InventoryFiles/Inventory';
 import { useCurrentCategory } from '../CategoryContext';
 import Requests from './RequestsFiles/Requests';
 import styled from 'styled-components';
@@ -12,7 +12,7 @@ const MainContent = () => {
 	return (
 		<Display>
 			{pathSelected === 'items' ? (
-				<ViewItems />
+				<Inventory />
 			) : pathSelected === 'requests' ? (
 				<Requests />
 			) : (
