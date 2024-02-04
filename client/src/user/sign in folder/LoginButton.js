@@ -15,7 +15,7 @@ const LoginButton = () => {
 	}, [user]);
 
 	const handlePageChange = () => {
-		navigate('/homepage');
+		navigate('/terms&conditions');
 	};
 
 	return (

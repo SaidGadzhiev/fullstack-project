@@ -8,7 +8,7 @@ import handleUserData from './itemChoiceHandlers/handleUserData';
 import styled from 'styled-components';
 import Confirmation from './Confirmation';
 
-//contains all the coomponents of use form: itemchoice and confirmation
+//contains all the coomponents of user form: itemchoice and confirmation
 const UserPage = () => {
 	const [categories, setCategories] = useState([]);
 	const [chosenCat, setChosenCat] = useState();

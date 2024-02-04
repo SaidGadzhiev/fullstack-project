@@ -7,6 +7,7 @@ import UserPage from './user/UserPage';
 import AdminConfirmation from './admin/authentication/AdminConfirmation';
 import PageNotFound from './PageNotFound';
 import Authentication from './admin/authentication/Authentication';
+import TermsAndConditions from './user/sign in folder/TermsAndConditions';
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 					<Route path='/admin/' element={<Dashboard />} />
 					<Route path='/authentication' element={<Authentication />} />
 					<Route path='/homepage/' element={<UserPage />} />
+					<Route path='/terms&conditions' element={<TermsAndConditions />} />
 					<Route path='*' element={<PageNotFound />} />
 				</Routes>
 			</Router>
