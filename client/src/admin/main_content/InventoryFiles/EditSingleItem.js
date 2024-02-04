@@ -67,7 +67,6 @@ const EditSingleItem = ({
 	return (
 		<>
 			<Inputs key={index}>
-				<td></td>
 				{keys.map((key) => {
 					if (key !== 'category') {
 						if (itemData[key] === false) {
