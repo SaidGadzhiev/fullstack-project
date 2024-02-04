@@ -1,6 +1,9 @@
 import { FaBoxesPacking } from 'react-icons/fa6';
 import styled from 'styled-components';
 import AddItem from './AddItem';
+
+//this page is only shown when a category has 0 items... check Inventory.js for clarification
+
 const NoItemsPage = ({ items, getItems, category, getCategory }) => {
 	return (
 		<Content>
