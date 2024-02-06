@@ -19,6 +19,7 @@ const updateAllItemsByCat = require('./endpoints/items/updateAllItemsByCat');
 const newNotification = require('./endpoints/notification/newNotification');
 const getNotification = require('./endpoints/notification/getNotification');
 const updateNotification = require('./endpoints/notification/updateNotification');
+const deleteItems = require('./endpoints/items/deleteItems');
 const app = express();
 const port = 4000;
 
@@ -47,6 +48,7 @@ app.delete('/items/:id', deleteItem);
 app.post('/items', createItem);
 app.patch('/items/:id', updateItem);
 app.patch('/items/key/:key/:value', updateAllItemsByCat);
+app.delete('/items/key/:key/:value', deleteItems);
 
 //categories endpoints
 app.get('/categories', getAllCategories);

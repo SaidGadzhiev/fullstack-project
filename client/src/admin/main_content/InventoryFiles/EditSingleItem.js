@@ -69,34 +69,18 @@ const EditSingleItem = ({
 			<Inputs key={index}>
 				{keys.map((key) => {
 					if (key !== 'category') {
-						if (itemData[key] === false) {
+						if (typeof itemData[key] === 'boolean') {
 							return (
 								<td key={key}>
 									<select
 										onChange={(e) => handleOptionChange(key, e)}
 										type='select'
+										value={itemData[key] ? 'yes' : 'no'}
 										required
 										placeholder='select'
 									>
-										<option></option>
-										<option value='yes'>YES</option>
-
-										<option value='no'>NO</option>
-									</select>
-								</td>
-							);
-						} else if (itemData[key] === true) {
-							return (
-								<td key={key}>
-									<select
-										onChange={(e) => handleOptionChange(key, e)}
-										type='select'
-										required
-										placeholder='select'
-									>
-										<option></option>
-										<option value='yes'>YES</option>
-										<option value='no'>NO</option>
+										<option>{itemData[key] ? 'yes' : 'no'}</option>
+										<option>{itemData[key] ? 'no' : 'yes'}</option>
 									</select>
 								</td>
 							);

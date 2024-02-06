@@ -3,6 +3,7 @@ import { useCurrentCategory } from '../CategoryContext';
 import AddCategory from '../main_content/InventoryFiles/AddCategory';
 import styled from 'styled-components';
 import { MdOutlineInventory2 } from 'react-icons/md';
+import DeleteCategory from './DeleteCategory';
 
 //component to choose the category which is sent to currentCategory context
 const CategorySelection = () => {
@@ -48,6 +49,7 @@ const CategorySelection = () => {
 								className={currentCategory === cat.name ? 'selected' : ''}
 							>
 								{cat.name}
+								<DeleteCategory cat={cat} />
 							</button>
 						);
 					})}
@@ -63,6 +65,7 @@ const Selection = styled.div`
 	font-family: var(--font-ubuntu), sans-serif;
 	font-size: 1rem;
 	margin-bottom: 50px;
+
 	div {
 		display: flex;
 		flex-direction: column;
@@ -95,9 +98,19 @@ const Selection = styled.div`
 			color: #178080;
 			background-color: #efe8e17a;
 			padding-left: 55px;
+
+			.delete-button {
+				display: inline-block !important;
+				background-color: transparent !important;
+			}
+
 			&:hover {
 				background-color: #efe8e17a;
 				color: #178080;
+			}
+
+			.loader-container {
+				display: inherit !important;
 			}
 		}
 	}
