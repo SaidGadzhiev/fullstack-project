@@ -16,10 +16,10 @@ const MainContent = () => {
 			) : pathSelected === 'requests' ? (
 				<Requests />
 			) : (
-				<NoItemsPage>
+				<NoCatSelected>
 					<FaBoxesPacking className='noitems' />
 					<p>Select a category to see your inventory</p>
-				</NoItemsPage>
+				</NoCatSelected>
 			)}
 		</Display>
 	);
@@ -32,7 +32,7 @@ const Display = styled.div`
 	overflow: auto;
 `;
 
-const NoItemsPage = styled.div`
+const NoCatSelected = styled.div`
 	margin: 0 auto;
 	margin-top: 35vh;
 	text-align: center;
