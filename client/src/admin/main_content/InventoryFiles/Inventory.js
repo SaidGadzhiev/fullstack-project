@@ -216,6 +216,9 @@ const Form = styled.form`
 	tr:nth-child(even) {
 		background-color: #f2f2f2; /* Background color for every second row */
 	}
+	select {
+		margin: 0 auto;
+	}
 `;
 
 export default Inventory;

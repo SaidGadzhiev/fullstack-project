@@ -22,13 +22,13 @@ const ViewSingleItem = ({
 					if (key !== 'category') {
 						if (item[key] === false) {
 							return (
-								<td key={key}>
+								<td key={key} className='icon-text'>
 									<IoCloseSharp className='no' />
 								</td>
 							);
 						} else if (item[key] === true) {
 							return (
-								<td key={key}>
+								<td key={key} className='icon-text'>
 									<IoMdCheckmark className='yes' />
 								</td>
 							);
@@ -55,14 +55,21 @@ const ViewSingleItem = ({
 };
 
 const TR = styled.tr`
+	.icon-text {
+		text-align: center;
+	}
+
 	svg {
 		font-size: 1.5rem;
 	}
 
 	.yes {
+		margin-right: 40%;
+
 		color: #178080;
 	}
 	.no {
+		margin-right: 40%;
 		color: #e20000;
 	}
 `;

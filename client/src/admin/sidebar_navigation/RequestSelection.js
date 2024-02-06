@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FiGitPullRequest } from 'react-icons/fi';
 import fetchRequest from '../main_content/InventoryFiles/utils/fetchRequest';
 import { updateNotification } from './requestHandler';
+import { useCurrentUser } from '../AuthContext';
 
 //same logic as CategorySelection
 const RequestSelection = () => {
@@ -11,6 +12,8 @@ const RequestSelection = () => {
 	const { pathSelected, setPathSelected } = useCurrentCategory();
 	const [notification, setNotification] = useState(false);
 	const [audio] = useState(new Audio('../../assets/notification.mp3'));
+
+	const { userProfile } = useCurrentUser();
 
 	const [requests, setRequests] = useState([]);
 
@@ -29,7 +32,7 @@ const RequestSelection = () => {
 	};
 
 	useEffect(() => {
-		if (notification) {
+		if (userProfile && notification) {
 			audio.play();
 			getRequests();
 		}
