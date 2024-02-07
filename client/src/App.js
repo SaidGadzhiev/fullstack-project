@@ -10,7 +10,6 @@ import Authentication from './admin/authentication/Authentication';
 import TermsAndConditions from './user/sign in folder/TermsAndConditions';
 
 function App() {
-	//
 	return (
 		<Auth0Provider>
 			<Router>
