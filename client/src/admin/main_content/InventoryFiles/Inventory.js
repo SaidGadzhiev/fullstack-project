@@ -33,6 +33,8 @@ const Inventory = () => {
 		}
 	};
 
+	console.log(items);
+
 	//getting the category selected (the object)
 	const getCategory = async () => {
 		const result = await fetch(`/categories/key/name/${currentCategory}`);
