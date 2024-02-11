@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useCurrentCategory } from '../../CategoryContext';
 import AddItem from './AddItem';
 import NoItemsPage from './NoItemsPage';
@@ -20,7 +20,7 @@ const Inventory = () => {
 	const { currentCategory } = useCurrentCategory();
 
 	//getting the items specifically on the selected category
-	const getItems = async () => {
+	const getItems = useCallback(async () => {
 		try {
 			setIsLoading(true);
 			const result = await fetch(`/items/key/category/${currentCategory}`);
@@ -31,9 +31,9 @@ const Inventory = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	};
+	}, [currentCategory, setItems]);
 
-	console.log(items);
+	console.log(items[0]);
 
 	//getting the category selected (the object)
 	const getCategory = async () => {

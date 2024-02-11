@@ -8,7 +8,6 @@ import Loader from '../../Loader';
 const DeleteCategory = ({ cat }) => {
 	const [warning, setWarning] = useState(false);
 	const [loading, setLoading] = useState(false);
-	console.log(warning);
 
 	//handles the deletion of category and items assigned to it
 	const handleDeleteEverything = async () => {
