@@ -15,9 +15,13 @@ const CategorySelection = () => {
 
 	//all categories
 	const getCategories = async () => {
-		const result = await fetch('/categories');
-		const parsedResult = await result.json();
-		setCategories(parsedResult.data);
+		try {
+			const result = await fetch('/categories');
+			const parsedResult = await result.json();
+			setCategories(parsedResult.data);
+		} catch (err) {
+			console.log('error fetching categories: ', err);
+		}
 	};
 
 	useEffect(() => {

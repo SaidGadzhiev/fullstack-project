@@ -9,7 +9,5 @@ export const updateRequest = async (id, object) => {
 		body: JSON.stringify(object),
 	});
 
-	console.log(result);
-
 	return await result.json();
 };
