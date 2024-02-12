@@ -20,7 +20,7 @@ const Inventory = () => {
 	const { currentCategory } = useCurrentCategory();
 
 	//getting the items specifically on the selected category
-	const getItems = useCallback(async () => {
+	const getItems = async () => {
 		try {
 			setIsLoading(true);
 			const result = await fetch(`/items/key/category/${currentCategory}`);
@@ -31,9 +31,7 @@ const Inventory = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [currentCategory, setItems]);
-
-	console.log(items[0]);
+	};
 
 	//getting the category selected (the object)
 	const getCategory = async () => {
